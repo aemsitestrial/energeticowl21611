@@ -946,6 +946,12 @@
                   "name": "secondaryButtonUrl"
                 },
                 {
+                  "name": "bannerLinkText"
+                },
+                {
+                  "name": "bannerLinkUrl"
+                },
+                {
                   "name": "backgroundColor"
                 },
                 {

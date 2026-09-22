@@ -23,6 +23,8 @@ const FIELD_ORDER = [
   'primaryButtonUrl',
   'secondaryButtonText',
   'secondaryButtonUrl',
+  'bannerLinkText',
+  'bannerLinkUrl',
   'backgroundColor',
   'textColor',
 ];
@@ -256,6 +258,62 @@ function decorateCenteredHero(block, titleType) {
   return [content];
 }
 
+/** variant-4 */
+function decorateBannerHero(block, titleType) {
+  const content = document.createElement('div');
+  content.className = 'hero-banner-content';
+
+  const heading = buildHeading(block, titleType);
+
+  if (heading) {
+    content.append(heading);
+  }
+
+  const descriptionEl = getFieldElement(block, 'description');
+
+  if (descriptionEl?.textContent?.trim()) {
+    const description = document.createElement('div');
+    description.className = 'hero-description';
+    description.innerHTML = descriptionEl.innerHTML;
+
+    moveInstrumentation(descriptionEl, description);
+
+    content.append(description);
+  }
+
+  const link = document.createElement('a');
+
+  const text = getText(block, 'bannerLinkText');
+  const url = getText(block, 'bannerLinkUrl');
+
+  link.className = 'hero-banner-link';
+  link.href = url || '#';
+
+  if (text) {
+    link.innerHTML = `
+      <span>${text}</span>
+      <span>&rarr;</span>
+    `;
+  } else {
+    link.innerHTML = `
+      <span>&rarr;</span>
+    `;
+  }
+
+  content.append(link);
+
+  const picture = block.querySelector('picture');
+
+  if (picture) {
+    const img = picture.querySelector('img');
+
+    block.style.backgroundImage = `url("${img.src}")`;
+  }
+
+  return [content];
+}
+
+
 export default function decorate(block) {
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
@@ -266,17 +324,21 @@ export default function decorate(block) {
   let fragments;
 
   switch (heroType) {
-    case 'overlay':
-      fragments = decorateOverlayHero(block, titleType);
-      break;
+  case 'banner':
+    fragments = decorateBannerHero(block, titleType);
+    break;
 
-    case 'centered':
-      fragments = decorateCenteredHero(block, titleType);
-      break;
+  case 'centered':
+    fragments = decorateCenteredHero(block, titleType);
+    break;
 
-    case 'split':
-    default:
-      fragments = decorateSplitHero(block, titleType);
+  case 'overlay':
+    fragments = decorateOverlayHero(block, titleType);
+    break;
+
+  case 'split':
+  default:
+    fragments = decorateSplitHero(block, titleType);
   }
 
   block.textContent = '';

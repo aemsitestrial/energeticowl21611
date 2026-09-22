@@ -58,6 +58,12 @@
               "name": "secondaryButtonUrl"
             },
             {
+              "name": "bannerLinkText"
+            },
+            {
+              "name": "bannerLinkUrl"
+            },
+            {
               "name": "backgroundColor"
             },
             {
@@ -99,7 +105,11 @@
             {
               "name": "Centered Hero",
               "value": "centered"
-              }
+            },
+            {
+              "name": "Banner Hero",
+              "value": "banner"
+            }
           ]
         },
         {
@@ -224,6 +234,18 @@
           "component": "text",
           "name": "secondaryButtonUrl",
           "label": "Secondary Button URL",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "bannerLinkText",
+          "label": "Banner Link Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "bannerLinkUrl",
+          "label": "Banner Link URL",
           "valueType": "string"
         },
         {
