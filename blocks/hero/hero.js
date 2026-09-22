@@ -142,7 +142,7 @@ function decorateSplitHero(block, titleType) {
   return [content, media];
 }
 
-/**variant-2 */
+/** variant-2 */
 function decorateOverlayHero(block, titleType) {
   const content = document.createElement('div');
   content.className = 'hero-overlay-content';
@@ -192,15 +192,15 @@ export default function decorate(block) {
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
   let fragments;
 
-    switch (heroType) {
-      case 'overlay':
-        fragments = decorateOverlayHero(block, titleType);
-        break;
+  switch (heroType) {
+    case 'overlay':
+      fragments = decorateOverlayHero(block, titleType);
+      break;
 
-      case 'split':
-      default:
-        fragments = decorateSplitHero(block, titleType);
-    }
+    case 'split':
+    default:
+      fragments = decorateSplitHero(block, titleType);
+  }
 
   block.textContent = '';
   block.classList.add(
