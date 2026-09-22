@@ -58,7 +58,6 @@ function decorateSplitHero(block, rows) {
 
   console.log('Link2 Text:', link2TextRow?.textContent);
   console.log('Link2 URL:', link2UrlRow?.textContent);
-  
   const links = [
     buildLink(link1TextRow?.firstElementChild, link1UrlRow?.firstElementChild),
     buildLink(link2TextRow?.firstElementChild, link2UrlRow?.firstElementChild),
