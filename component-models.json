@@ -5344,6 +5344,37 @@
     "id": "hero",
     "fields": [
       {
+        "component": "select",
+        "name": "heroType",
+        "label": "Hero Type",
+        "valueType": "string",
+        "value": "split",
+        "options": [
+          {
+            "name": "Split Hero",
+            "value": "split"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "overline",
+        "label": "Overline",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "textarea",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -5354,14 +5385,30 @@
         "component": "text",
         "valueType": "string",
         "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
+        "label": "Image Alt"
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
+        "component": "text",
+        "name": "link1Text",
+        "label": "Link 1 Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "link1Url",
+        "label": "Link 1 URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "link2Text",
+        "label": "Link 2 Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "link2Url",
+        "label": "Link 2 URL",
         "valueType": "string"
       }
     ]

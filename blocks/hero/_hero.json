@@ -5,19 +5,36 @@
       "id": "hero",
       "plugins": {
         "da": {
-          "unsafeHTML": "<div class=\"hero\"><div><div><picture><source type=\"image/webp\" srcset=\"\"><source type=\"image/jpeg\" srcset=\"\"><img loading=\"lazy\"></picture><h1></h1></div></div></div>",
           "fields": [
             {
-              "name": "image",
-              "selector": "div>div>picture>img[src]"
+              "name": "heroType"
             },
             {
-              "name": "imageAlt",
-              "selector": "div>div>picture>img[alt]"
+              "name": "overline"
             },
             {
-              "name": "text",
-              "selector": "div>div>h1"
+              "name": "title"
+            },
+            {
+              "name": "description"
+            },
+            {
+              "name": "image"
+            },
+            {
+              "name": "imageAlt"
+            },
+            {
+              "name": "link1Text"
+            },
+            {
+              "name": "link1Url"
+            },
+            {
+              "name": "link2Text"
+            },
+            {
+              "name": "link2Url"
             }
           ]
         },
@@ -38,6 +55,37 @@
       "id": "hero",
       "fields": [
         {
+          "component": "select",
+          "name": "heroType",
+          "label": "Hero Type",
+          "valueType": "string",
+          "value": "split",
+          "options": [
+            {
+              "name": "Split Hero",
+              "value": "split"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "overline",
+          "label": "Overline",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "textarea",
+          "name": "description",
+          "label": "Description",
+          "valueType": "string"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
@@ -48,14 +96,30 @@
           "component": "text",
           "valueType": "string",
           "name": "imageAlt",
-          "label": "Alt",
-          "value": ""
+          "label": "Image Alt"
         },
         {
-          "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text",
+          "component": "text",
+          "name": "link1Text",
+          "label": "Link 1 Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "link1Url",
+          "label": "Link 1 URL",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "link2Text",
+          "label": "Link 2 Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "link2Url",
+          "label": "Link 2 URL",
           "valueType": "string"
         }
       ]
