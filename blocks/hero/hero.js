@@ -16,9 +16,9 @@ const FIELD_ORDER = [
   'link1Url',
   'link2Text',
   'link2Url',
+  'titleType',
   'buttonText',
   'buttonUrl',
-  'titleType',
   'backgroundColor',
   'textColor',
 ];
