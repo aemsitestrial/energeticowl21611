@@ -313,7 +313,6 @@ function decorateBannerHero(block, titleType) {
   return [content];
 }
 
-
 export default function decorate(block) {
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
@@ -324,21 +323,21 @@ export default function decorate(block) {
   let fragments;
 
   switch (heroType) {
-  case 'banner':
-    fragments = decorateBannerHero(block, titleType);
-    break;
+    case 'banner':
+      fragments = decorateBannerHero(block, titleType);
+      break;
 
-  case 'centered':
-    fragments = decorateCenteredHero(block, titleType);
-    break;
+    case 'centered':
+      fragments = decorateCenteredHero(block, titleType);
+      break;
 
-  case 'overlay':
-    fragments = decorateOverlayHero(block, titleType);
-    break;
+    case 'overlay':
+      fragments = decorateOverlayHero(block, titleType);
+      break;
 
-  case 'split':
-  default:
-    fragments = decorateSplitHero(block, titleType);
+    case 'split':
+    default:
+      fragments = decorateSplitHero(block, titleType);
   }
 
   block.textContent = '';
