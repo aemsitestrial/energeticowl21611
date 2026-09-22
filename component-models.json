@@ -5369,7 +5369,11 @@
         "component": "text",
         "name": "overline",
         "label": "Overline",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "field": "heroType",
+          "value": "split"
+        }
       },
       {
         "component": "text",
@@ -5400,37 +5404,61 @@
         "component": "text",
         "name": "link1Text",
         "label": "Link 1 Text",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "field": "heroType",
+          "value": "split"
+        }
       },
       {
         "component": "text",
         "name": "link1Url",
         "label": "Link 1 URL",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "field": "heroType",
+          "value": "split"
+        }
       },
       {
         "component": "text",
         "name": "link2Text",
         "label": "Link 2 Text",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "field": "heroType",
+          "value": "split"
+        }
       },
       {
         "component": "text",
         "name": "link2Url",
         "label": "Link 2 URL",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "field": "heroType",
+          "value": "split"
+        }
       },
       {
         "component": "text",
         "name": "buttonText",
         "label": "Button Text",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "field": "heroType",
+          "value": "overlay"
+        }
       },
       {
         "component": "text",
         "name": "buttonUrl",
         "label": "Button URL",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "field": "heroType",
+          "value": "overlay"
+        }
       },
       {
         "component": "tab",
