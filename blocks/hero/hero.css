@@ -220,27 +220,25 @@
 
 .hero.hero-banner {
   position: relative;
-  height: 600px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  display: flex;
-  align-items: flex-end;
+  aspect-ratio: 1895 / 598;
+  overflow: hidden;
 }
 
 .hero.hero-banner .hero-banner-content {
   width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
+  grid-template-columns: 1fr 1.5fr auto;
+  align-items: end;
   gap: 40px;
-  align-items: center;
-  padding: 40px 60px;
+  padding: 32px 48px;
+  box-sizing: border-box;
 }
 
-.hero.hero-banner .hero-title {
-  margin: 0;
-}
-
+.hero.hero-banner .hero-title,
 .hero.hero-banner .hero-description {
   margin: 0;
 }
@@ -248,7 +246,7 @@
 .hero.hero-banner .hero-banner-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   color: inherit;
   text-decoration: none;
   white-space: nowrap;
@@ -256,12 +254,14 @@
 
 @media (width <= 900px) {
   .hero.hero-banner {
-    height: auto;
-    min-height: 500px;
+    aspect-ratio: auto;
+    min-height: 280px;
   }
 
   .hero.hero-banner .hero-banner-content {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 16px;
+    align-items: start;
+    padding: 24px;
   }
 }
