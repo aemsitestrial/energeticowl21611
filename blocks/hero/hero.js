@@ -1,17 +1,44 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-function getProp(block, name) {
-  return block.querySelector(`[data-aue-prop="${name}"]`);
+// Order in which content fields are persisted as rows in the block markup.
+// Mirrors the model's field order (`tab` separators are UI-only and do not
+// produce a row), used as a resilient fallback when `data-aue-prop` isn't
+// present (e.g. on the published/preview site, outside the editor canvas).
+const FIELD_ORDER = [
+  'heroType',
+  'overline',
+  'title',
+  'description',
+  'image',
+  'imageAlt',
+  'link1Text',
+  'link1Url',
+  'link2Text',
+  'link2Url',
+  'titleType',
+  'backgroundColor',
+  'textColor',
+];
+
+function getFieldElement(block, name) {
+  const byProp = block.querySelector(`[data-aue-prop="${name}"]`);
+  if (byProp) return byProp;
+
+  const index = FIELD_ORDER.indexOf(name);
+  if (index === -1) return null;
+
+  const row = block.children[index];
+  return row?.firstElementChild || row || null;
 }
 
 function getText(block, name) {
-  return getProp(block, name)?.textContent?.trim() || '';
+  return getFieldElement(block, name)?.textContent?.trim() || '';
 }
 
 function buildLink(block, textName, urlName) {
-  const textEl = getProp(block, textName);
-  const urlEl = getProp(block, urlName);
+  const textEl = getFieldElement(block, textName);
+  const urlEl = getFieldElement(block, urlName);
   const text = textEl?.textContent?.trim();
   const url = urlEl?.textContent?.trim();
 
@@ -34,7 +61,7 @@ function buildLink(block, textName, urlName) {
 }
 
 function buildHeading(block, titleType) {
-  const titleEl = getProp(block, 'title');
+  const titleEl = getFieldElement(block, 'title');
   if (!titleEl?.textContent?.trim()) return null;
 
   const tag = /^h[1-6]$/.test(titleType) ? titleType : 'h1';
@@ -54,7 +81,7 @@ function decorateSplitHero(block, titleType) {
   const content = document.createElement('div');
   content.className = 'hero-content';
 
-  const overline = getProp(block, 'overline');
+  const overline = getFieldElement(block, 'overline');
   if (overline?.textContent?.trim()) {
     overline.classList.add('hero-overline');
     content.append(overline);
@@ -63,7 +90,7 @@ function decorateSplitHero(block, titleType) {
   const heading = buildHeading(block, titleType);
   if (heading) content.append(heading);
 
-  const descriptionEl = getProp(block, 'description');
+  const descriptionEl = getFieldElement(block, 'description');
 
   if (descriptionEl?.textContent?.trim()) {
     const description = document.createElement('div');
