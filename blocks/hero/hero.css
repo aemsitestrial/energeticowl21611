@@ -114,3 +114,44 @@
     padding: 60px;
   }
 }
+
+/* Variant 2 : Overlay Hero */
+
+.hero.hero-overlay {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+}
+
+.hero.hero-overlay .hero-overlay-content {
+  max-width: 700px;
+  padding: 60px;
+  color: inherit;
+}
+
+.hero.hero-overlay .hero-title {
+  margin: 0 0 24px;
+}
+
+.hero.hero-overlay .hero-description {
+  margin-bottom: 32px;
+}
+
+.hero.hero-overlay .hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: currentcolor;
+  color: inherit;
+  text-decoration: none;
+  border: none;
+}
+
+.hero.hero-overlay .hero-link-arrow {
+  display: none;
+}

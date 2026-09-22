@@ -16,6 +16,8 @@ const FIELD_ORDER = [
   'link1Url',
   'link2Text',
   'link2Url',
+  'buttonText',
+  'buttonUrl',
   'titleType',
   'backgroundColor',
   'textColor',
@@ -140,6 +142,47 @@ function decorateSplitHero(block, titleType) {
   return [content, media];
 }
 
+/**variant-2 */
+function decorateOverlayHero(block, titleType) {
+  const content = document.createElement('div');
+  content.className = 'hero-overlay-content';
+
+  const heading = buildHeading(block, titleType);
+
+  if (heading) {
+    content.append(heading);
+  }
+
+  const descriptionEl = getFieldElement(block, 'description');
+
+  if (descriptionEl?.textContent?.trim()) {
+    const description = document.createElement('div');
+    description.className = 'hero-description';
+    description.innerHTML = descriptionEl.innerHTML;
+
+    moveInstrumentation(descriptionEl, description);
+
+    content.append(description);
+  }
+
+  const button = buildLink(block, 'buttonText', 'buttonUrl');
+
+  if (button) {
+    button.classList.add('hero-button');
+    content.append(button);
+  }
+
+  const picture = block.querySelector('picture');
+
+  if (picture) {
+    const img = picture.querySelector('img');
+
+    block.style.backgroundImage = `url("${img.src}")`;
+  }
+
+  return [content];
+}
+
 export default function decorate(block) {
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
@@ -147,7 +190,17 @@ export default function decorate(block) {
   const textColor = getText(block, 'textColor') || 'white';
 
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
-  const fragments = decorateSplitHero(block, titleType);
+  let fragments;
+
+    switch (heroType) {
+      case 'overlay':
+        fragments = decorateOverlayHero(block, titleType);
+        break;
+
+      case 'split':
+      default:
+        fragments = decorateSplitHero(block, titleType);
+    }
 
   block.textContent = '';
   block.classList.add(

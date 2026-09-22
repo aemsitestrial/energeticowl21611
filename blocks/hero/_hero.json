@@ -40,6 +40,12 @@
               "name": "titleType"
             },
             {
+              "name": "buttonText"
+            },
+            {
+              "name": "buttonUrl"
+            },
+            {
               "name": "backgroundColor"
             },
             {
@@ -73,6 +79,10 @@
             {
               "name": "Split Hero",
               "value": "split"
+            },
+            {
+              "name": "Overlay Hero",
+              "value": "overlay"
             }
           ]
         },
@@ -134,6 +144,18 @@
           "component": "text",
           "name": "link2Url",
           "label": "Link 2 URL",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "buttonText",
+          "label": "Button Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "buttonUrl",
+          "label": "Button URL",
           "valueType": "string"
         },
         {

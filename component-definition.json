@@ -928,6 +928,12 @@
                   "name": "titleType"
                 },
                 {
+                  "name": "buttonText"
+                },
+                {
+                  "name": "buttonUrl"
+                },
+                {
                   "name": "backgroundColor"
                 },
                 {
