@@ -89,7 +89,6 @@ function decorateSplitHero(block, titleType) {
   const media = document.createElement('div');
   media.className = 'hero-media';
 
-  const imageEl = getProp(block, 'image');
   const picture = block.querySelector('picture');
 
   if (picture) {
