@@ -1,9 +1,19 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-function buildLink(textRow, urlRow) {
-  const text = textRow?.textContent?.trim();
-  const url = urlRow?.textContent?.trim();
+function getProp(block, name) {
+  return block.querySelector(`[data-aue-prop="${name}"]`);
+}
+
+function getText(block, name) {
+  return getProp(block, name)?.textContent?.trim() || '';
+}
+
+function buildLink(block, textName, urlName) {
+  const textEl = getProp(block, textName);
+  const urlEl = getProp(block, urlName);
+  const text = textEl?.textContent?.trim();
+  const url = urlEl?.textContent?.trim();
 
   if (!text && !url) return null;
 
@@ -16,55 +26,52 @@ function buildLink(textRow, urlRow) {
     <span class="hero-link-arrow" aria-hidden="true">&rarr;</span>
   `;
 
-  if (textRow) {
-    moveInstrumentation(textRow, link);
+  if (textEl) {
+    moveInstrumentation(textEl, link);
   }
 
   return link;
+}
+
+function buildHeading(block, titleType) {
+  const titleEl = getProp(block, 'title');
+  if (!titleEl?.textContent?.trim()) return null;
+
+  const tag = /^h[1-6]$/.test(titleType) ? titleType : 'h1';
+  const heading = document.createElement(tag);
+  heading.className = 'hero-title';
+  heading.innerHTML = titleEl.innerHTML;
+  moveInstrumentation(titleEl, heading);
+
+  return heading;
 }
 
 /**
  * Variant 1: Split Hero
  * Layout: text column (overline, title, description, links) + image column
  */
-function decorateSplitHero(block, rows) {
-  const [
-    ,
-    overlineRow,
-    titleRow,
-    descriptionRow,
-    imageRow,
-    imageAltRow,
-    link1TextRow,
-    link1UrlRow,
-    link2TextRow,
-    link2UrlRow,
-  ] = rows;
-
+function decorateSplitHero(block, titleType) {
   const content = document.createElement('div');
   content.className = 'hero-content';
 
-  const overline = overlineRow?.firstElementChild;
-  if (overline?.textContent.trim()) {
+  const overline = getProp(block, 'overline');
+  if (overline?.textContent?.trim()) {
     overline.classList.add('hero-overline');
     content.append(overline);
   }
 
-  const title = titleRow?.firstElementChild;
-  if (title?.textContent.trim()) {
-    title.classList.add('hero-title');
-    content.append(title);
-  }
+  const heading = buildHeading(block, titleType);
+  if (heading) content.append(heading);
 
-  const description = descriptionRow?.firstElementChild;
-  if (description?.textContent.trim()) {
+  const description = getProp(block, 'description');
+  if (description?.textContent?.trim()) {
     description.classList.add('hero-description');
     content.append(description);
   }
 
   const links = [
-    buildLink(link1TextRow, link1UrlRow),
-    buildLink(link2TextRow, link2UrlRow),
+    buildLink(block, 'link1Text', 'link1Url'),
+    buildLink(block, 'link2Text', 'link2Url'),
   ].filter(Boolean);
 
   if (links.length) {
@@ -77,11 +84,12 @@ function decorateSplitHero(block, rows) {
   const media = document.createElement('div');
   media.className = 'hero-media';
 
-  const picture = imageRow?.querySelector('picture');
+  const imageEl = getProp(block, 'image');
+  const picture = imageEl?.matches('picture') ? imageEl : imageEl?.querySelector('picture');
 
   if (picture) {
     const img = picture.querySelector('img');
-    const alt = imageAltRow?.textContent?.trim();
+    const alt = getText(block, 'imageAlt');
 
     const optimizedPicture = createOptimizedPicture(
       img.src,
@@ -98,14 +106,24 @@ function decorateSplitHero(block, rows) {
     media.append(optimizedPicture);
   }
 
-  block.append(content, media);
+  return [content, media];
 }
 
 export default function decorate(block) {
-  const rows = [...block.children];
-  const heroType = rows[0]?.textContent.trim() || 'split';
+  const heroType = getText(block, 'heroType') || 'split';
+  const titleType = getText(block, 'titleType') || 'h1';
+  const backgroundColor = getText(block, 'backgroundColor') || 'black';
+  const textColor = getText(block, 'textColor') || 'white';
+
+  // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
+  const fragments = decorateSplitHero(block, titleType);
 
   block.textContent = '';
-  block.classList.add(`hero-${heroType}`);
-  decorateSplitHero(block, rows);
+  block.classList.add(
+    `hero-${heroType}`,
+    `hero-bg-${backgroundColor}`,
+    `hero-text-${textColor}`,
+  );
+  block.append(...fragments);
 }
+

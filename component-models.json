@@ -5357,6 +5357,11 @@
         ]
       },
       {
+        "component": "tab",
+        "name": "contentTab",
+        "label": "Content"
+      },
+      {
         "component": "text",
         "name": "overline",
         "label": "Overline",
@@ -5410,6 +5415,82 @@
         "name": "link2Url",
         "label": "Link 2 URL",
         "valueType": "string"
+      },
+      {
+        "component": "tab",
+        "name": "styleTab",
+        "label": "Style"
+      },
+      {
+        "component": "select",
+        "name": "titleType",
+        "label": "Title Tag",
+        "valueType": "string",
+        "value": "h1",
+        "options": [
+          {
+            "name": "H1",
+            "value": "h1"
+          },
+          {
+            "name": "H2",
+            "value": "h2"
+          },
+          {
+            "name": "H3",
+            "value": "h3"
+          },
+          {
+            "name": "H4",
+            "value": "h4"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "backgroundColor",
+        "label": "Background Color",
+        "valueType": "string",
+        "value": "black",
+        "options": [
+          {
+            "name": "Black",
+            "value": "black"
+          },
+          {
+            "name": "White",
+            "value": "white"
+          },
+          {
+            "name": "Dark Gray",
+            "value": "dark-gray"
+          },
+          {
+            "name": "Brand Red",
+            "value": "brand-red"
+          },
+          {
+            "name": "Brand Blue",
+            "value": "brand-blue"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "textColor",
+        "label": "Text Color",
+        "valueType": "string",
+        "value": "white",
+        "options": [
+          {
+            "name": "White",
+            "value": "white"
+          },
+          {
+            "name": "Black",
+            "value": "black"
+          }
+        ]
       }
     ]
   },

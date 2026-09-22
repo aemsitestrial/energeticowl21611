@@ -6,6 +6,37 @@
 
 .hero {
   background: #000;
+  color: #fff;
+}
+
+/* Style tab: background color options */
+.hero.hero-bg-black {
+  background-color: #000;
+}
+
+.hero.hero-bg-white {
+  background-color: #fff;
+}
+
+.hero.hero-bg-dark-gray {
+  background-color: #1a1a1a;
+}
+
+.hero.hero-bg-brand-red {
+  background-color: #c00;
+}
+
+.hero.hero-bg-brand-blue {
+  background-color: #0b5fff;
+}
+
+/* Style tab: text color options */
+.hero.hero-text-white {
+  color: #fff;
+}
+
+.hero.hero-text-black {
+  color: #000;
 }
 
 /* Variant 1: Split Hero (text column + image column) */
@@ -21,13 +52,13 @@
   justify-content: center;
   gap: 16px;
   padding: 40px 24px;
-  color: #fff;
+  color: inherit;
 }
 
 .hero.hero-split .hero-overline {
   margin: 0;
   font-size: 14px;
-  color: #ccc;
+  opacity: 0.7;
 }
 
 .hero.hero-split .hero-title {
@@ -38,7 +69,7 @@
 .hero.hero-split .hero-description {
   margin: 0;
   font-size: 16px;
-  color: #ddd;
+  opacity: 0.85;
 }
 
 .hero.hero-split .hero-links {
@@ -52,9 +83,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 0;
-  border-bottom: 1px solid rgb(255 255 255 / 30%);
-  color: #fff;
+  border-bottom: 1px solid currentcolor;
+  color: inherit;
   text-decoration: none;
+  opacity: 0.9;
 }
 
 .hero.hero-split .hero-media {

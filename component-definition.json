@@ -923,6 +923,15 @@
                 },
                 {
                   "name": "link2Url"
+                },
+                {
+                  "name": "titleType"
+                },
+                {
+                  "name": "backgroundColor"
+                },
+                {
+                  "name": "textColor"
                 }
               ]
             },
