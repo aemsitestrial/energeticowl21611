@@ -63,9 +63,14 @@ function decorateSplitHero(block, titleType) {
   const heading = buildHeading(block, titleType);
   if (heading) content.append(heading);
 
-  const description = getProp(block, 'description');
-  if (description?.textContent?.trim()) {
-    description.classList.add('hero-description');
+  const descriptionEl = getProp(block, 'description');
+
+  if (descriptionEl?.textContent?.trim()) {
+    const description = document.createElement('div');
+    description.className = 'hero-description';
+    description.innerHTML = descriptionEl.innerHTML;
+
+    moveInstrumentation(descriptionEl, description);
     content.append(description);
   }
 
@@ -85,7 +90,7 @@ function decorateSplitHero(block, titleType) {
   media.className = 'hero-media';
 
   const imageEl = getProp(block, 'image');
-  const picture = imageEl?.matches('picture') ? imageEl : imageEl?.querySelector('picture');
+  const picture = block.querySelector('picture');
 
   if (picture) {
     const img = picture.querySelector('img');
