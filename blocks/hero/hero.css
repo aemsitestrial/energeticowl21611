@@ -216,8 +216,6 @@
   display: none;
 }
 
-/* Variant 4 : Banner Hero */
-
 .hero.hero-banner {
   position: relative;
   background-size: cover;
@@ -225,20 +223,24 @@
   background-repeat: no-repeat;
   aspect-ratio: 1895 / 598;
   overflow: hidden;
+  display: flex;
+  align-items: flex-end;
 }
 
 .hero.hero-banner .hero-banner-content {
   width: 100%;
-  height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1.5fr auto;
-  align-items: end;
-  gap: 40px;
-  padding: 32px 48px;
+  grid-template-columns: 25% 55% 20%;
+  gap: 32px;
+  align-items: center;
+  padding: 24px 40px;
   box-sizing: border-box;
 }
 
-.hero.hero-banner .hero-title,
+.hero.hero-banner .hero-title {
+  margin: 0;
+}
+
 .hero.hero-banner .hero-description {
   margin: 0;
 }
@@ -246,6 +248,7 @@
 .hero.hero-banner .hero-banner-link {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
   color: inherit;
   text-decoration: none;
@@ -255,13 +258,16 @@
 @media (width <= 900px) {
   .hero.hero-banner {
     aspect-ratio: auto;
-    min-height: 280px;
+    min-height: 260px;
   }
 
   .hero.hero-banner .hero-banner-content {
     grid-template-columns: 1fr;
     gap: 16px;
-    align-items: start;
     padding: 24px;
+  }
+
+  .hero.hero-banner .hero-banner-link {
+    justify-content: flex-start;
   }
 }
