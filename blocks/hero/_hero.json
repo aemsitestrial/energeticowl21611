@@ -203,6 +203,30 @@
           }
         },
         {
+          "component": "text",
+          "name": "primaryButtonText",
+          "label": "Primary Button Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "primaryButtonUrl",
+          "label": "Primary Button URL",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "secondaryButtonText",
+          "label": "Secondary Button Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "secondaryButtonUrl",
+          "label": "Secondary Button URL",
+          "valueType": "string"
+        },
+        {
           "component": "tab",
           "name": "styleTab",
           "label": "Style"
