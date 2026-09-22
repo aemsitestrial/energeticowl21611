@@ -5357,6 +5357,10 @@
           {
             "name": "Overlay Hero",
             "value": "overlay"
+          },
+          {
+            "name": "Centered Hero",
+            "value": "centered"
           }
         ]
       },

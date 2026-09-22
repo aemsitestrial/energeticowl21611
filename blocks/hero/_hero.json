@@ -46,6 +46,18 @@
               "name": "buttonUrl"
             },
             {
+              "name": "primaryButtonText"
+            },
+            {
+              "name": "primaryButtonUrl"
+            },
+            {
+              "name": "secondaryButtonText"
+            },
+            {
+              "name": "secondaryButtonUrl"
+            },
+            {
               "name": "backgroundColor"
             },
             {
@@ -83,7 +95,11 @@
             {
               "name": "Overlay Hero",
               "value": "overlay"
-            }
+            },
+            {
+              "name": "Centered Hero",
+              "value": "centered"
+              }
           ]
         },
         {

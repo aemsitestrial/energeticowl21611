@@ -156,3 +156,62 @@
 .hero.hero-overlay .hero-link-arrow {
   display: none;
 }
+
+/* Variant 3 : Centered Hero */
+
+.hero.hero-centered {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero.hero-centered .hero-centered-content {
+  max-width: 800px;
+  padding: 60px 24px;
+}
+
+.hero.hero-centered .hero-title {
+  margin-bottom: 24px;
+}
+
+.hero.hero-centered .hero-description {
+  margin-bottom: 32px;
+}
+
+.hero.hero-centered .hero-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.hero.hero-centered .hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+}
+
+.hero.hero-centered .hero-button-primary {
+  background: #00d1c1;
+  color: #fff;
+}
+
+.hero.hero-centered .hero-button-secondary {
+  border: 1px solid #fff;
+  color: #fff;
+  background: transparent;
+}
+
+.hero.hero-centered .hero-link-arrow {
+  display: none;
+}

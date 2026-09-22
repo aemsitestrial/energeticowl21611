@@ -19,6 +19,10 @@ const FIELD_ORDER = [
   'titleType',
   'buttonText',
   'buttonUrl',
+  'primaryButtonText',
+  'primaryButtonUrl',
+  'secondaryButtonText',
+  'secondaryButtonUrl',
   'backgroundColor',
   'textColor',
 ];
@@ -183,6 +187,75 @@ function decorateOverlayHero(block, titleType) {
   return [content];
 }
 
+/** variant-3 */
+function decorateCenteredHero(block, titleType) {
+  const content = document.createElement('div');
+  content.className = 'hero-centered-content';
+
+  const heading = buildHeading(block, titleType);
+
+  if (heading) {
+    content.append(heading);
+  }
+
+  const descriptionEl = getFieldElement(block, 'description');
+
+  if (descriptionEl?.textContent?.trim()) {
+    const description = document.createElement('div');
+    description.className = 'hero-description';
+    description.innerHTML = descriptionEl.innerHTML;
+
+    moveInstrumentation(descriptionEl, description);
+
+    content.append(description);
+  }
+
+  const actions = document.createElement('div');
+  actions.className = 'hero-actions';
+
+  const primaryButton = buildLink(
+    block,
+    'primaryButtonText',
+    'primaryButtonUrl',
+  );
+
+  const secondaryButton = buildLink(
+    block,
+    'secondaryButtonText',
+    'secondaryButtonUrl',
+  );
+
+  if (primaryButton) {
+    primaryButton.classList.add(
+      'hero-button',
+      'hero-button-primary',
+    );
+    actions.append(primaryButton);
+  }
+
+  if (secondaryButton) {
+    secondaryButton.classList.add(
+      'hero-button',
+      'hero-button-secondary',
+    );
+    actions.append(secondaryButton);
+  }
+
+  if (actions.children.length) {
+    content.append(actions);
+  }
+
+  const picture = block.querySelector('picture');
+
+  if (picture) {
+    const img = picture.querySelector('img');
+
+    block.style.backgroundImage = `url("${img.src}")`;
+  }
+
+  return [content];
+}
+
 export default function decorate(block) {
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
@@ -195,6 +268,10 @@ export default function decorate(block) {
   switch (heroType) {
     case 'overlay':
       fragments = decorateOverlayHero(block, titleType);
+      break;
+
+    case 'centered':
+      fragments = decorateCenteredHero(block, titleType);
       break;
 
     case 'split':
