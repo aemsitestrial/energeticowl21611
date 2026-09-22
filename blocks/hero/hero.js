@@ -1,16 +1,25 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-function buildLink(textCell, urlCell) {
-  const text = textCell?.textContent.trim();
-  const url = urlCell?.textContent.trim();
+function buildLink(textRow, urlRow) {
+  const text = textRow?.textContent?.trim();
+  const url = urlRow?.textContent?.trim();
+
   if (!text && !url) return null;
 
   const link = document.createElement('a');
   link.className = 'hero-link';
   link.href = url || '#';
-  link.innerHTML = `<span class="hero-link-label">${text || url}</span><span class="hero-link-arrow" aria-hidden="true">&rarr;</span>`;
-  if (textCell) moveInstrumentation(textCell, link);
+
+  link.innerHTML = `
+    <span class="hero-link-label">${text || url}</span>
+    <span class="hero-link-arrow" aria-hidden="true">&rarr;</span>
+  `;
+
+  if (textRow) {
+    moveInstrumentation(textRow, link);
+  }
+
   return link;
 }
 
@@ -36,31 +45,26 @@ function decorateSplitHero(block, rows) {
   content.className = 'hero-content';
 
   const overline = overlineRow?.firstElementChild;
-  if (overline && overline.textContent.trim()) {
+  if (overline?.textContent.trim()) {
     overline.classList.add('hero-overline');
     content.append(overline);
   }
 
   const title = titleRow?.firstElementChild;
-  if (title && title.textContent.trim()) {
+  if (title?.textContent.trim()) {
     title.classList.add('hero-title');
     content.append(title);
   }
 
   const description = descriptionRow?.firstElementChild;
-  if (description && description.textContent.trim()) {
+  if (description?.textContent.trim()) {
     description.classList.add('hero-description');
     content.append(description);
   }
 
-  console.log('Link1 Text:', link1TextRow?.textContent);
-  console.log('Link1 URL:', link1UrlRow?.textContent);
-
-  console.log('Link2 Text:', link2TextRow?.textContent);
-  console.log('Link2 URL:', link2UrlRow?.textContent);
   const links = [
-    buildLink(link1TextRow?.firstElementChild, link1UrlRow?.firstElementChild),
-    buildLink(link2TextRow?.firstElementChild, link2UrlRow?.firstElementChild),
+    buildLink(link1TextRow, link1UrlRow),
+    buildLink(link2TextRow, link2UrlRow),
   ].filter(Boolean);
 
   if (links.length) {
@@ -72,12 +76,25 @@ function decorateSplitHero(block, rows) {
 
   const media = document.createElement('div');
   media.className = 'hero-media';
+
   const picture = imageRow?.querySelector('picture');
+
   if (picture) {
     const img = picture.querySelector('img');
-    const alt = imageAltRow?.textContent.trim();
-    const optimizedPicture = createOptimizedPicture(img.src, alt || img.alt || '', false, [{ width: '1200' }]);
-    moveInstrumentation(img, optimizedPicture.querySelector('img'));
+    const alt = imageAltRow?.textContent?.trim();
+
+    const optimizedPicture = createOptimizedPicture(
+      img.src,
+      alt || img.alt || '',
+      false,
+      [{ width: '1200' }],
+    );
+
+    moveInstrumentation(
+      img,
+      optimizedPicture.querySelector('img'),
+    );
+
     media.append(optimizedPicture);
   }
 
@@ -90,7 +107,5 @@ export default function decorate(block) {
 
   block.textContent = '';
   block.classList.add(`hero-${heroType}`);
-
-  // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
   decorateSplitHero(block, rows);
 }
