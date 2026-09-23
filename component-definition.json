@@ -877,6 +877,16 @@
           "title": "Fragment",
           "id": "fragment",
           "plugins": {
+            "da": {
+              "fields": [
+                {
+                  "name": "fragmentType"
+                },
+                {
+                  "name": "reference"
+                }
+              ]
+            },
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",

@@ -4,6 +4,16 @@
       "title": "Fragment",
       "id": "fragment",
       "plugins": {
+        "da": {
+          "fields": [
+            {
+              "name": "fragmentType"
+            },
+            {
+              "name": "reference"
+            }
+          ]
+        },
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
@@ -20,6 +30,19 @@
     {
       "id": "fragment",
       "fields": [
+        {
+          "component": "select",
+          "name": "fragmentType",
+          "label": "Fragment Type",
+          "valueType": "string",
+          "value": "standard",
+          "options": [
+            {
+              "name": "Standard Fragment",
+              "value": "standard"
+            }
+          ]
+        },
         {
           "component": "aem-content",
           "name": "reference",
