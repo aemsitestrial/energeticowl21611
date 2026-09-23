@@ -126,20 +126,20 @@ function decorateSplitHero(block, titleType) {
   media.className = 'hero-media';
 
   const picture = block.querySelector('picture');
+  const pictureImg = picture?.querySelector('img');
 
-  if (picture) {
-    const img = picture.querySelector('img');
+  if (picture && pictureImg) {
     const alt = getText(block, 'imageAlt');
 
     const optimizedPicture = createOptimizedPicture(
-      img.src,
-      alt || img.alt || '',
+      pictureImg.src,
+      alt || pictureImg.alt || '',
       false,
       [{ width: '1200' }],
     );
 
     moveInstrumentation(
-      img,
+      pictureImg,
       optimizedPicture.querySelector('img'),
     );
 
@@ -180,10 +180,9 @@ function decorateOverlayHero(block, titleType) {
   }
 
   const picture = block.querySelector('picture');
+  const img = picture?.querySelector('img');
 
-  if (picture) {
-    const img = picture.querySelector('img');
-
+  if (img) {
     block.style.backgroundImage = `url("${img.src}")`;
   }
 
@@ -249,10 +248,9 @@ function decorateCenteredHero(block, titleType) {
   }
 
   const picture = block.querySelector('picture');
+  const img = picture?.querySelector('img');
 
-  if (picture) {
-    const img = picture.querySelector('img');
-
+  if (img) {
     block.style.backgroundImage = `url("${img.src}")`;
   }
 
@@ -304,10 +302,9 @@ function decorateBannerHero(block, titleType) {
   content.append(link);
 
   const picture = block.querySelector('picture');
+  const img = picture?.querySelector('img');
 
-  if (picture) {
-    const img = picture.querySelector('img');
-
+  if (img) {
     block.style.backgroundImage = `url("${img.src}")`;
   }
 
@@ -328,22 +325,30 @@ export default function decorate(block) {
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
   let fragments;
 
-  switch (heroType) {
-    case 'banner':
-      fragments = decorateBannerHero(block, titleType);
-      break;
+  try {
+    switch (heroType) {
+      case 'banner':
+        fragments = decorateBannerHero(block, titleType);
+        break;
 
-    case 'centered':
-      fragments = decorateCenteredHero(block, titleType);
-      break;
+      case 'centered':
+        fragments = decorateCenteredHero(block, titleType);
+        break;
 
-    case 'overlay':
-      fragments = decorateOverlayHero(block, titleType);
-      break;
+      case 'overlay':
+        fragments = decorateOverlayHero(block, titleType);
+        break;
 
-    case 'split':
-    default:
-      fragments = decorateSplitHero(block, titleType);
+      case 'split':
+      default:
+        fragments = decorateSplitHero(block, titleType);
+    }
+  } catch (error) {
+    // Never leave the raw authoring markup (e.g. an oversized, unstyled
+    // image) on the page if a single field is malformed/unexpected.
+    // eslint-disable-next-line no-console
+    console.error('hero: failed to decorate variant', heroType, error);
+    fragments = [];
   }
 
   block.textContent = '';
