@@ -89,6 +89,8 @@ function buildHeading(block, titleType) {
 function decorateSplitHero(block, titleType) {
   const content = document.createElement('div');
   content.className = 'hero-content';
+  console.log('Link1 Text:', getText(block, 'link1Text'));
+  console.log('Link1 URL:', getText(block, 'link1Url'));
 
   const overline = getFieldElement(block, 'overline');
   if (overline?.textContent?.trim()) {
