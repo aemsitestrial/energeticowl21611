@@ -263,12 +263,18 @@
   }
 
   .hero.hero-banner .hero-banner-content {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 24px;
-  }
+  width: 100%;
+  display: grid;
+  grid-template-columns: 220px 500px auto;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  padding: 0 48px;
+  box-sizing: border-box;
+}
 
   .hero.hero-banner .hero-banner-link {
-    justify-content: flex-start;
-  }
+  justify-self: end;
+  white-space: nowrap;
+}
 }
