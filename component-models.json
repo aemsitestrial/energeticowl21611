@@ -5334,9 +5334,50 @@
     "id": "fragment",
     "fields": [
       {
+        "component": "select",
+        "name": "fragmentType",
+        "label": "Fragment Type",
+        "valueType": "string",
+        "value": "standard",
+        "options": [
+          {
+            "name": "Standard Fragment",
+            "value": "standard"
+          },
+          {
+            "name": "Featured Fragment",
+            "value": "featured"
+          }
+        ]
+      },
+      {
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      },
+      {
+        "component": "checkbox",
+        "name": "showImage",
+        "label": "Show Image",
+        "value": true
+      },
+      {
+        "component": "checkbox",
+        "name": "showTitle",
+        "label": "Show Title",
+        "value": true
+      },
+      {
+        "component": "checkbox",
+        "name": "showDescription",
+        "label": "Show Description",
+        "value": true
+      },
+      {
+        "component": "checkbox",
+        "name": "showCta",
+        "label": "Show CTA",
+        "value": true
       }
     ]
   },
