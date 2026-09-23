@@ -5379,8 +5379,12 @@
         "label": "Overline",
         "valueType": "string",
         "condition": {
-          "field": "heroType",
-          "value": "split"
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "split"
+          ]
         }
       },
       {
@@ -5414,8 +5418,12 @@
         "label": "Link 1 Text",
         "valueType": "string",
         "condition": {
-          "field": "heroType",
-          "value": "split"
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "split"
+          ]
         }
       },
       {
@@ -5424,8 +5432,12 @@
         "label": "Link 1 URL",
         "valueType": "string",
         "condition": {
-          "field": "heroType",
-          "value": "split"
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "split"
+          ]
         }
       },
       {
@@ -5434,8 +5446,12 @@
         "label": "Link 2 Text",
         "valueType": "string",
         "condition": {
-          "field": "heroType",
-          "value": "split"
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "split"
+          ]
         }
       },
       {
@@ -5444,8 +5460,12 @@
         "label": "Link 2 URL",
         "valueType": "string",
         "condition": {
-          "field": "heroType",
-          "value": "split"
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "split"
+          ]
         }
       },
       {
@@ -5454,8 +5474,12 @@
         "label": "Button Text",
         "valueType": "string",
         "condition": {
-          "field": "heroType",
-          "value": "overlay"
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "overlay"
+          ]
         }
       },
       {
@@ -5464,45 +5488,97 @@
         "label": "Button URL",
         "valueType": "string",
         "condition": {
-          "field": "heroType",
-          "value": "overlay"
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "overlay"
+          ]
         }
       },
       {
         "component": "text",
         "name": "primaryButtonText",
         "label": "Primary Button Text",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "centered"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "primaryButtonUrl",
         "label": "Primary Button URL",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "centered"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "secondaryButtonText",
         "label": "Secondary Button Text",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "centered"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "secondaryButtonUrl",
         "label": "Secondary Button URL",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "centered"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "bannerLinkText",
         "label": "Banner Link Text",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "banner"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "bannerLinkUrl",
         "label": "Banner Link URL",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "banner"
+          ]
+        }
       },
       {
         "component": "tab",
@@ -5538,8 +5614,17 @@
         "component": "select",
         "name": "backgroundColor",
         "label": "Background Color",
+        "description": "Only used by the Split Hero variant. The other variants use the image as background.",
         "valueType": "string",
         "value": "black",
+        "condition": {
+          "===": [
+            {
+              "var": "heroType"
+            },
+            "split"
+          ]
+        },
         "options": [
           {
             "name": "Black",
@@ -5567,6 +5652,7 @@
         "component": "select",
         "name": "textColor",
         "label": "Text Color",
+        "description": "Applies to the overline, title, description and link text (not buttons).",
         "valueType": "string",
         "value": "white",
         "options": [
@@ -5577,6 +5663,43 @@
           {
             "name": "Black",
             "value": "black"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "buttonColor",
+        "label": "Button Color",
+        "description": "Only used by the Overlay and Centered Hero variants.",
+        "valueType": "string",
+        "value": "white",
+        "condition": {
+          "in": [
+            {
+              "var": "heroType"
+            },
+            [
+              "overlay",
+              "centered"
+            ]
+          ]
+        },
+        "options": [
+          {
+            "name": "White",
+            "value": "white"
+          },
+          {
+            "name": "Black",
+            "value": "black"
+          },
+          {
+            "name": "Brand Red",
+            "value": "brand-red"
+          },
+          {
+            "name": "Brand Blue",
+            "value": "brand-blue"
           }
         ]
       }

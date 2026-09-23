@@ -16,7 +16,6 @@ const FIELD_ORDER = [
   'link1Url',
   'link2Text',
   'link2Url',
-  'titleType',
   'buttonText',
   'buttonUrl',
   'primaryButtonText',
@@ -25,8 +24,10 @@ const FIELD_ORDER = [
   'secondaryButtonUrl',
   'bannerLinkText',
   'bannerLinkUrl',
+  'titleType',
   'backgroundColor',
   'textColor',
+  'buttonColor',
 ];
 
 function getFieldElement(block, name) {
@@ -316,8 +317,13 @@ function decorateBannerHero(block, titleType) {
 export default function decorate(block) {
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
-  const backgroundColor = getText(block, 'backgroundColor') || 'black';
   const textColor = getText(block, 'textColor') || 'white';
+  // Background color only applies to the Split Hero; the other variants use
+  // the authored image as their background instead.
+  const backgroundColor = heroType === 'split' ? (getText(block, 'backgroundColor') || 'black') : null;
+  // Button color only applies to variants that render an actual button
+  // (Overlay, Centered); it never affects the general text color.
+  const buttonColor = ['overlay', 'centered'].includes(heroType) ? (getText(block, 'buttonColor') || 'white') : null;
 
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
   let fragments;
@@ -341,10 +347,8 @@ export default function decorate(block) {
   }
 
   block.textContent = '';
-  block.classList.add(
-    `hero-${heroType}`,
-    `hero-bg-${backgroundColor}`,
-    `hero-text-${textColor}`,
-  );
+  block.classList.add(`hero-${heroType}`, `hero-text-${textColor}`);
+  if (backgroundColor) block.classList.add(`hero-bg-${backgroundColor}`);
+  if (buttonColor) block.classList.add(`hero-button-color-${buttonColor}`);
   block.append(...fragments);
 }

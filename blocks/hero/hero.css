@@ -30,13 +30,74 @@
   background-color: #0b5fff;
 }
 
-/* Style tab: text color options */
+/* Style tab: text color options (overline, title, description, links only) */
 .hero.hero-text-white {
   color: #fff;
 }
 
 .hero.hero-text-black {
   color: #000;
+}
+
+/* Style tab: button color options (Overlay + Centered variants, independent of text color) */
+.hero.hero-button-color-white .hero-button {
+  background: #fff;
+  color: #000;
+}
+
+.hero.hero-button-color-black .hero-button {
+  background: #000;
+  color: #fff;
+}
+
+.hero.hero-button-color-brand-red .hero-button {
+  background: #c00;
+  color: #fff;
+}
+
+.hero.hero-button-color-brand-blue .hero-button {
+  background: #0b5fff;
+  color: #fff;
+}
+
+.hero.hero-button-color-white .hero-button-primary {
+  background: #fff;
+  color: #000;
+}
+
+.hero.hero-button-color-black .hero-button-primary {
+  background: #000;
+  color: #fff;
+}
+
+.hero.hero-button-color-brand-red .hero-button-primary {
+  background: #c00;
+  color: #fff;
+}
+
+.hero.hero-button-color-brand-blue .hero-button-primary {
+  background: #0b5fff;
+  color: #fff;
+}
+
+.hero.hero-button-color-white .hero-button-secondary {
+  border-color: #fff;
+  color: #fff;
+}
+
+.hero.hero-button-color-black .hero-button-secondary {
+  border-color: #000;
+  color: #000;
+}
+
+.hero.hero-button-color-brand-red .hero-button-secondary {
+  border-color: #c00;
+  color: #c00;
+}
+
+.hero.hero-button-color-brand-blue .hero-button-secondary {
+  border-color: #0b5fff;
+  color: #0b5fff;
 }
 
 /* Variant 1: Split Hero (text column + image column) */
@@ -146,9 +207,6 @@
   align-items: center;
   justify-content: center;
   padding: 12px 24px;
-  background: currentcolor;
-  background: #fff;
-  color: #000;
   text-decoration: none;
   border: none;
 }
@@ -201,14 +259,8 @@
   text-decoration: none;
 }
 
-.hero.hero-centered .hero-button-primary {
-  background: #000;
-  color: #fff;
-}
-
 .hero.hero-centered .hero-button-secondary {
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid;
   background: transparent;
 }
 

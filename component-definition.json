@@ -956,6 +956,9 @@
                 },
                 {
                   "name": "textColor"
+                },
+                {
+                  "name": "buttonColor"
                 }
               ]
             },
