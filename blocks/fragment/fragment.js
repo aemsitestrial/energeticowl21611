@@ -174,7 +174,10 @@ function renderTextOnlyHero(block, fragment) {
   const description = hero.querySelector('.hero-description');
 
   const cta = hero.querySelector('.hero-button')
-    || hero.querySelector('.hero-link');
+  || hero.querySelector('.hero-link');
+
+  console.log('CTA HTML =>', cta?.outerHTML);
+
 
   const wrapper = document.createElement('div');
   wrapper.className = 'hero-fragment-text-only';
