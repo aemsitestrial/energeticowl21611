@@ -1,6 +1,5 @@
 /*
  * Fragment Block
- * Include content on a page as a fragment.
  */
 
 import {
@@ -11,28 +10,52 @@ import {
   loadSections,
 } from '../../scripts/aem.js';
 
+const FIELD_ORDER = [
+  'fragmentType',
+  'reference',
+  'heroLayout',
+];
+
+function getFieldElement(block, name) {
+  const byProp = block.querySelector(`[data-aue-prop="${name}"]`);
+
+  if (byProp) {
+    return byProp;
+  }
+
+  const index = FIELD_ORDER.indexOf(name);
+
+  if (index === -1) {
+    return null;
+  }
+
+  const row = block.children[index];
+
+  return row?.firstElementChild || row || null;
+}
+
+function getText(block, name) {
+  return getFieldElement(block, name)?.textContent?.trim() || '';
+}
+
 /**
- * Loads a fragment.
- * @param {string} path The path to the fragment
- * @returns {HTMLElement} The root element of the fragment
+ * Loads a fragment
  */
 export async function loadFragment(path) {
   if (path && path.startsWith('/')) {
-    // eslint-disable-next-line no-param-reassign
-    path = path.replace(/(\.plain)?\.html/, '');
+    const fragmentPath = path.replace(/(\.plain)?\.html/, '');
 
-    const resp = await fetch(`${path}.plain.html`);
+    const resp = await fetch(`${fragmentPath}.plain.html`);
 
     if (resp.ok) {
       const main = document.createElement('main');
       main.innerHTML = await resp.text();
 
-      // reset base path for media to fragment base
       const resetAttributeBase = (tag, attr) => {
         main.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
           elem[attr] = new URL(
             elem.getAttribute(attr),
-            new URL(path, window.location),
+            new URL(fragmentPath, window.location),
           ).href;
         });
       };
@@ -50,22 +73,161 @@ export async function loadFragment(path) {
   return null;
 }
 
+/**
+ * Standard Fragment
+ */
+function decorateStandardFragment(block, fragment) {
+  const fragmentSection = fragment.querySelector(':scope .section');
+
+  if (fragmentSection) {
+    block.classList.add(...fragmentSection.classList);
+    block.classList.remove('section');
+    block.replaceChildren(...fragmentSection.childNodes);
+  }
+}
+
+/**
+ * Full Hero
+ */
+function renderFullHero(block, fragment) {
+  decorateStandardFragment(block, fragment);
+}
+
+/**
+ * Image + Text
+ */
+function renderImageTextHero(block, fragment) {
+  const hero = fragment.querySelector('.hero');
+
+  if (!hero) {
+    return;
+  }
+
+  const image = hero.querySelector('picture')
+    || hero.querySelector('img');
+
+  const title = hero.querySelector('.hero-title');
+
+  const description = hero.querySelector('.hero-description');
+
+  const cta = hero.querySelector('.hero-button')
+    || hero.querySelector('.hero-link');
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'hero-fragment-image-text';
+
+  const media = document.createElement('div');
+  media.className = 'hero-fragment-media';
+
+  if (image) {
+    media.append(image.cloneNode(true));
+  }
+
+  const content = document.createElement('div');
+  content.className = 'hero-fragment-content';
+
+  if (title) {
+    content.append(title.cloneNode(true));
+  }
+
+  if (description) {
+    content.append(description.cloneNode(true));
+  }
+
+  if (cta) {
+    content.append(cta.cloneNode(true));
+  }
+
+  wrapper.append(media, content);
+
+  block.replaceChildren(wrapper);
+}
+
+/**
+ * Text Only
+ */
+function renderTextOnlyHero(block, fragment) {
+  const hero = fragment.querySelector('.hero');
+
+  if (!hero) {
+    return;
+  }
+
+  const title = hero.querySelector('.hero-title');
+
+  const description = hero.querySelector('.hero-description');
+
+  const cta = hero.querySelector('.hero-button')
+    || hero.querySelector('.hero-link');
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'hero-fragment-text-only';
+
+  if (title) {
+    wrapper.append(title.cloneNode(true));
+  }
+
+  if (description) {
+    wrapper.append(description.cloneNode(true));
+  }
+
+  if (cta) {
+    wrapper.append(cta.cloneNode(true));
+  }
+
+  block.replaceChildren(wrapper);
+}
+
+/**
+ * Hero Fragment
+ */
+function decorateHeroFragment(block, fragment, heroLayout) {
+  switch (heroLayout) {
+    case 'image-text':
+      block.classList.add('hero-fragment', 'hero-fragment-image-text-layout');
+      renderImageTextHero(block, fragment);
+      break;
+
+    case 'text-only':
+      block.classList.add('hero-fragment', 'hero-fragment-text-only-layout');
+      renderTextOnlyHero(block, fragment);
+      break;
+
+    case 'full':
+    default:
+      block.classList.add('hero-fragment', 'hero-fragment-full-layout');
+      renderFullHero(block, fragment);
+      break;
+  }
+}
+
 export default async function decorate(block) {
-  const link = block.querySelector('a');
+  const fragmentType = getText(block, 'fragmentType') || 'standard';
+
+  const heroLayout = getText(block, 'heroLayout') || 'full';
+
+  const referenceEl = getFieldElement(block, 'reference');
+
+  const link = referenceEl?.querySelector('a');
+
   const path = link
     ? link.getAttribute('href')
-    : block.textContent.trim();
+    : getText(block, 'reference');
 
   const fragment = await loadFragment(path);
 
-  if (fragment) {
-    const fragmentSection = fragment.querySelector(':scope .section');
+  if (!fragment) {
+    return;
+  }
 
-    if (fragmentSection) {
-      block.classList.add(...fragmentSection.classList);
-      block.classList.remove('section');
+  switch (fragmentType) {
+    case 'hero':
+      decorateHeroFragment(block, fragment, heroLayout);
+      break;
 
-      block.replaceChildren(...fragmentSection.childNodes);
-    }
+    case 'standard':
+    default:
+      decorateStandardFragment(block, fragment);
+      break;
   }
 }

@@ -5345,8 +5345,8 @@
             "value": "standard"
           },
           {
-            "name": "Featured Fragment",
-            "value": "featured"
+            "name": "Hero Fragment",
+            "value": "hero"
           }
         ]
       },
@@ -5356,28 +5356,33 @@
         "label": "Reference"
       },
       {
-        "component": "checkbox",
-        "name": "showImage",
-        "label": "Show Image",
-        "value": true
-      },
-      {
-        "component": "checkbox",
-        "name": "showTitle",
-        "label": "Show Title",
-        "value": true
-      },
-      {
-        "component": "checkbox",
-        "name": "showDescription",
-        "label": "Show Description",
-        "value": true
-      },
-      {
-        "component": "checkbox",
-        "name": "showCta",
-        "label": "Show CTA",
-        "value": true
+        "component": "select",
+        "name": "heroLayout",
+        "label": "Hero Layout",
+        "valueType": "string",
+        "value": "full",
+        "condition": {
+          "===": [
+            {
+              "var": "fragmentType"
+            },
+            "hero"
+          ]
+        },
+        "options": [
+          {
+            "name": "Full Hero",
+            "value": "full"
+          },
+          {
+            "name": "Image + Text",
+            "value": "image-text"
+          },
+          {
+            "name": "Text Only",
+            "value": "text-only"
+          }
+        ]
       }
     ]
   },
