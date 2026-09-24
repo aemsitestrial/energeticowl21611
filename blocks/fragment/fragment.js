@@ -103,8 +103,11 @@ function renderImageTextHero(block, fragment) {
     return;
   }
 
-  const image = hero.querySelector('picture')
-    || hero.querySelector('img');
+  const image = fragment.querySelector('picture')
+  || fragment.querySelector('img');
+  console.log('Hero:', hero);
+  console.log('Picture:', fragment.querySelector('picture'));
+  console.log('Image:', fragment.querySelector('img'));
 
   const title = hero.querySelector('.hero-title');
 
