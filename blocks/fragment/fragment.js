@@ -122,9 +122,8 @@ function renderImageTextHero(block, fragment) {
 
   const description = hero.querySelector('.hero-description');
 
-  const cta = hero.querySelector(
-    '.hero-button, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
-  );
+  const cta = hero.querySelector('.hero-overlay-content .hero-button');
+
   console.log(cta?.outerHTML);
 
   const wrapper = document.createElement('div');
