@@ -103,28 +103,14 @@ function renderImageTextHero(block, fragment) {
     return;
   }
 
-  console.log(
-    'buttonText =>',
-    hero.querySelector('[data-aue-prop="buttonText"]')?.textContent,
-  );
-
-  console.log(
-    'buttonUrl =>',
-    hero.querySelector('[data-aue-prop="buttonUrl"]')?.textContent,
-  );
-
   const image = hero.querySelector('picture')
-  || hero.querySelector('img');
+    || hero.querySelector('img');
 
   const bgImage = hero.style.backgroundImage;
 
   const title = hero.querySelector('.hero-title');
 
   const description = hero.querySelector('.hero-description');
-
-  //const cta = hero.querySelector('.hero-overlay-content .hero-button');
-
-  console.log(cta?.outerHTML);
 
   const wrapper = document.createElement('div');
   wrapper.className = 'hero-fragment-image-text';
@@ -150,20 +136,8 @@ function renderImageTextHero(block, fragment) {
     content.append(description.cloneNode(true));
   }
 
-  // if (cta) {
-  //   const ctaClone = cta.cloneNode(true);
-
-  //   const label = cta.querySelector('.hero-link-label');
-
-  //   if (label) {
-  //     ctaClone.textContent = '';
-  //     ctaClone.append(label.cloneNode(true));
-  //   }
-
-  //   content.append(ctaClone);
-  // }
-
-  wrapper.append(media, content);
+  wrapper.append(media);
+  wrapper.append(content);
 
   block.replaceChildren(wrapper);
 }
