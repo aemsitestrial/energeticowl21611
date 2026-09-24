@@ -122,7 +122,7 @@ function renderImageTextHero(block, fragment) {
 
   const description = hero.querySelector('.hero-description');
 
-  const cta = hero.querySelector('.hero-overlay-content .hero-button');
+  //const cta = hero.querySelector('.hero-overlay-content .hero-button');
 
   console.log(cta?.outerHTML);
 
@@ -150,18 +150,18 @@ function renderImageTextHero(block, fragment) {
     content.append(description.cloneNode(true));
   }
 
-  if (cta) {
-    const ctaClone = cta.cloneNode(true);
+  // if (cta) {
+  //   const ctaClone = cta.cloneNode(true);
 
-    const label = cta.querySelector('.hero-link-label');
+  //   const label = cta.querySelector('.hero-link-label');
 
-    if (label) {
-      ctaClone.textContent = '';
-      ctaClone.append(label.cloneNode(true));
-    }
+  //   if (label) {
+  //     ctaClone.textContent = '';
+  //     ctaClone.append(label.cloneNode(true));
+  //   }
 
-    content.append(ctaClone);
-  }
+  //   content.append(ctaClone);
+  // }
 
   wrapper.append(media, content);
 
