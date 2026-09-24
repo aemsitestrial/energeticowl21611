@@ -178,7 +178,6 @@ function renderTextOnlyHero(block, fragment) {
 
   console.log('CTA HTML =>', cta?.outerHTML);
 
-
   const wrapper = document.createElement('div');
   wrapper.className = 'hero-fragment-text-only';
 
