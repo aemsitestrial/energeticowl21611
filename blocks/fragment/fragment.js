@@ -103,8 +103,10 @@ function renderImageTextHero(block, fragment) {
     return;
   }
 
-  const image = fragment.querySelector('picture')
-  || fragment.querySelector('img');
+  const image = hero.querySelector('picture')
+  || hero.querySelector('img');
+
+  const bgImage = hero.style.backgroundImage;
   console.log('Hero:', hero);
   console.log('Picture:', fragment.querySelector('picture'));
   console.log('Image:', fragment.querySelector('img'));
@@ -124,6 +126,9 @@ function renderImageTextHero(block, fragment) {
 
   if (image) {
     media.append(image.cloneNode(true));
+  } else if (bgImage) {
+    media.style.backgroundImage = bgImage;
+    media.classList.add('hero-fragment-bg-image');
   }
 
   const content = document.createElement('div');

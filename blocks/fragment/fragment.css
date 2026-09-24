@@ -85,3 +85,11 @@
     max-width: 50%;
   }
 }
+
+.hero-fragment-bg-image {
+  min-height: 350px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+}
