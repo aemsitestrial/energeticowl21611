@@ -107,16 +107,15 @@ function renderImageTextHero(block, fragment) {
   || hero.querySelector('img');
 
   const bgImage = hero.style.backgroundImage;
-  console.log('Hero:', hero);
-  console.log('Picture:', fragment.querySelector('picture'));
-  console.log('Image:', fragment.querySelector('img'));
 
   const title = hero.querySelector('.hero-title');
 
   const description = hero.querySelector('.hero-description');
 
-  const cta = hero.querySelector('.hero-button')
-    || hero.querySelector('.hero-link');
+  const cta = hero.querySelector(
+    '.hero-button, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
+  );
+  console.log(cta?.outerHTML);
 
   const wrapper = document.createElement('div');
   wrapper.className = 'hero-fragment-image-text';
@@ -143,7 +142,16 @@ function renderImageTextHero(block, fragment) {
   }
 
   if (cta) {
-    content.append(cta.cloneNode(true));
+    const ctaClone = cta.cloneNode(true);
+
+    const label = cta.querySelector('.hero-link-label');
+
+    if (label) {
+      ctaClone.textContent = '';
+      ctaClone.append(label.cloneNode(true));
+    }
+
+    content.append(ctaClone);
   }
 
   wrapper.append(media, content);
