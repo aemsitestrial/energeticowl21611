@@ -103,6 +103,16 @@ function renderImageTextHero(block, fragment) {
     return;
   }
 
+  console.log(
+    'buttonText =>',
+    hero.querySelector('[data-aue-prop="buttonText"]')?.textContent,
+  );
+
+  console.log(
+    'buttonUrl =>',
+    hero.querySelector('[data-aue-prop="buttonUrl"]')?.textContent,
+  );
+
   const image = hero.querySelector('picture')
   || hero.querySelector('img');
 
