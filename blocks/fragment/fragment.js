@@ -14,6 +14,7 @@ const FIELD_ORDER = [
   'fragmentType',
   'reference',
   'heroLayout',
+  'imagePosition',
 ];
 
 function getFieldElement(block, name) {
@@ -96,7 +97,7 @@ function renderFullHero(block, fragment) {
 /**
  * Image + Text
  */
-function renderImageTextHero(block, fragment) {
+function renderImageTextHero(block, fragment, imagePosition) {
   const hero = fragment.querySelector('.hero');
 
   if (!hero) {
@@ -144,8 +145,13 @@ function renderImageTextHero(block, fragment) {
     content.append(cta.cloneNode(true));
   }
 
-  wrapper.append(media);
-  wrapper.append(content);
+  if (imagePosition === 'right') {
+    wrapper.append(content);
+    wrapper.append(media);
+  } else {
+    wrapper.append(media);
+    wrapper.append(content);
+  }
 
   block.replaceChildren(wrapper);
 }
@@ -216,11 +222,11 @@ function renderTextOnlyHero(block, fragment) {
 /**
  * Hero Fragment
  */
-function decorateHeroFragment(block, fragment, heroLayout) {
+function decorateHeroFragment(block, fragment, heroLayout, imagePosition) {
   switch (heroLayout) {
     case 'image-text':
       block.classList.add('hero-fragment', 'hero-fragment-image-text-layout');
-      renderImageTextHero(block, fragment);
+      renderImageTextHero(block, fragment, imagePosition);
       break;
 
     case 'without-media':
@@ -253,6 +259,8 @@ export default async function decorate(block) {
 
   const link = referenceEl?.querySelector('a');
 
+  const imagePosition = getText(block, 'imagePosition') || 'left';
+
   const path = link
     ? link.getAttribute('href')
     : getText(block, 'reference');
@@ -265,7 +273,12 @@ export default async function decorate(block) {
 
   switch (fragmentType) {
     case 'hero':
-      decorateHeroFragment(block, fragment, heroLayout);
+      decorateHeroFragment(
+        block,
+        fragment,
+        heroLayout,
+        imagePosition,
+      );
       break;
 
     case 'standard':

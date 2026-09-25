@@ -70,8 +70,33 @@
               "value": "without-media"
             },
             {
-              "name":"Text Only",
-              "value":"text-only"
+              "name": "Text Only",
+              "value": "text-only"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "imagePosition",
+          "label": "Image Position",
+          "valueType": "string",
+          "value": "left",
+          "condition": {
+            "===": [
+              {
+                "var": "heroLayout"
+              },
+              "image-text"
+            ]
+          },
+          "options": [
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Right",
+              "value": "right"
             }
           ]
         }
