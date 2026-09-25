@@ -112,6 +112,10 @@ function renderImageTextHero(block, fragment) {
 
   const description = hero.querySelector('.hero-description');
 
+  const cta = hero.querySelector(
+    '.hero-link.hero-button, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
+  );
+
   const wrapper = document.createElement('div');
   wrapper.className = 'hero-fragment-image-text';
 
@@ -136,6 +140,10 @@ function renderImageTextHero(block, fragment) {
     content.append(description.cloneNode(true));
   }
 
+  if (cta) {
+    content.append(cta.cloneNode(true));
+  }
+
   wrapper.append(media);
   wrapper.append(content);
 
@@ -158,11 +166,6 @@ function renderTextOnlyHero(block, fragment) {
 
   const cta = hero.querySelector(
     '.hero-link.hero-button, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
-  );
-
-  console.log('CTA HTML =>', cta?.outerHTML);
-  console.log(
-    hero.querySelector('.hero-link-label')?.textContent,
   );
 
   const wrapper = document.createElement('div');
