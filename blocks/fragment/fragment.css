@@ -93,3 +93,29 @@
   background-repeat: no-repeat;
   border-radius: 12px;
 }
+
+/* Without Media */
+
+.hero-fragment-without-media {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero-fragment-without-media .hero-title {
+  margin: 0;
+}
+
+.hero-fragment-without-media .hero-description {
+  margin: 0;
+}
+
+.hero-fragment-without-media .hero-link,
+.hero-fragment-without-media .hero-button,
+.hero-fragment-without-media .hero-button-primary,
+.hero-fragment-without-media .hero-button-secondary,
+.hero-fragment-without-media .hero-banner-link {
+  width: fit-content;
+}

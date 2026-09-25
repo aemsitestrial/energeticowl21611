@@ -149,11 +149,11 @@ function renderImageTextHero(block, fragment) {
 
   block.replaceChildren(wrapper);
 }
-
 /**
- * Text Only
+ * Without Media
  */
-function renderTextOnlyHero(block, fragment) {
+
+function renderWithoutMediaHero(block, fragment) {
   const hero = fragment.querySelector('.hero');
 
   if (!hero) {
@@ -169,7 +169,7 @@ function renderTextOnlyHero(block, fragment) {
   );
 
   const wrapper = document.createElement('div');
-  wrapper.className = 'hero-fragment-text-only';
+  wrapper.className = 'hero-fragment-without-media';
 
   if (title) {
     wrapper.append(title.cloneNode(true));
@@ -185,6 +185,33 @@ function renderTextOnlyHero(block, fragment) {
 
   block.replaceChildren(wrapper);
 }
+/**
+ * Text Only
+ */
+function renderTextOnlyHero(block, fragment) {
+  const hero = fragment.querySelector('.hero');
+
+  if (!hero) {
+    return;
+  }
+
+  const title = hero.querySelector('.hero-title');
+
+  const description = hero.querySelector('.hero-description');
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'hero-fragment-text-only';
+
+  if (title) {
+    wrapper.append(title.cloneNode(true));
+  }
+
+  if (description) {
+    wrapper.append(description.cloneNode(true));
+  }
+
+  block.replaceChildren(wrapper);
+}
 
 /**
  * Hero Fragment
@@ -194,6 +221,14 @@ function decorateHeroFragment(block, fragment, heroLayout) {
     case 'image-text':
       block.classList.add('hero-fragment', 'hero-fragment-image-text-layout');
       renderImageTextHero(block, fragment);
+      break;
+
+    case 'without-media':
+      block.classList.add(
+        'hero-fragment',
+        'hero-fragment-without-media-layout',
+      );
+      renderWithoutMediaHero(block, fragment);
       break;
 
     case 'text-only':

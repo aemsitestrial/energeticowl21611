@@ -5379,6 +5379,10 @@
             "value": "image-text"
           },
           {
+            "name": "Without Media",
+            "value": "without-media"
+          },
+          {
             "name": "Text Only",
             "value": "text-only"
           }

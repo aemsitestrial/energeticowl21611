@@ -66,8 +66,12 @@
               "value": "image-text"
             },
             {
-              "name": "Text Only",
-              "value": "text-only"
+              "name": "Without Media",
+              "value": "without-media"
+            },
+            {
+              "name":"Text Only",
+              "value":"text-only"
             }
           ]
         }
