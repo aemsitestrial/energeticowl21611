@@ -336,6 +336,15 @@ export default function decorate(block) {
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
   const textColor = getText(block, 'textColor') || 'white';
+
+  console.log('================ HERO RAW HTML ================');
+  console.log(block.innerHTML);
+
+  console.log('================ CHILDREN =================');
+  [...block.children].forEach((row, index) => {
+    console.log(index, row.textContent?.trim());
+  });
+
   // Background color only applies to the Split Hero; the other variants use
   // the authored image as their background instead.
   const backgroundColor = heroType === 'split' ? (getText(block, 'backgroundColor') || 'black') : null;
