@@ -16,6 +16,7 @@ const FIELD_ORDER = [
   'link1Url',
   'link2Text',
   'link2Url',
+  'titleType',
   'buttonText',
   'buttonUrl',
   'primaryButtonText',
@@ -24,7 +25,6 @@ const FIELD_ORDER = [
   'secondaryButtonUrl',
   'bannerLinkText',
   'bannerLinkUrl',
-  'titleType',
   'backgroundColor',
   'textColor',
   'buttonColor',
@@ -78,11 +78,11 @@ function getText(block, name) {
   return '';
 }
 
-function getStyleValue(block, fallbackIndex) {
-  return block.children[fallbackIndex]
-    ?.textContent
-    ?.trim();
-}
+// function getStyleValue(block, fallbackIndex) {
+//   return block.children[fallbackIndex]
+//     ?.textContent
+//     ?.trim();
+// }
 
 function buildLink(block, textName, urlName) {
   const textEl = getFieldElement(block, textName);
@@ -354,8 +354,8 @@ export default function decorate(block) {
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
   const textColor = getText(block, 'textColor')
-  || getStyleValue(block, 18)
-  || 'white';
+    // || getStyleValue(block, 18)
+    || 'white';
 
   // Background color only applies to the Split Hero; the other variants use
   // the authored image as their background instead.
@@ -365,8 +365,8 @@ export default function decorate(block) {
   const buttonColor = ['overlay', 'centered'].includes(heroType)
     ? (
       getText(block, 'buttonColor')
-    || getStyleValue(block, 19)
-    || 'white'
+      // || getStyleValue(block, 19)
+      || 'white'
     )
     : null;
   // Image position only applies to the Split Hero, which is the only variant
@@ -374,8 +374,8 @@ export default function decorate(block) {
   const imagePosition = heroType === 'split'
     ? (
       getText(block, 'imagePosition')
-    || getStyleValue(block, 20)
-    || 'right'
+      // || getStyleValue(block, 20)
+      || 'right'
     )
     : null;
   // Button position only applies to variants that render actual button(s)
@@ -384,7 +384,7 @@ export default function decorate(block) {
   const buttonPosition = ['overlay', 'centered'].includes(heroType)
     ? (
       getText(block, 'buttonPosition')
-      || getStyleValue(block, 21)
+      // || getStyleValue(block, 21)
       || (heroType === 'centered' ? 'center' : 'left')
     )
     : null;
