@@ -50,18 +50,38 @@ function resetDynamicClasses(block) {
 function getFieldElement(block, name) {
   const byProp = block.querySelector(`[data-aue-prop="${name}"]`);
 
-  console.log(name, byProp);
-  if (byProp) return byProp;
+  if (byProp) {
+    return byProp;
+  }
 
   const index = FIELD_ORDER.indexOf(name);
-  if (index === -1) return null;
+
+  if (index === -1) {
+    return null;
+  }
 
   const row = block.children[index];
-  return row?.firstElementChild || row || null;
+
+  return row?.querySelector('p, h1, h2, h3, h4, h5, h6, a, img')
+    || row?.firstElementChild
+    || row
+    || null;
 }
 
 function getText(block, name) {
-  return getFieldElement(block, name)?.textContent?.trim() || '';
+  const field = getFieldElement(block, name);
+
+  if (field) {
+    return field.textContent?.trim() || '';
+  }
+
+  return '';
+}
+
+function getStyleValue(block, fallbackIndex) {
+  return block.children[fallbackIndex]
+    ?.textContent
+    ?.trim();
 }
 
 function buildLink(block, textName, urlName) {
@@ -108,8 +128,6 @@ function buildHeading(block, titleType) {
 function decorateSplitHero(block, titleType) {
   const content = document.createElement('div');
   content.className = 'hero-content';
-  console.log('Link1 Text:', getText(block, 'link1Text'));
-  console.log('Link1 URL:', getText(block, 'link1Url'));
 
   const overline = getFieldElement(block, 'overline');
   if (overline?.textContent?.trim()) {
@@ -335,38 +353,41 @@ function decorateBannerHero(block, titleType) {
 export default function decorate(block) {
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
-  const textColor = getText(block, 'textColor') || 'white';
-
-  console.log('================ HERO RAW HTML ================');
-  console.log(block.innerHTML);
-
-  console.log('================ CHILDREN =================');
-  [...block.children].forEach((row, index) => {
-    console.log(index, row.textContent?.trim());
-  });
+  const textColor = getText(block, 'textColor')
+  || getStyleValue(block, 18)
+  || 'white';
 
   // Background color only applies to the Split Hero; the other variants use
   // the authored image as their background instead.
   const backgroundColor = heroType === 'split' ? (getText(block, 'backgroundColor') || 'black') : null;
   // Button color only applies to variants that render an actual button
   // (Overlay, Centered); it never affects the general text color.
-  const buttonColor = ['overlay', 'centered'].includes(heroType) ? (getText(block, 'buttonColor') || 'white') : null;
+  const buttonColor = ['overlay', 'centered'].includes(heroType)
+    ? (
+      getText(block, 'buttonColor')
+    || getStyleValue(block, 19)
+    || 'white'
+    )
+    : null;
   // Image position only applies to the Split Hero, which is the only variant
   // with a dedicated image column that can swap sides.
-  const imagePosition = heroType === 'split' ? (getText(block, 'imagePosition') || 'right') : null;
+  const imagePosition = heroType === 'split'
+    ? (
+      getText(block, 'imagePosition')
+    || getStyleValue(block, 20)
+    || 'right'
+    )
+    : null;
   // Button position only applies to variants that render actual button(s)
   // (Overlay, Centered). Falls back to each variant's original default
   // alignment when the field hasn't been authored yet.
   const buttonPosition = ['overlay', 'centered'].includes(heroType)
-    ? (getText(block, 'buttonPosition') || (heroType === 'centered' ? 'center' : 'left'))
+    ? (
+      getText(block, 'buttonPosition')
+      || getStyleValue(block, 21)
+      || (heroType === 'centered' ? 'center' : 'left')
+    )
     : null;
-
-  console.log('heroType:', heroType);
-  console.log('backgroundColor:', backgroundColor);
-  console.log('textColor:', textColor);
-  console.log('buttonColor:', buttonColor);
-  console.log('imagePosition:', imagePosition);
-  console.log('buttonPosition:', buttonPosition);
 
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
   let fragments;
