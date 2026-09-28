@@ -87,6 +87,19 @@ function decorateStandardFragment(block, fragment) {
   }
 }
 
+// Classes set by the hero block's Style tab (background/text/button color).
+// The image-text, without-media and text-only layouts rebuild the DOM from
+// individual cloned fields, so these classes must be copied across
+// explicitly, otherwise the authored style choices are silently lost.
+const HERO_STYLE_CLASS_PREFIXES = ['hero-bg-', 'hero-text-', 'hero-button-color-'];
+
+function applyHeroStyleClasses(block, hero) {
+  const styleClasses = [...hero.classList].filter(
+    (cls) => HERO_STYLE_CLASS_PREFIXES.some((prefix) => cls.startsWith(prefix)),
+  );
+  block.classList.add(...styleClasses);
+}
+
 /**
  * Full Hero
  */
@@ -103,6 +116,8 @@ function renderImageTextHero(block, fragment, imagePosition) {
   if (!hero) {
     return;
   }
+
+  applyHeroStyleClasses(block, hero);
 
   const image = hero.querySelector('picture')
     || hero.querySelector('img');
@@ -166,6 +181,8 @@ function renderWithoutMediaHero(block, fragment) {
     return;
   }
 
+  applyHeroStyleClasses(block, hero);
+
   const title = hero.querySelector('.hero-title');
 
   const description = hero.querySelector('.hero-description');
@@ -200,6 +217,8 @@ function renderTextOnlyHero(block, fragment) {
   if (!hero) {
     return;
   }
+
+  applyHeroStyleClasses(block, hero);
 
   const title = hero.querySelector('.hero-title');
 
