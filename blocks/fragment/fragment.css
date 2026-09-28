@@ -39,50 +39,6 @@
   color: #000;
 }
 
-.hero-fragment.hero-button-color-white .hero-button,
-.hero-fragment.hero-button-color-white .hero-button-primary {
-  background: #fff;
-  color: #000;
-}
-
-.hero-fragment.hero-button-color-black .hero-button,
-.hero-fragment.hero-button-color-black .hero-button-primary {
-  background: #000;
-  color: #fff;
-}
-
-.hero-fragment.hero-button-color-brand-red .hero-button,
-.hero-fragment.hero-button-color-brand-red .hero-button-primary {
-  background: #c00;
-  color: #fff;
-}
-
-.hero-fragment.hero-button-color-brand-blue .hero-button,
-.hero-fragment.hero-button-color-brand-blue .hero-button-primary {
-  background: #0b5fff;
-  color: #fff;
-}
-
-.hero-fragment.hero-button-color-white .hero-button-secondary {
-  border-color: #fff;
-  color: #fff;
-}
-
-.hero-fragment.hero-button-color-black .hero-button-secondary {
-  border-color: #000;
-  color: #000;
-}
-
-.hero-fragment.hero-button-color-brand-red .hero-button-secondary {
-  border-color: #c00;
-  color: #c00;
-}
-
-.hero-fragment.hero-button-color-brand-blue .hero-button-secondary {
-  border-color: #0b5fff;
-  color: #0b5fff;
-}
-
 .hero-fragment-image-text {
   display: flex;
   flex-direction: column;
@@ -201,4 +157,50 @@
 .hero-fragment-without-media .hero-button-secondary,
 .hero-fragment-without-media .hero-banner-link {
   width: fit-content;
+}
+
+/* Button Color Styles - MUST COME AFTER BUTTON BASE STYLES */
+
+.hero-fragment.hero-button-color-white .hero-button,
+.hero-fragment.hero-button-color-white .hero-button-primary {
+  background: #fff;
+  color: #000;
+}
+
+.hero-fragment.hero-button-color-black .hero-button,
+.hero-fragment.hero-button-color-black .hero-button-primary {
+  background: #000;
+  color: #fff;
+}
+
+.hero-fragment.hero-button-color-brand-red .hero-button,
+.hero-fragment.hero-button-color-brand-red .hero-button-primary {
+  background: #c00;
+  color: #fff;
+}
+
+.hero-fragment.hero-button-color-brand-blue .hero-button,
+.hero-fragment.hero-button-color-brand-blue .hero-button-primary {
+  background: #0b5fff;
+  color: #fff;
+}
+
+.hero-fragment.hero-button-color-white .hero-button-secondary {
+  border-color: #fff;
+  color: #fff;
+}
+
+.hero-fragment.hero-button-color-black .hero-button-secondary {
+  border-color: #000;
+  color: #000;
+}
+
+.hero-fragment.hero-button-color-brand-red .hero-button-secondary {
+  border-color: #c00;
+  color: #c00;
+}
+
+.hero-fragment.hero-button-color-brand-blue .hero-button-secondary {
+  border-color: #0b5fff;
+  color: #0b5fff;
 }
