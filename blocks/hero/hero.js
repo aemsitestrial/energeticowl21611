@@ -49,6 +49,8 @@ function resetDynamicClasses(block) {
 
 function getFieldElement(block, name) {
   const byProp = block.querySelector(`[data-aue-prop="${name}"]`);
+
+  console.log(name, byProp);
   if (byProp) return byProp;
 
   const index = FIELD_ORDER.indexOf(name);
@@ -349,6 +351,13 @@ export default function decorate(block) {
   const buttonPosition = ['overlay', 'centered'].includes(heroType)
     ? (getText(block, 'buttonPosition') || (heroType === 'centered' ? 'center' : 'left'))
     : null;
+
+  console.log('heroType:', heroType);
+  console.log('backgroundColor:', backgroundColor);
+  console.log('textColor:', textColor);
+  console.log('buttonColor:', buttonColor);
+  console.log('imagePosition:', imagePosition);
+  console.log('buttonPosition:', buttonPosition);
 
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
   let fragments;
