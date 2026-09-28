@@ -71,6 +71,12 @@
             },
             {
               "name": "buttonColor"
+            },
+            {
+              "name": "imagePosition"
+            },
+            {
+              "name": "buttonPosition"
             }
           ]
         },
@@ -295,6 +301,31 @@
             { "name": "Black", "value": "black" },
             { "name": "Brand Red", "value": "brand-red" },
             { "name": "Brand Blue", "value": "brand-blue" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "imagePosition",
+          "label": "Image Position",
+          "description": "Only used by the Split Hero variant. Controls which side the image is on.",
+          "valueType": "string",
+          "condition": { "===": [{ "var": "heroType" }, "split"] },
+          "options": [
+            { "name": "Left", "value": "left" },
+            { "name": "Right", "value": "right" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "buttonPosition",
+          "label": "Button Position",
+          "description": "Only used by the Overlay and Centered Hero variants. Controls the horizontal alignment of the button(s).",
+          "valueType": "string",
+          "condition": { "in": [{ "var": "heroType" }, ["overlay", "centered"]] },
+          "options": [
+            { "name": "Left", "value": "left" },
+            { "name": "Center", "value": "center" },
+            { "name": "Right", "value": "right" }
           ]
         }
       ]

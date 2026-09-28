@@ -28,7 +28,24 @@ const FIELD_ORDER = [
   'backgroundColor',
   'textColor',
   'buttonColor',
+  'imagePosition',
+  'buttonPosition',
 ];
+
+// Every class that decorate() may add to the block based on authored style
+// fields. Must be stripped before re-applying so that re-decorating the same
+// block (e.g. editor live-preview updates) never leaves a stale variant or
+// style class behind, which is what causes style/variation changes to stop
+// visibly applying.
+const DYNAMIC_CLASS_PATTERN = /^hero-(split|overlay|centered|banner|text-|bg-|button-color-|image-|button-)/;
+
+function resetDynamicClasses(block) {
+  [...block.classList].forEach((className) => {
+    if (DYNAMIC_CLASS_PATTERN.test(className)) {
+      block.classList.remove(className);
+    }
+  });
+}
 
 function getFieldElement(block, name) {
   const byProp = block.querySelector(`[data-aue-prop="${name}"]`);
@@ -323,6 +340,15 @@ export default function decorate(block) {
   // Button color only applies to variants that render an actual button
   // (Overlay, Centered); it never affects the general text color.
   const buttonColor = ['overlay', 'centered'].includes(heroType) ? (getText(block, 'buttonColor') || 'white') : null;
+  // Image position only applies to the Split Hero, which is the only variant
+  // with a dedicated image column that can swap sides.
+  const imagePosition = heroType === 'split' ? (getText(block, 'imagePosition') || 'right') : null;
+  // Button position only applies to variants that render actual button(s)
+  // (Overlay, Centered). Falls back to each variant's original default
+  // alignment when the field hasn't been authored yet.
+  const buttonPosition = ['overlay', 'centered'].includes(heroType)
+    ? (getText(block, 'buttonPosition') || (heroType === 'centered' ? 'center' : 'left'))
+    : null;
 
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
   let fragments;
@@ -353,9 +379,17 @@ export default function decorate(block) {
     fragments = [];
   }
 
+  // Always clear previously applied variant/style classes first so that
+  // re-decorating an already-decorated block (e.g. editor style/variation
+  // changes) reflects the newly authored values instead of stacking on top
+  // of stale ones.
+  resetDynamicClasses(block);
+
   block.textContent = '';
   block.classList.add(`hero-${heroType}`, `hero-text-${textColor}`);
   if (backgroundColor) block.classList.add(`hero-bg-${backgroundColor}`);
   if (buttonColor) block.classList.add(`hero-button-color-${buttonColor}`);
+  if (imagePosition) block.classList.add(`hero-image-${imagePosition}`);
+  if (buttonPosition) block.classList.add(`hero-button-${buttonPosition}`);
   block.append(...fragments);
 }
