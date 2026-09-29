@@ -25,6 +25,9 @@ const FIELD_ORDER = [
   'secondaryButtonUrl',
   'bannerLinkText',
   'bannerLinkUrl',
+];
+
+const STYLE_FIELDS = [
   'backgroundColor',
   'textColor',
   'buttonColor',
@@ -50,25 +53,15 @@ function resetDynamicClasses(block) {
 function getFieldElement(block, name) {
   const byProp = block.querySelector(`[data-aue-prop="${name}"]`);
 
-  console.log(
-    'FIELD:',
-    name,
-    'FOUND BY PROP:',
-    byProp,
-  );
-
   if (byProp) {
     return byProp;
   }
 
-  const index = FIELD_ORDER.indexOf(name);
+  if (STYLE_FIELDS.includes(name)) {
+    return null;
+  }
 
-  console.log(
-    'FIELD:',
-    name,
-    'FALLBACK INDEX:',
-    index,
-  );
+  const index = FIELD_ORDER.indexOf(name);
 
   if (index === -1) {
     return null;
@@ -76,17 +69,18 @@ function getFieldElement(block, name) {
 
   const row = block.children[index];
 
-  console.log(
-    'FIELD:',
-    name,
-    'ROW:',
-    row,
-  );
-
   return row?.querySelector('p, h1, h2, h3, h4, h5, h6, a, img')
     || row?.firstElementChild
     || row
     || null;
+}
+
+function getStyleFieldValue(block, name, fallback = '') {
+  const field = block.querySelector(
+    `[data-aue-prop="${name}"]`,
+  );
+
+  return field?.textContent?.trim() || fallback;
 }
 
 function getText(block, name) {
@@ -372,51 +366,34 @@ function decorateBannerHero(block, titleType) {
 }
 
 export default function decorate(block) {
-  console.log('heroType:', getText(block, 'heroType'));
-  console.log('textColor:', getText(block, 'textColor'));
-  console.log('buttonColor:', getText(block, 'buttonColor'));
-  console.log('backgroundColor:', getText(block, 'backgroundColor'));
-  console.log('imagePosition:', getText(block, 'imagePosition'));
-  console.log('buttonPosition:', getText(block, 'buttonPosition'));
-
-  console.log('textColor element:', getFieldElement(block, 'textColor'));
-  console.log('buttonColor element:', getFieldElement(block, 'buttonColor'));
-  console.log('buttonPosition element:', getFieldElement(block, 'buttonPosition'));
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
-  const textColor = getText(block, 'textColor')
-    // || getStyleValue(block, 18)
-    || 'white';
+
+  const textColor = getStyleFieldValue(
+    block,
+    'textColor',
+    'white',
+  );
 
   // Background color only applies to the Split Hero; the other variants use
   // the authored image as their background instead.
-  const backgroundColor = heroType === 'split' ? (getText(block, 'backgroundColor') || 'black') : null;
-  // Button color only applies to variants that render an actual button
-  // (Overlay, Centered); it never affects the general text color.
+  const backgroundColor = heroType === 'split'
+    ? getStyleFieldValue(block, 'backgroundColor', 'black')
+    : null;
+
   const buttonColor = ['overlay', 'centered'].includes(heroType)
-    ? (
-      getText(block, 'buttonColor')
-      // || getStyleValue(block, 19)
-      || 'white'
-    )
+    ? getStyleFieldValue(block, 'buttonColor', 'white')
     : null;
-  // Image position only applies to the Split Hero, which is the only variant
-  // with a dedicated image column that can swap sides.
+
   const imagePosition = heroType === 'split'
-    ? (
-      getText(block, 'imagePosition')
-      // || getStyleValue(block, 20)
-      || 'right'
-    )
+    ? getStyleFieldValue(block, 'imagePosition', 'right')
     : null;
-  // Button position only applies to variants that render actual button(s)
-  // (Overlay, Centered). Falls back to each variant's original default
-  // alignment when the field hasn't been authored yet.
+
   const buttonPosition = ['overlay', 'centered'].includes(heroType)
-    ? (
-      getText(block, 'buttonPosition')
-      // || getStyleValue(block, 21)
-      || (heroType === 'centered' ? 'center' : 'left')
+    ? getStyleFieldValue(
+      block,
+      'buttonPosition',
+      heroType === 'centered' ? 'center' : 'left',
     )
     : null;
 
