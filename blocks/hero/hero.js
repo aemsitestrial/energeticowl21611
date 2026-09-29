@@ -50,17 +50,38 @@ function resetDynamicClasses(block) {
 function getFieldElement(block, name) {
   const byProp = block.querySelector(`[data-aue-prop="${name}"]`);
 
+  console.log(
+    'FIELD:',
+    name,
+    'FOUND BY PROP:',
+    byProp,
+  );
+
   if (byProp) {
     return byProp;
   }
 
   const index = FIELD_ORDER.indexOf(name);
 
+  console.log(
+    'FIELD:',
+    name,
+    'FALLBACK INDEX:',
+    index,
+  );
+
   if (index === -1) {
     return null;
   }
 
   const row = block.children[index];
+
+  console.log(
+    'FIELD:',
+    name,
+    'ROW:',
+    row,
+  );
 
   return row?.querySelector('p, h1, h2, h3, h4, h5, h6, a, img')
     || row?.firstElementChild
@@ -357,6 +378,10 @@ export default function decorate(block) {
   console.log('backgroundColor:', getText(block, 'backgroundColor'));
   console.log('imagePosition:', getText(block, 'imagePosition'));
   console.log('buttonPosition:', getText(block, 'buttonPosition'));
+
+  console.log('textColor element:', getFieldElement(block, 'textColor'));
+  console.log('buttonColor element:', getFieldElement(block, 'buttonColor'));
+  console.log('buttonPosition element:', getFieldElement(block, 'buttonPosition'));
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
   const textColor = getText(block, 'textColor')
