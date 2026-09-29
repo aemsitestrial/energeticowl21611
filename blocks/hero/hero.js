@@ -27,13 +27,13 @@ const FIELD_ORDER = [
   'bannerLinkUrl',
 ];
 
-const STYLE_FIELDS = [
-  'backgroundColor',
-  'textColor',
-  'buttonColor',
-  'imagePosition',
-  'buttonPosition',
-];
+// const STYLE_FIELDS = [
+//   'backgroundColor',
+//   'textColor',
+//   'buttonColor',
+//   'imagePosition',
+//   'buttonPosition',
+// ];
 
 // Every class that decorate() may add to the block based on authored style
 // fields. Must be stripped before re-applying so that re-decorating the same
@@ -55,10 +55,6 @@ function getFieldElement(block, name) {
 
   if (byProp) {
     return byProp;
-  }
-
-  if (STYLE_FIELDS.includes(name)) {
-    return null;
   }
 
   const index = FIELD_ORDER.indexOf(name);
@@ -112,9 +108,9 @@ function buildLink(block, textName, urlName) {
   link.href = url || '#';
 
   link.innerHTML = `
-    <span class="hero-link-label">${text || url}</span>
-    <span class="hero-link-arrow" aria-hidden="true">&rarr;</span>
-  `;
+      <span class="hero-link-label">${text || url}</span>
+      <span class="hero-link-arrow" aria-hidden="true">&rarr;</span>
+    `;
 
   if (textEl) {
     moveInstrumentation(textEl, link);
@@ -344,13 +340,13 @@ function decorateBannerHero(block, titleType) {
 
   if (text) {
     link.innerHTML = `
-      <span>${text}</span>
-      <span>&rarr;</span>
-    `;
+        <span>${text}</span>
+        <span>&rarr;</span>
+      `;
   } else {
     link.innerHTML = `
-      <span>&rarr;</span>
-    `;
+        <span>&rarr;</span>
+      `;
   }
 
   content.append(link);
@@ -430,6 +426,8 @@ export default function decorate(block) {
   // re-decorating an already-decorated block (e.g. editor style/variation
   // changes) reflects the newly authored values instead of stacking on top
   // of stale ones.
+  console.log('Hero classes before decorate:', block.className);
+  console.log('Hero block HTML:', block.innerHTML);
   resetDynamicClasses(block);
 
   block.textContent = '';
