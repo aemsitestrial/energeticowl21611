@@ -351,6 +351,12 @@ function decorateBannerHero(block, titleType) {
 }
 
 export default function decorate(block) {
+  console.log('heroType:', getText(block, 'heroType'));
+  console.log('textColor:', getText(block, 'textColor'));
+  console.log('buttonColor:', getText(block, 'buttonColor'));
+  console.log('backgroundColor:', getText(block, 'backgroundColor'));
+  console.log('imagePosition:', getText(block, 'imagePosition'));
+  console.log('buttonPosition:', getText(block, 'buttonPosition'));
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
   const textColor = getText(block, 'textColor')
