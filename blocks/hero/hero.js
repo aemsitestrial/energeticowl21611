@@ -426,7 +426,6 @@ export default function decorate(block) {
   console.log('imagePosition:', imagePosition);
   console.log('buttonPosition:', buttonPosition);
 
-
   if (textColor) block.classList.add(textColor);
   if (backgroundColor) block.classList.add(backgroundColor);
   if (buttonColor) block.classList.add(buttonColor);
