@@ -27,13 +27,13 @@ const FIELD_ORDER = [
   'bannerLinkUrl',
 ];
 
-const STYLE_FIELDS = [
-  'backgroundColor',
-  'textColor',
-  'buttonColor',
-  'imagePosition',
-  'buttonPosition',
-];
+// const STYLE_FIELDS = [
+//   'backgroundColor',
+//   'textColor',
+//   'buttonColor',
+//   'imagePosition',
+//   'buttonPosition',
+// ];
 
 // Every class that decorate() may add to the block based on authored style
 // fields. Must be stripped before re-applying so that re-decorating the same
