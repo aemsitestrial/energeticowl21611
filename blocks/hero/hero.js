@@ -25,6 +25,11 @@ const FIELD_ORDER = [
   'secondaryButtonUrl',
   'bannerLinkText',
   'bannerLinkUrl',
+  'backgroundColor',
+  'textColor',
+  'buttonColor',
+  'imagePosition',
+  'buttonPosition',
 ];
 
 // const STYLE_FIELDS = [
@@ -69,46 +74,6 @@ function getFieldElement(block, name) {
     || row?.firstElementChild
     || row
     || null;
-}
-
-function getStyleFieldElement(block, name) {
-  const byProp = block.querySelector(
-    `[data-aue-prop="${name}"]`,
-  );
-
-  if (byProp) {
-    return byProp;
-  }
-
-  const styleFields = [
-    'backgroundColor',
-    'textColor',
-    'buttonColor',
-    'imagePosition',
-    'buttonPosition',
-  ];
-
-  const styleFieldIndex = styleFields.indexOf(name);
-
-  if (styleFieldIndex === -1) {
-    return null;
-  }
-
-  const row = block.children[
-    FIELD_ORDER.length + styleFieldIndex
-  ];
-
-  return row?.querySelector('p')
-    || row?.firstElementChild
-    || row
-    || null;
-}
-function getStyleFieldValue(block, name, fallback = '') {
-  const field = getStyleFieldElement(block, name);
-
-  console.log(`Style field ${name}:`, field);
-
-  return field?.textContent?.trim() || fallback;
 }
 
 function getText(block, name) {
@@ -397,32 +362,22 @@ export default function decorate(block) {
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
 
-  const textColor = getStyleFieldValue(
-    block,
-    'textColor',
-    'white',
-  );
+  const textColor = getText(block, 'textColor');
 
-  // Background color only applies to the Split Hero; the other variants use
-  // the authored image as their background instead.
   const backgroundColor = heroType === 'split'
-    ? getStyleFieldValue(block, 'backgroundColor', 'black')
+    ? getText(block, 'backgroundColor')
     : null;
 
   const buttonColor = ['overlay', 'centered'].includes(heroType)
-    ? getStyleFieldValue(block, 'buttonColor', 'white')
+    ? getText(block, 'buttonColor')
     : null;
 
   const imagePosition = heroType === 'split'
-    ? getStyleFieldValue(block, 'imagePosition', 'right')
+    ? getText(block, 'imagePosition')
     : null;
 
   const buttonPosition = ['overlay', 'centered'].includes(heroType)
-    ? getStyleFieldValue(
-      block,
-      'buttonPosition',
-      heroType === 'centered' ? 'center' : 'left',
-    )
+    ? getText(block, 'buttonPosition')
     : null;
 
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
@@ -456,21 +411,20 @@ export default function decorate(block) {
 
   // Always clear previously applied variant/style classes first so that
   // re-decorating an already-decorated block (e.g. editor style/variation
+
   // changes) reflects the newly authored values instead of stacking on top
   // of stale ones.
-  console.log('Hero classes before decorate:', block.className);
-  console.log('Hero block HTML:', block.innerHTML);
+
   resetDynamicClasses(block);
 
   block.textContent = '';
-  console.log('textColor', textColor);
-  console.log('backgroundColor', backgroundColor);
-  console.log('buttonColor', buttonColor);
-  console.log('buttonPosition', buttonPosition);
-  block.classList.add(`hero-${heroType}`, `hero-text-${textColor}`);
-  if (backgroundColor) block.classList.add(`hero-bg-${backgroundColor}`);
-  if (buttonColor) block.classList.add(`hero-button-color-${buttonColor}`);
-  if (imagePosition) block.classList.add(`hero-image-${imagePosition}`);
-  if (buttonPosition) block.classList.add(`hero-button-${buttonPosition}`);
+
+  block.classList.add(`hero-${heroType}`);
+
+  if (textColor) block.classList.add(textColor);
+  if (backgroundColor) block.classList.add(backgroundColor);
+  if (buttonColor) block.classList.add(buttonColor);
+  if (imagePosition) block.classList.add(imagePosition);
+  if (buttonPosition) block.classList.add(buttonPosition);
   block.append(...fragments);
 }

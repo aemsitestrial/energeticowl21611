@@ -264,68 +264,147 @@
           "component": "select",
           "name": "backgroundColor",
           "label": "Background Color",
-          "description": "Only used by the Split Hero variant. The other variants use the image as background.",
           "valueType": "string",
-          "value": "black",
-          "condition": { "===": [{ "var": "heroType" }, "split"] },
+          "value": "hero-bg-black",
+          "condition": {
+            "===": [
+              {
+                "var": "heroType"
+              },
+              "split"
+            ]
+          },
           "options": [
-            { "name": "Black", "value": "black" },
-            { "name": "White", "value": "white" },
-            { "name": "Dark Gray", "value": "dark-gray" },
-            { "name": "Brand Red", "value": "brand-red" },
-            { "name": "Brand Blue", "value": "brand-blue" }
+            {
+              "name": "Black",
+              "value": "hero-bg-black"
+            },
+            {
+              "name": "White",
+              "value": "hero-bg-white"
+            },
+            {
+              "name": "Dark Gray",
+              "value": "hero-bg-dark-gray"
+            },
+            {
+              "name": "Brand Red",
+              "value": "hero-bg-brand-red"
+            },
+            {
+              "name": "Brand Blue",
+              "value": "hero-bg-brand-blue"
+            }
           ]
         },
         {
           "component": "select",
           "name": "textColor",
           "label": "Text Color",
-          "description": "Applies to the overline, title, description and link text (not buttons).",
           "valueType": "string",
-          "value": "white",
+          "value": "hero-text-white",
           "options": [
-            { "name": "White", "value": "white" },
-            { "name": "Black", "value": "black" }
+            {
+              "name": "White",
+              "value": "hero-text-white"
+            },
+            {
+              "name": "Black",
+              "value": "hero-text-black"
+            }
           ]
         },
         {
           "component": "select",
           "name": "buttonColor",
           "label": "Button Color",
-          "description": "Only used by the Overlay and Centered Hero variants.",
           "valueType": "string",
-          "value": "white",
-          "condition": { "in": [{ "var": "heroType" }, ["overlay", "centered"]] },
+          "value": "hero-button-color-white",
+          "condition": {
+            "in": [
+              {
+                "var": "heroType"
+              },
+              [
+                "overlay",
+                "centered"
+              ]
+            ]
+          },
           "options": [
-            { "name": "White", "value": "white" },
-            { "name": "Black", "value": "black" },
-            { "name": "Brand Red", "value": "brand-red" },
-            { "name": "Brand Blue", "value": "brand-blue" }
+            {
+              "name": "White",
+              "value": "hero-button-color-white"
+            },
+            {
+              "name": "Black",
+              "value": "hero-button-color-black"
+            },
+            {
+              "name": "Brand Red",
+              "value": "hero-button-color-brand-red"
+            },
+            {
+              "name": "Brand Blue",
+              "value": "hero-button-color-brand-blue"
+            }
           ]
         },
-        {
+       {
           "component": "select",
           "name": "imagePosition",
           "label": "Image Position",
-          "description": "Only used by the Split Hero variant. Controls which side the image is on.",
           "valueType": "string",
-          "condition": { "===": [{ "var": "heroType" }, "split"] },
+          "value": "hero-image-right",
+          "condition": {
+            "===": [
+              {
+                "var": "heroType"
+              },
+              "split"
+            ]
+          },
           "options": [
-            { "name": "Left", "value": "left" },
-            { "name": "Right", "value": "right" }
+            {
+              "name": "Left",
+              "value": "hero-image-left"
+            },
+            {
+              "name": "Right",
+              "value": "hero-image-right"
+            }
           ]
         },
         {
           "component": "select",
           "name": "buttonPosition",
           "label": "Button Position",
-          "description": "Only used by the Overlay and Centered Hero variants. Controls the horizontal alignment of the button(s).",
           "valueType": "string",
-          "condition": { "in": [{ "var": "heroType" }, ["overlay", "centered"]] },
+          "value": "hero-button-center",
+          "condition": {
+            "in": [
+              {
+                "var": "heroType"
+              },
+              [
+                "overlay",
+                "centered"
+              ]
+            ]
+          },
           "options": [
-            { "name": "Left", "value": "left" },
-            { "name": "Center", "value": "center" },
-            { "name": "Right", "value": "right" }
+            {
+              "name": "Left",
+              "value": "hero-button-left"
+            },
+            {
+              "name": "Center",
+              "value": "hero-button-center"
+            },
+            {
+              "name": "Right",
+              "value": "hero-button-right"
+            }
           ]
         }
       ]
