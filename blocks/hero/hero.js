@@ -80,13 +80,33 @@ function getStyleFieldElement(block, name) {
     return byProp;
   }
 
-  return block.querySelector(
-    `[data-style-prop="${name}"]`,
-  );
-}
+  const styleFields = [
+    'backgroundColor',
+    'textColor',
+    'buttonColor',
+    'imagePosition',
+    'buttonPosition',
+  ];
 
+  const styleFieldIndex = styleFields.indexOf(name);
+
+  if (styleFieldIndex === -1) {
+    return null;
+  }
+
+  const row = block.children[
+    FIELD_ORDER.length + styleFieldIndex
+  ];
+
+  return row?.querySelector('p')
+    || row?.firstElementChild
+    || row
+    || null;
+}
 function getStyleFieldValue(block, name, fallback = '') {
   const field = getStyleFieldElement(block, name);
+
+  console.log(`Style field ${name}:`, field);
 
   return field?.textContent?.trim() || fallback;
 }
