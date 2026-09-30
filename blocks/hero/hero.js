@@ -27,13 +27,13 @@ const FIELD_ORDER = [
   'bannerLinkUrl',
 ];
 
-// const STYLE_FIELDS = [
-//   'backgroundColor',
-//   'textColor',
-//   'buttonColor',
-//   'imagePosition',
-//   'buttonPosition',
-// ];
+const STYLE_FIELDS = [
+  'backgroundColor',
+  'textColor',
+  'buttonColor',
+  'imagePosition',
+  'buttonPosition',
+];
 
 // Every class that decorate() may add to the block based on authored style
 // fields. Must be stripped before re-applying so that re-decorating the same
@@ -71,10 +71,22 @@ function getFieldElement(block, name) {
     || null;
 }
 
-function getStyleFieldValue(block, name, fallback = '') {
-  const field = block.querySelector(
+function getStyleFieldElement(block, name) {
+  const byProp = block.querySelector(
     `[data-aue-prop="${name}"]`,
   );
+
+  if (byProp) {
+    return byProp;
+  }
+
+  return block.querySelector(
+    `[data-style-prop="${name}"]`,
+  );
+}
+
+function getStyleFieldValue(block, name, fallback = '') {
+  const field = getStyleFieldElement(block, name);
 
   return field?.textContent?.trim() || fallback;
 }
@@ -431,6 +443,10 @@ export default function decorate(block) {
   resetDynamicClasses(block);
 
   block.textContent = '';
+  console.log('textColor', textColor);
+  console.log('backgroundColor', backgroundColor);
+  console.log('buttonColor', buttonColor);
+  console.log('buttonPosition', buttonPosition);
   block.classList.add(`hero-${heroType}`, `hero-text-${textColor}`);
   if (backgroundColor) block.classList.add(`hero-bg-${backgroundColor}`);
   if (buttonColor) block.classList.add(`hero-button-color-${buttonColor}`);
