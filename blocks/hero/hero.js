@@ -420,6 +420,12 @@ export default function decorate(block) {
   block.textContent = '';
 
   block.classList.add(`hero-${heroType}`);
+  console.log('textColor:', textColor);
+  console.log('backgroundColor:', backgroundColor);
+  console.log('buttonColor:', buttonColor);
+  console.log('imagePosition:', imagePosition);
+  console.log('buttonPosition:', buttonPosition);
+
 
   if (textColor) block.classList.add(textColor);
   if (backgroundColor) block.classList.add(backgroundColor);
