@@ -1,0 +1,80 @@
+{
+  "definitions": [
+    {
+      "title": "Home Hero",
+      "id": "home-hero",
+      "plugins": {
+        "da": {
+          "fields": [
+            { "name": "heroIcon" },
+            { "name": "eyebrowText" },
+            { "name": "heading" },
+            { "name": "ctaText" },
+            { "name": "ctaLink" },
+            { "name": "heroImage" },
+            { "name": "heroImageAlt" }
+          ]
+        },
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Home Hero",
+              "model": "home-hero"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "home-hero",
+      "fields": [
+        {
+          "component": "reference",
+          "name": "heroIcon",
+          "label": "Hero Icon",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "eyebrowText",
+          "label": "Eyebrow Text",
+          "valueType": "string"
+        },
+        {
+          "component": "textarea",
+          "name": "heading",
+          "label": "Heading",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "ctaText",
+          "label": "CTA Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "ctaLink",
+          "label": "CTA Link",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "name": "heroImage",
+          "label": "Hero Image",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "heroImageAlt",
+          "label": "Hero Image Alt Text",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

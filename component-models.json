@@ -5835,6 +5835,53 @@
     ]
   },
   {
+    "id": "home-hero",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "heroIcon",
+        "label": "Hero Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "eyebrowText",
+        "label": "Eyebrow Text",
+        "valueType": "string"
+      },
+      {
+        "component": "textarea",
+        "name": "heading",
+        "label": "Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLink",
+        "label": "CTA Link",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "heroImage",
+        "label": "Hero Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "heroImageAlt",
+        "label": "Hero Image Alt Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "list",
     "fields": [
       {
