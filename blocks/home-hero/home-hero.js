@@ -9,15 +9,13 @@ function getTextValue(block, name, defaultValue = '') {
 }
 
 function getContent(block) {
-  console.log(block.children[2]);
-
   return {
-    heroIcon: getFieldElement(block, 'heroIcon')?.querySelector('img'),
+    heroIcon: getFieldElement(block, 'heroIcon'),
     eyebrowText: getTextValue(block, 'eyebrowText'),
     heading: block.children[2]?.textContent?.trim() || '',
     ctaText: getTextValue(block, 'ctaText'),
     ctaLink: getTextValue(block, 'ctaLink'),
-    heroImage: getFieldElement(block, 'heroImage')?.querySelector('img'),
+    heroImage: getFieldElement(block, 'heroImage'),
     heroImageAlt: getTextValue(block, 'heroImageAlt'),
   };
 }
@@ -104,6 +102,8 @@ function createVisualSection(content) {
 
 export default async function decorate(block) {
   const content = getContent(block);
+  console.log(content.heroIcon);
+  console.log(content.heroImage);
   console.log(block.innerHTML);
   block.textContent = '';
   block.classList.add('home-hero');
