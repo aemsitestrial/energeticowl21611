@@ -9,14 +9,12 @@ function getTextValue(block, name, defaultValue = '') {
 }
 
 function getContent(block) {
-  console.log('heroIcon', getFieldElement(block, 'heroIcon'));
-  console.log('heroImage', getFieldElement(block, 'heroImage'));
-  console.log('heading', getFieldElement(block, 'heading'));
+  console.log(block.children[2]);
 
   return {
     heroIcon: getFieldElement(block, 'heroIcon')?.querySelector('img'),
     eyebrowText: getTextValue(block, 'eyebrowText'),
-    heading: getTextValue(block, 'heading'),
+    heading: block.children[2]?.textContent?.trim() || '',
     ctaText: getTextValue(block, 'ctaText'),
     ctaLink: getTextValue(block, 'ctaLink'),
     heroImage: getFieldElement(block, 'heroImage')?.querySelector('img'),
@@ -24,6 +22,8 @@ function getContent(block) {
   };
 }
 function createContentSection(content) {
+  console.log(content.heroIcon);
+  console.log(content.heroImage);
   const slot = document.createElement('div');
   slot.className = 'home-hero-slot';
 
@@ -80,6 +80,8 @@ function createContentSection(content) {
 }
 
 function createVisualSection(content) {
+  console.log(content.heroIcon);
+  console.log(content.heroImage);
   const slot = document.createElement('div');
   slot.className = 'home-hero-slot2';
 
