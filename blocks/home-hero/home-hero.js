@@ -9,6 +9,10 @@ function getTextValue(block, name, defaultValue = '') {
 }
 
 function getContent(block) {
+  console.log('heroIcon', getFieldElement(block, 'heroIcon'));
+  console.log('heroImage', getFieldElement(block, 'heroImage'));
+  console.log('heading', getFieldElement(block, 'heading'));
+
   return {
     heroIcon: getFieldElement(block, 'heroIcon')?.querySelector('img'),
     eyebrowText: getTextValue(block, 'eyebrowText'),
@@ -19,7 +23,6 @@ function getContent(block) {
     heroImageAlt: getTextValue(block, 'heroImageAlt'),
   };
 }
-
 function createContentSection(content) {
   const slot = document.createElement('div');
   slot.className = 'home-hero-slot';
@@ -99,7 +102,7 @@ function createVisualSection(content) {
 
 export default async function decorate(block) {
   const content = getContent(block);
-
+  console.log(block.innerHTML);
   block.textContent = '';
   block.classList.add('home-hero');
 
