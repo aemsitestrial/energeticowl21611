@@ -298,6 +298,8 @@ function decorateCenteredHero(block, titleType) {
 
 /** variant-4 */
 function decorateBannerHero(block, titleType) {
+  const fields = getContent(block);
+
   const content = document.createElement('div');
   content.className = 'hero-banner-content';
 
@@ -307,36 +309,28 @@ function decorateBannerHero(block, titleType) {
     content.append(heading);
   }
 
-  const descriptionEl = getFieldElement(block, 'description');
+  const descriptionEl = fields.description;
 
   if (descriptionEl?.textContent?.trim()) {
     const description = document.createElement('div');
     description.className = 'hero-description';
     description.innerHTML = descriptionEl.innerHTML;
 
-    moveInstrumentation(descriptionEl, description);
-
     content.append(description);
   }
 
-  const link = document.createElement('a');
+  const text = fields.bannerLinkText?.textContent?.trim();
+  const url = fields.bannerLinkUrl?.href;
 
-  const text = getText(block, 'bannerLinkText');
-  const url = getText(block, 'bannerLinkUrl');
+  const link = document.createElement('a');
 
   link.className = 'hero-banner-link';
   link.href = url || '#';
 
-  if (text) {
-    link.innerHTML = `
-        <span>${text}</span>
-        <span>&rarr;</span>
-      `;
-  } else {
-    link.innerHTML = `
-        <span>&rarr;</span>
-      `;
-  }
+  link.innerHTML = `
+    <span>${text || 'Link'}</span>
+    <span>&rarr;</span>
+  `;
 
   content.append(link);
 
