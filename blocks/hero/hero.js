@@ -31,24 +31,62 @@ function getText(block, name) {
   return field?.textContent?.trim() || '';
 }
 
+function getContent(block) {
+  const rows = [...block.children];
+
+  return {
+    heroType: rows[0]?.textContent?.trim(),
+
+    overline: rows[1]?.querySelector('[data-aue-prop="overline"]'),
+
+    title: rows[2]?.querySelector('[data-aue-prop="title"]'),
+
+    description: rows[3]?.querySelector('p'),
+
+    image: rows[4]?.querySelector('img'),
+
+    link1Text: rows[5]?.querySelector('[data-aue-prop="link1Text"]'),
+    link1Url: rows[6]?.querySelector('a'),
+
+    link2Text: rows[7]?.querySelector('[data-aue-prop="link2Text"]'),
+    link2Url: rows[8]?.querySelector('a'),
+
+    buttonText: rows[9]?.querySelector('[data-aue-prop="buttonText"]'),
+    buttonUrl: rows[10]?.querySelector('a'),
+
+    primaryButtonText: rows[11]?.querySelector('[data-aue-prop="primaryButtonText"]'),
+    primaryButtonUrl: rows[12]?.querySelector('a'),
+
+    secondaryButtonText: rows[13]?.querySelector('[data-aue-prop="secondaryButtonText"]'),
+    secondaryButtonUrl: rows[14]?.querySelector('a'),
+
+    bannerLinkText: rows[15]?.querySelector('[data-aue-prop="bannerLinkText"]'),
+    bannerLinkUrl: rows[16]?.querySelector('a'),
+
+    backgroundColor: rows[17]?.textContent?.trim(),
+    textColor: rows[18]?.textContent?.trim(),
+    buttonColor: rows[19]?.textContent?.trim(),
+    imagePosition: rows[20]?.textContent?.trim(),
+    buttonPosition: rows[21]?.textContent?.trim(),
+  };
+}
+
 // function getStyleValue(block, fallbackIndex) {
 //   return block.children[fallbackIndex]
 //     ?.textContent
 //     ?.trim();
 // }
 
-function buildLink(block, textName, urlName) {
-  const textEl = getFieldElement(block, textName);
-  const urlEl = getFieldElement(block, urlName);
-
+function buildLink(textEl, urlEl) {
   const text = textEl?.textContent?.trim();
-  const url = urlEl?.textContent?.trim();
+  const url = urlEl?.href;
 
   if (!text && !url) {
     return null;
   }
 
   const link = document.createElement('a');
+
   link.className = 'hero-link';
   link.href = url || '#';
 
@@ -59,10 +97,6 @@ function buildLink(block, textName, urlName) {
 
   if (textEl) {
     moveInstrumentation(textEl, link);
-  }
-
-  if (urlEl) {
-    moveInstrumentation(urlEl, link);
   }
 
   return link;
@@ -86,21 +120,10 @@ function buildHeading(block, titleType) {
  * Layout: text column (overline, title, description, links) + image column
  */
 function decorateSplitHero(block, titleType) {
+  const fields = getContent(block);
+
   const content = document.createElement('div');
   content.className = 'hero-content';
-  console.log(
-    'description',
-    getFieldElement(block, 'description'),
-  );
-  console.log(
-    'link1Url',
-    getFieldElement(block, 'link1Url')?.textContent,
-  );
-
-  console.log(
-    'link2Url',
-    getFieldElement(block, 'link2Url')?.textContent,
-  );
   const overline = getFieldElement(block, 'overline');
   if (overline?.textContent?.trim()) {
     overline.classList.add('hero-overline');
@@ -110,21 +133,20 @@ function decorateSplitHero(block, titleType) {
   const heading = buildHeading(block, titleType);
   if (heading) content.append(heading);
 
-  const descriptionEl = [...block.querySelectorAll('p')]
-    .find((p) => !p.hasAttribute('data-aue-prop'));
+  const descriptionEl = fields.description;
 
   if (descriptionEl?.textContent?.trim()) {
     const description = document.createElement('div');
+
     description.className = 'hero-description';
     description.innerHTML = descriptionEl.innerHTML;
 
-    moveInstrumentation(descriptionEl, description);
     content.append(description);
   }
 
   const links = [
-    buildLink(block, 'link1Text', 'link1Url'),
-    buildLink(block, 'link2Text', 'link2Url'),
+    buildLink(fields.link1Text, fields.link1Url),
+    buildLink(fields.link2Text, fields.link2Url),
   ].filter(Boolean);
 
   if (links.length) {
@@ -324,32 +346,16 @@ function decorateBannerHero(block, titleType) {
 }
 
 export default function decorate(block) {
-  console.log(
-    [...block.querySelectorAll('[data-aue-prop]')].map(
-      (el) => el.getAttribute('data-aue-prop'),
-    ),
-  );
-  console.log(block.innerHTML);
-  const heroType = getText(block, 'heroType') || 'split';
+  const fields = getContent(block);
+  const heroType = fields.heroType || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
 
-  const textColor = getText(block, 'textColor');
+  const { textColor } = fields;
 
-  const backgroundColor = heroType === 'split'
-    ? getText(block, 'backgroundColor')
-    : null;
-
-  const buttonColor = ['overlay', 'centered'].includes(heroType)
-    ? getText(block, 'buttonColor')
-    : null;
-
-  const imagePosition = heroType === 'split'
-    ? getText(block, 'imagePosition')
-    : null;
-
-  const buttonPosition = ['overlay', 'centered'].includes(heroType)
-    ? getText(block, 'buttonPosition')
-    : null;
+  const { backgroundColor } = fields;
+  const { buttonColor } = fields;
+  const { imagePosition } = fields;
+  const { buttonPosition } = fields;
 
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
   let fragments;
