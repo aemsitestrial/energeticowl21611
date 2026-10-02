@@ -299,7 +299,8 @@ function decorateCenteredHero(block, titleType) {
 /** variant-4 */
 function decorateBannerHero(block, titleType) {
   const fields = getContent(block);
-
+  console.log('Banner URL Element:', fields.bannerLinkUrl);
+  console.log('Banner href:', fields.bannerLinkUrl?.href);
   const content = document.createElement('div');
   content.className = 'hero-banner-content';
 
@@ -326,6 +327,8 @@ function decorateBannerHero(block, titleType) {
 
   link.className = 'hero-banner-link';
   link.href = url || '#';
+
+  console.log('Rendered href:', link.href);
 
   link.innerHTML = `
     <span>${text || 'Link'}</span>
