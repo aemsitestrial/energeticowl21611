@@ -230,6 +230,8 @@ function decorateOverlayHero(block, titleType) {
 
 /** variant-3 */
 function decorateCenteredHero(block, titleType) {
+  const fields = getContent(block);
+
   const content = document.createElement('div');
   content.className = 'hero-centered-content';
 
@@ -239,14 +241,12 @@ function decorateCenteredHero(block, titleType) {
     content.append(heading);
   }
 
-  const descriptionEl = getFieldElement(block, 'description');
+  const descriptionEl = fields.description;
 
   if (descriptionEl?.textContent?.trim()) {
     const description = document.createElement('div');
     description.className = 'hero-description';
     description.innerHTML = descriptionEl.innerHTML;
-
-    moveInstrumentation(descriptionEl, description);
 
     content.append(description);
   }
@@ -255,15 +255,13 @@ function decorateCenteredHero(block, titleType) {
   actions.className = 'hero-actions';
 
   const primaryButton = buildLink(
-    block,
-    'primaryButtonText',
-    'primaryButtonUrl',
+    fields.primaryButtonText,
+    fields.primaryButtonUrl,
   );
 
   const secondaryButton = buildLink(
-    block,
-    'secondaryButtonText',
-    'secondaryButtonUrl',
+    fields.secondaryButtonText,
+    fields.secondaryButtonUrl,
   );
 
   if (primaryButton) {
@@ -271,6 +269,7 @@ function decorateCenteredHero(block, titleType) {
       'hero-button',
       'hero-button-primary',
     );
+
     actions.append(primaryButton);
   }
 
@@ -279,6 +278,7 @@ function decorateCenteredHero(block, titleType) {
       'hero-button',
       'hero-button-secondary',
     );
+
     actions.append(secondaryButton);
   }
 
