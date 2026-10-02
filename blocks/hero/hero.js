@@ -40,6 +40,7 @@ function getContent(block) {
     overline: rows[1]?.querySelector('[data-aue-prop="overline"]'),
 
     title: rows[2]?.querySelector('[data-aue-prop="title"]'),
+    titleType: rows[11]?.textContent?.trim(),
 
     description: rows[3]?.querySelector('p'),
 
@@ -349,6 +350,7 @@ export default function decorate(block) {
   const fields = getContent(block);
   const heroType = fields.heroType || 'split';
   const titleType = fields.titleType || 'h1';
+  console.log('heroType:', heroType);
 
   const { textColor } = fields;
 
