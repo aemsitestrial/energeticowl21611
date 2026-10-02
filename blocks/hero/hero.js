@@ -186,6 +186,8 @@ function decorateSplitHero(block, titleType) {
 
 /** variant-2 */
 function decorateOverlayHero(block, titleType) {
+  const fields = getContent(block);
+
   const content = document.createElement('div');
   content.className = 'hero-overlay-content';
 
@@ -195,19 +197,21 @@ function decorateOverlayHero(block, titleType) {
     content.append(heading);
   }
 
-  const descriptionEl = getFieldElement(block, 'description');
+  const descriptionEl = fields.description;
 
   if (descriptionEl?.textContent?.trim()) {
     const description = document.createElement('div');
+
     description.className = 'hero-description';
     description.innerHTML = descriptionEl.innerHTML;
-
-    moveInstrumentation(descriptionEl, description);
 
     content.append(description);
   }
 
-  const button = buildLink(block, 'buttonText', 'buttonUrl');
+  const button = buildLink(
+    fields.buttonText,
+    fields.buttonUrl,
+  );
 
   if (button) {
     button.classList.add('hero-button');
