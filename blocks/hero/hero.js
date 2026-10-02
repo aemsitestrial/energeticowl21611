@@ -110,7 +110,8 @@ function decorateSplitHero(block, titleType) {
   const heading = buildHeading(block, titleType);
   if (heading) content.append(heading);
 
-  const descriptionEl = getFieldElement(block, 'description');
+  const descriptionEl = [...block.querySelectorAll('p')]
+    .find((p) => !p.hasAttribute('data-aue-prop'));
 
   if (descriptionEl?.textContent?.trim()) {
     const description = document.createElement('div');
