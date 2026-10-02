@@ -55,11 +55,13 @@ function getContent(block) {
     buttonText: rows[9]?.querySelector('[data-aue-prop="buttonText"]'),
     buttonUrl: rows[10]?.querySelector('a'),
 
+    primaryButtonText: rows[11]?.querySelector('[data-aue-prop="primaryButtonText"]'),
     primaryButtonUrl: rows[12]?.querySelector('a')
-    || rows[12]?.querySelector('p'),
+      || rows[12]?.querySelector('p'),
 
+    secondaryButtonText: rows[13]?.querySelector('[data-aue-prop="secondaryButtonText"]'),
     secondaryButtonUrl: rows[14]?.querySelector('a')
-    || rows[14]?.querySelector('p'),
+      || rows[14]?.querySelector('p'),
 
     bannerLinkText: block.querySelector(
       '[data-aue-prop="bannerLinkText"]',
