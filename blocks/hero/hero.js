@@ -5,40 +5,6 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 // Mirrors the model's field order (`tab` separators are UI-only and do not
 // produce a row), used as a resilient fallback when `data-aue-prop` isn't
 // present (e.g. on the published/preview site, outside the editor canvas).
-const FIELD_ORDER = [
-  'heroType',
-  'overline',
-  'title',
-  'description',
-  'image',
-  'imageAlt',
-  'link1Text',
-  'link1Url',
-  'link2Text',
-  'link2Url',
-  'titleType',
-  'buttonText',
-  'buttonUrl',
-  'primaryButtonText',
-  'primaryButtonUrl',
-  'secondaryButtonText',
-  'secondaryButtonUrl',
-  'bannerLinkText',
-  'bannerLinkUrl',
-  'backgroundColor',
-  'textColor',
-  'buttonColor',
-  'imagePosition',
-  'buttonPosition',
-];
-
-// const STYLE_FIELDS = [
-//   'backgroundColor',
-//   'textColor',
-//   'buttonColor',
-//   'imagePosition',
-//   'buttonPosition',
-// ];
 
 // Every class that decorate() may add to the block based on authored style
 // fields. Must be stripped before re-applying so that re-decorating the same
@@ -56,34 +22,13 @@ function resetDynamicClasses(block) {
 }
 
 function getFieldElement(block, name) {
-  const byProp = block.querySelector(`[data-aue-prop="${name}"]`);
-
-  if (byProp) {
-    return byProp;
-  }
-
-  const index = FIELD_ORDER.indexOf(name);
-
-  if (index === -1) {
-    return null;
-  }
-
-  const row = block.children[index];
-
-  return row?.querySelector('p, h1, h2, h3, h4, h5, h6, a, img')
-    || row?.firstElementChild
-    || row
-    || null;
+  return block.querySelector(`[data-aue-prop="${name}"]`);
 }
 
 function getText(block, name) {
   const field = getFieldElement(block, name);
 
-  if (field) {
-    return field.textContent?.trim() || '';
-  }
-
-  return '';
+  return field?.textContent?.trim() || '';
 }
 
 // function getStyleValue(block, fallbackIndex) {
@@ -95,22 +40,29 @@ function getText(block, name) {
 function buildLink(block, textName, urlName) {
   const textEl = getFieldElement(block, textName);
   const urlEl = getFieldElement(block, urlName);
+
   const text = textEl?.textContent?.trim();
   const url = urlEl?.textContent?.trim();
 
-  if (!text && !url) return null;
+  if (!text && !url) {
+    return null;
+  }
 
   const link = document.createElement('a');
   link.className = 'hero-link';
   link.href = url || '#';
 
   link.innerHTML = `
-      <span class="hero-link-label">${text || url}</span>
-      <span class="hero-link-arrow" aria-hidden="true">&rarr;</span>
-    `;
+    <span class="hero-link-label">${text || url}</span>
+    <span class="hero-link-arrow" aria-hidden="true">&rarr;</span>
+  `;
 
   if (textEl) {
     moveInstrumentation(textEl, link);
+  }
+
+  if (urlEl) {
+    moveInstrumentation(urlEl, link);
   }
 
   return link;
@@ -136,7 +88,15 @@ function buildHeading(block, titleType) {
 function decorateSplitHero(block, titleType) {
   const content = document.createElement('div');
   content.className = 'hero-content';
+  console.log(
+    'link1Url',
+    getFieldElement(block, 'link1Url')?.textContent,
+  );
 
+  console.log(
+    'link2Url',
+    getFieldElement(block, 'link2Url')?.textContent,
+  );
   const overline = getFieldElement(block, 'overline');
   if (overline?.textContent?.trim()) {
     overline.classList.add('hero-overline');
