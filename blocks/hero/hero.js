@@ -89,6 +89,10 @@ function decorateSplitHero(block, titleType) {
   const content = document.createElement('div');
   content.className = 'hero-content';
   console.log(
+    'description',
+    getFieldElement(block, 'description'),
+  );
+  console.log(
     'link1Url',
     getFieldElement(block, 'link1Url')?.textContent,
   );
