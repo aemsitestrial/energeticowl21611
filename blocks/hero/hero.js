@@ -235,6 +235,12 @@ function decorateOverlayHero(block, titleType) {
 /** variant-3 */
 function decorateCenteredHero(block, titleType) {
   const fields = getContent(block);
+  [...block.children].forEach((row, index) => {
+    console.log(
+      `Row ${index}:`,
+      row.textContent.trim(),
+    );
+  });
 
   const content = document.createElement('div');
   content.className = 'hero-centered-content';
@@ -257,6 +263,26 @@ function decorateCenteredHero(block, titleType) {
 
   const actions = document.createElement('div');
   actions.className = 'hero-actions';
+
+  console.log(
+    'Primary Button Text:',
+    fields.primaryButtonText?.textContent,
+  );
+
+  console.log(
+    'Primary Button URL:',
+    fields.primaryButtonUrl?.href,
+  );
+
+  console.log(
+    'Secondary Button Text:',
+    fields.secondaryButtonText?.textContent,
+  );
+
+  console.log(
+    'Secondary Button URL:',
+    fields.secondaryButtonUrl?.href,
+  );
 
   const primaryButton = buildLink(
     fields.primaryButtonText,
