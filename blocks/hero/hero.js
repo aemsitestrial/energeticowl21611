@@ -328,6 +328,7 @@ export default function decorate(block) {
       (el) => el.getAttribute('data-aue-prop'),
     ),
   );
+  console.log(block.innerHTML);
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
 
