@@ -323,6 +323,11 @@ function decorateBannerHero(block, titleType) {
 }
 
 export default function decorate(block) {
+  console.log(
+    [...block.querySelectorAll('[data-aue-prop]')].map(
+      (el) => el.getAttribute('data-aue-prop'),
+    ),
+  );
   const heroType = getText(block, 'heroType') || 'split';
   const titleType = getText(block, 'titleType') || 'h1';
 
