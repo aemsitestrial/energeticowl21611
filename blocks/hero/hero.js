@@ -61,8 +61,12 @@ function getContent(block) {
     secondaryButtonText: rows[13]?.querySelector('[data-aue-prop="secondaryButtonText"]'),
     secondaryButtonUrl: rows[14]?.querySelector('a'),
 
-    bannerLinkText: rows[15]?.querySelector('[data-aue-prop="bannerLinkText"]'),
-    bannerLinkUrl: rows[16]?.querySelector('a'),
+    bannerLinkText: block.querySelector(
+      '[data-aue-prop="bannerLinkText"]',
+    ),
+
+    bannerLinkUrl: [...block.querySelectorAll('a')]
+      .find((a) => a.closest('.button-container')),
 
     backgroundColor: rows[17]?.textContent?.trim(),
     textColor: rows[18]?.textContent?.trim(),
