@@ -33,6 +33,8 @@ function getText(block, name) {
 
 function getContent(block) {
   const rows = [...block.children];
+  console.log('Row 12 HTML:', rows[12]?.innerHTML);
+  console.log('Row 14 HTML:', rows[14]?.innerHTML);
 
   return {
     heroType: rows[0]?.textContent?.trim(),
@@ -86,7 +88,9 @@ function getContent(block) {
 
 function buildLink(textEl, urlEl) {
   const text = textEl?.textContent?.trim();
-  const url = urlEl?.href;
+
+  const url = urlEl?.href
+    || urlEl?.textContent?.trim();
 
   if (!text && !url) {
     return null;
