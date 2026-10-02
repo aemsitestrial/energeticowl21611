@@ -348,7 +348,7 @@ function decorateBannerHero(block, titleType) {
 export default function decorate(block) {
   const fields = getContent(block);
   const heroType = fields.heroType || 'split';
-  const titleType = getText(block, 'titleType') || 'h1';
+  const titleType = fields.titleType || 'h1';
 
   const { textColor } = fields;
 
