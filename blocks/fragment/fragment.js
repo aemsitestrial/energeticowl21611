@@ -104,6 +104,16 @@ function applyHeroStyleClasses(block, hero) {
  * Full Hero
  */
 function renderFullHero(block, fragment) {
+  console.log(
+    'Hero Title:',
+    fragment.querySelector('.hero-title'),
+  );
+
+  console.log(
+    'Hero Links:',
+    fragment.querySelectorAll('.hero-link'),
+  );
+
   decorateStandardFragment(block, fragment);
 }
 
@@ -128,8 +138,8 @@ function renderImageTextHero(block, fragment, imagePosition) {
 
   const description = hero.querySelector('.hero-description');
 
-  const cta = hero.querySelector(
-    '.hero-link.hero-button, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
+  const ctas = hero.querySelectorAll(
+    '.hero-link, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
   );
 
   const wrapper = document.createElement('div');
@@ -156,9 +166,9 @@ function renderImageTextHero(block, fragment, imagePosition) {
     content.append(description.cloneNode(true));
   }
 
-  if (cta) {
+  ctas.forEach((cta) => {
     content.append(cta.cloneNode(true));
-  }
+  });
 
   if (imagePosition === 'right') {
     wrapper.append(content);
@@ -187,8 +197,8 @@ function renderWithoutMediaHero(block, fragment) {
 
   const description = hero.querySelector('.hero-description');
 
-  const cta = hero.querySelector(
-    '.hero-link.hero-button, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
+  const ctas = hero.querySelectorAll(
+    '.hero-link, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
   );
 
   const wrapper = document.createElement('div');
@@ -202,9 +212,9 @@ function renderWithoutMediaHero(block, fragment) {
     wrapper.append(description.cloneNode(true));
   }
 
-  if (cta) {
+  ctas.forEach((cta) => {
     wrapper.append(cta.cloneNode(true));
-  }
+  });
 
   block.replaceChildren(wrapper);
 }
