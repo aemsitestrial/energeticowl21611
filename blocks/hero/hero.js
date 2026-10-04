@@ -55,20 +55,23 @@ function getContent(block) {
       || rows[7]?.querySelector('p'),
     link2Url: rows[8]?.querySelector('a'),
 
-    buttonText: rows[9]?.querySelector('[data-aue-prop="buttonText"]'),
+    buttonText: rows[9]?.querySelector('[data-aue-prop="buttonText"]')
+      || rows[9]?.querySelector('p'),
     buttonUrl: rows[10]?.querySelector('a'),
 
-    primaryButtonText: rows[11]?.querySelector('[data-aue-prop="primaryButtonText"]'),
+    primaryButtonText: rows[11]?.querySelector('[data-aue-prop="primaryButtonText"]')
+      || rows[11]?.querySelector('p'),
     primaryButtonUrl: rows[12]?.querySelector('a')
       || rows[12]?.querySelector('p'),
 
-    secondaryButtonText: rows[13]?.querySelector('[data-aue-prop="secondaryButtonText"]'),
+    secondaryButtonText: rows[13]?.querySelector('[data-aue-prop="secondaryButtonText"]')
+      || rows[13]?.querySelector('p'),
     secondaryButtonUrl: rows[14]?.querySelector('a')
       || rows[14]?.querySelector('p'),
 
     bannerLinkText: block.querySelector(
       '[data-aue-prop="bannerLinkText"]',
-    ),
+    ) || rows[15]?.querySelector('p'),
 
     bannerLinkUrl: [...block.querySelectorAll('a')]
       .find((a) => a.closest('.button-container')),
