@@ -100,6 +100,12 @@ function applyHeroStyleClasses(block, hero) {
   block.classList.add(...styleClasses);
 }
 
+function getHeroRow(block, index) {
+  return block.children[index]?.firstElementChild
+    || block.children[index]
+    || null;
+}
+
 /**
  * Full Hero
  */
@@ -124,14 +130,14 @@ function renderImageTextHero(block, fragment, imagePosition) {
 
   const bgImage = hero.style.backgroundImage;
 
-  const title = hero.querySelector('.hero-title')
-  || hero.querySelector('h1, h2, h3, h4, h5, h6');
+  const title = getHeroRow(hero, 2)?.querySelector('h1')
+    || hero.querySelector('.hero-title');
 
   const description = hero.querySelector('.hero-description')
     || hero.querySelector('p');
 
   const ctas = hero.querySelectorAll(
-    '.hero-link, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
+    '.hero-link, .hero-button-primary, .hero-button-secondary, .hero-banner-link, a',
   );
 
   const wrapper = document.createElement('div');
@@ -185,14 +191,14 @@ function renderWithoutMediaHero(block, fragment) {
 
   applyHeroStyleClasses(block, hero);
 
-  const title = hero.querySelector('.hero-title')
-  || hero.querySelector('h1, h2, h3, h4, h5, h6');
+  const title = getHeroRow(hero, 2)?.querySelector('h1')
+    || hero.querySelector('.hero-title');
 
   const description = hero.querySelector('.hero-description')
     || hero.querySelector('p');
 
   const ctas = hero.querySelectorAll(
-    '.hero-link, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
+    '.hero-link, .hero-button-primary, .hero-button-secondary, .hero-banner-link, a',
   );
 
   const wrapper = document.createElement('div');
@@ -224,8 +230,8 @@ function renderTextOnlyHero(block, fragment) {
 
   applyHeroStyleClasses(block, hero);
 
-  const title = hero.querySelector('.hero-title')
-  || hero.querySelector('h1, h2, h3, h4, h5, h6');
+  const title = getHeroRow(hero, 2)?.querySelector('h1')
+    || hero.querySelector('.hero-title');
 
   const description = hero.querySelector('.hero-description')
     || hero.querySelector('p');
