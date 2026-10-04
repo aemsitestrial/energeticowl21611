@@ -236,13 +236,13 @@ padding: 0 32px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 600px;
+  min-height: 500px;
   display: flex;
   align-items: center;
 }
 
 .hero.hero-overlay .hero-overlay-content {
-  max-width: 700px;
+  max-width: 520px;
   padding: 60px;
   color: inherit;
   display: flex;
@@ -270,6 +270,28 @@ padding: 0 32px;
 
 .hero.hero-overlay .hero-link-arrow {
   display: none;
+}
+
+@media (width < 900px) {
+  .hero.hero-overlay {
+    min-height: 420px;
+  }
+
+  .hero.hero-overlay .hero-overlay-content {
+    max-width: 500px;
+    padding: 40px;
+  }
+}
+
+@media (width < 768px) {
+  .hero.hero-overlay {
+    min-height: 360px;
+  }
+
+  .hero.hero-overlay .hero-overlay-content {
+    max-width: 100%;
+    padding: 24px;
+  }
 }
 
 /* Variant 3 : Centered Hero */
