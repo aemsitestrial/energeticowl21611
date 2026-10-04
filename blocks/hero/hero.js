@@ -33,27 +33,26 @@ function getText(block, name) {
 
 function getContent(block) {
   const rows = [...block.children];
-  console.log('Row 2 HTML:', rows[2]?.innerHTML);
-  console.log('Row 5 HTML:', rows[5]?.innerHTML);
-  console.log('Row 7 HTML:', rows[7]?.innerHTML);
-  console.log(block.innerHTML);
 
   return {
     heroType: rows[0]?.textContent?.trim(),
 
     overline: rows[1]?.querySelector('[data-aue-prop="overline"]'),
 
-    title: rows[2]?.querySelector('[data-aue-prop="title"]'),
+    title: rows[2]?.querySelector('[data-aue-prop="title"]')
+      || rows[2]?.querySelector('h1, h2, h3, h4, h5, h6'),
     titleType: rows[11]?.textContent?.trim(),
 
     description: rows[3]?.querySelector('p'),
 
     image: rows[4]?.querySelector('img'),
 
-    link1Text: rows[5]?.querySelector('[data-aue-prop="link1Text"]'),
+    link1Text: rows[5]?.querySelector('[data-aue-prop="link1Text"]')
+      || rows[5]?.querySelector('p'),
     link1Url: rows[6]?.querySelector('a'),
 
-    link2Text: rows[7]?.querySelector('[data-aue-prop="link2Text"]'),
+    link2Text: rows[7]?.querySelector('[data-aue-prop="link2Text"]')
+      || rows[7]?.querySelector('p'),
     link2Url: rows[8]?.querySelector('a'),
 
     buttonText: rows[9]?.querySelector('[data-aue-prop="buttonText"]'),
@@ -128,7 +127,8 @@ function buildLink(textEl, urlEl) {
 }
 
 function buildHeading(block, titleType) {
-  const titleEl = getFieldElement(block, 'title');
+  const titleEl = getFieldElement(block, 'title')
+    || block.children[2]?.querySelector('h1, h2, h3, h4, h5, h6');
   if (!titleEl?.textContent?.trim()) return null;
 
   const tag = /^h[1-6]$/.test(titleType) ? titleType : 'h1';
