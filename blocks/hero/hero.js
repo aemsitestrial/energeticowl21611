@@ -191,7 +191,7 @@ function decorateSplitHero(block, titleType) {
 
     media.append(optimizedPicture);
   }
-
+  console.log('Content before return:', content.outerHTML);
   return [content, media];
 }
 
