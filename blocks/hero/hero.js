@@ -132,7 +132,9 @@ function buildHeading(block, titleType) {
  */
 function decorateSplitHero(block, titleType) {
   const fields = getContent(block);
-
+  console.log('fields.title:', fields.title);
+  console.log('fields.link1Text:', fields.link1Text);
+  console.log('fields.link2Text:', fields.link2Text);
   const content = document.createElement('div');
   content.className = 'hero-content';
   const overline = getFieldElement(block, 'overline');
@@ -143,6 +145,7 @@ function decorateSplitHero(block, titleType) {
 
   const heading = buildHeading(block, titleType);
   console.log('Generated Heading:', heading);
+  console.log('buildHeading title:', fields.title);
   if (heading) content.append(heading);
 
   const descriptionEl = fields.description;
