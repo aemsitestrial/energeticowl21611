@@ -90,6 +90,18 @@ function getContent(block) {
 
 function buildLink(textEl, urlEl) {
   const text = textEl?.textContent?.trim();
+  console.log('Link Text Element:', textEl);
+  console.log('Link URL Element:', urlEl);
+
+  console.log(
+    'Link Text Value:',
+    textEl?.textContent?.trim(),
+  );
+
+  console.log(
+    'Link URL Value:',
+    urlEl?.href || urlEl?.textContent?.trim(),
+  );
 
   const url = urlEl?.href
     || urlEl?.textContent?.trim();

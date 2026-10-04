@@ -104,10 +104,6 @@ function applyHeroStyleClasses(block, hero) {
  * Full Hero
  */
 function renderFullHero(block, fragment) {
-  const hero = fragment.querySelector('.hero');
-
-  console.log(hero.outerHTML);
-
   decorateStandardFragment(block, fragment);
 }
 
@@ -128,9 +124,11 @@ function renderImageTextHero(block, fragment, imagePosition) {
 
   const bgImage = hero.style.backgroundImage;
 
-  const title = hero.querySelector('.hero-title');
+  const title = hero.querySelector('.hero-title')
+  || hero.querySelector('h1, h2, h3, h4, h5, h6');
 
-  const description = hero.querySelector('.hero-description');
+  const description = hero.querySelector('.hero-description')
+    || hero.querySelector('p');
 
   const ctas = hero.querySelectorAll(
     '.hero-link, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
@@ -187,9 +185,11 @@ function renderWithoutMediaHero(block, fragment) {
 
   applyHeroStyleClasses(block, hero);
 
-  const title = hero.querySelector('.hero-title');
+  const title = hero.querySelector('.hero-title')
+  || hero.querySelector('h1, h2, h3, h4, h5, h6');
 
-  const description = hero.querySelector('.hero-description');
+  const description = hero.querySelector('.hero-description')
+    || hero.querySelector('p');
 
   const ctas = hero.querySelectorAll(
     '.hero-link, .hero-button-primary, .hero-button-secondary, .hero-banner-link',
@@ -224,9 +224,11 @@ function renderTextOnlyHero(block, fragment) {
 
   applyHeroStyleClasses(block, hero);
 
-  const title = hero.querySelector('.hero-title');
+  const title = hero.querySelector('.hero-title')
+  || hero.querySelector('h1, h2, h3, h4, h5, h6');
 
-  const description = hero.querySelector('.hero-description');
+  const description = hero.querySelector('.hero-description')
+    || hero.querySelector('p');
 
   const wrapper = document.createElement('div');
   wrapper.className = 'hero-fragment-text-only';
