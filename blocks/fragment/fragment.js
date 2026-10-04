@@ -151,7 +151,7 @@ export async function loadFragment(path, isHeroFragment = false) {
 }
 
 /**
- * Standard Fragment variation
+ * Standard Fragment variations
  */
 function decorateStandardFragment(block, fragment) {
   const fragmentSection = fragment.querySelector(':scope .section');
