@@ -33,8 +33,10 @@ function getText(block, name) {
 
 function getContent(block) {
   const rows = [...block.children];
-  console.log('Row 12 HTML:', rows[12]?.innerHTML);
-  console.log('Row 14 HTML:', rows[14]?.innerHTML);
+  console.log('Row 2 HTML:', rows[2]?.innerHTML);
+  console.log('Row 5 HTML:', rows[5]?.innerHTML);
+  console.log('Row 7 HTML:', rows[7]?.innerHTML);
+  console.log(block.innerHTML);
 
   return {
     heroType: rows[0]?.textContent?.trim(),
