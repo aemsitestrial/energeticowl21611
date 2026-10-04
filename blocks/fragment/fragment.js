@@ -39,10 +39,89 @@ function getText(block, name) {
   return getFieldElement(block, name)?.textContent?.trim() || '';
 }
 
+function getRowContent(row) {
+  return row?.firstElementChild || row || null;
+}
+
+function appendHeroTextField(targetRow, fieldName, sourceRow) {
+  const source = getRowContent(sourceRow);
+  const text = source?.textContent?.trim();
+
+  if (!targetRow || !text) {
+    return;
+  }
+
+  const field = document.createElement('span');
+  field.dataset.aueProp = fieldName;
+  field.textContent = text;
+  targetRow.append(field);
+}
+
+function appendHeroUrl(targetRow, sourceRow) {
+  const link = sourceRow?.querySelector('a');
+
+  if (targetRow && link) {
+    targetRow.append(link.cloneNode(true));
+  }
+}
+
+function normalizeHeroForFragment(main) {
+  main.querySelectorAll('.hero').forEach((hero) => {
+    // Editor markup already contains the metadata used by hero.js. Published
+    // fragment markup does not, so map its persisted field order below.
+    if (hero.querySelector('[data-aue-prop]')) {
+      return;
+    }
+
+    const rows = [...hero.children];
+    const title = getRowContent(rows[2]);
+    const overline = getRowContent(rows[1]);
+    const imageAlt = getRowContent(rows[5]);
+
+    if (title) title.dataset.aueProp = 'title';
+    if (overline) overline.dataset.aueProp = 'overline';
+    if (imageAlt) imageAlt.dataset.aueProp = 'imageAlt';
+
+    appendHeroTextField(rows[5], 'link1Text', rows[6]);
+    appendHeroUrl(rows[6], rows[7]);
+    appendHeroTextField(rows[7], 'link2Text', rows[8]);
+    appendHeroUrl(rows[8], rows[9]);
+    appendHeroTextField(rows[9], 'buttonText', rows[11]);
+    appendHeroUrl(rows[10], rows[12]);
+    appendHeroTextField(rows[11], 'primaryButtonText', rows[13]);
+    appendHeroUrl(rows[12], rows[14]);
+    appendHeroTextField(rows[13], 'secondaryButtonText', rows[15]);
+    appendHeroUrl(rows[14], rows[16]);
+
+    const bannerText = getRowContent(rows[17])?.textContent?.trim();
+    const bannerUrl = rows[18]?.querySelector('a')?.cloneNode(true);
+
+    [[17, 19], [18, 20], [19, 21], [20, 22], [21, 23]].forEach(
+      ([targetIndex, sourceIndex]) => {
+        if (rows[targetIndex] && rows[sourceIndex]) {
+          rows[targetIndex].textContent = rows[sourceIndex].textContent;
+        }
+      },
+    );
+
+    if (bannerText) {
+      appendHeroTextField(rows[17], 'bannerLinkText', {
+        textContent: bannerText,
+      });
+    }
+    if (bannerUrl) {
+      const bannerLinkContainer = document.createElement('div');
+      bannerLinkContainer.className = 'button-container';
+      bannerLinkContainer.append(bannerUrl);
+      hero.append(bannerLinkContainer);
+    }
+  });
+}
+
 /**
  * Loads a fragment
  */
-export async function loadFragment(path) {
+export async function loadFragment(path, isHeroFragment = false) {
   if (path && path.startsWith('/')) {
     const fragmentPath = path.replace(/(\.plain)?\.html/, '');
 
@@ -63,6 +142,10 @@ export async function loadFragment(path) {
 
       resetAttributeBase('img', 'src');
       resetAttributeBase('source', 'srcset');
+
+      if (isHeroFragment) {
+        normalizeHeroForFragment(main);
+      }
 
       decorateMain(main);
       await loadSections(main);
@@ -290,7 +373,7 @@ export default async function decorate(block) {
     ? link.getAttribute('href')
     : getText(block, 'reference');
 
-  const fragment = await loadFragment(path);
+  const fragment = await loadFragment(path, fragmentType === 'hero');
 
   if (!fragment) {
     return;
