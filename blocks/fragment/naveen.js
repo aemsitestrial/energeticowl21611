@@ -1,5 +1,5 @@
-function n(){
-    console.log("first")
+function n() {
+  console.log('first');
 }
 
-n()
+n();
