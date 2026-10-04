@@ -39,76 +39,10 @@ function getText(block, name) {
   return getFieldElement(block, name)?.textContent?.trim() || '';
 }
 
-function getRowContent(row) {
-  return row?.firstElementChild || row || null;
-}
-
-function appendHeroTextField(targetRow, fieldName, sourceRow) {
-  const source = getRowContent(sourceRow);
-  const text = source?.textContent?.trim();
-
-  if (!targetRow || !text) {
-    return;
-  }
-
-  const field = document.createElement('span');
-  field.dataset.aueProp = fieldName;
-  field.textContent = text;
-  targetRow.append(field);
-}
-
-function appendHeroUrl(targetRow, sourceRow) {
-  const link = sourceRow?.querySelector('a');
-
-  if (targetRow && link) {
-    targetRow.append(link.cloneNode(true));
-  }
-}
-
-function normalizeHeroForFragment(main) {
-  main.querySelectorAll('.hero').forEach((hero) => {
-    // Editor markup already contains the metadata used by hero.js. Published
-    // fragment markup does not, so map its persisted field order below.
-    if (hero.querySelector('[data-aue-prop]')) {
-      return;
-    }
-
-    const rows = [...hero.children];
-    const title = getRowContent(rows[2]);
-    const overline = getRowContent(rows[1]);
-    const imageAlt = getRowContent(rows[5]);
-
-    if (title) title.dataset.aueProp = 'title';
-    if (overline) overline.dataset.aueProp = 'overline';
-    if (imageAlt) imageAlt.dataset.aueProp = 'imageAlt';
-
-    appendHeroTextField(rows[5], 'link1Text', rows[6]);
-    appendHeroUrl(rows[6], rows[7]);
-    appendHeroTextField(rows[7], 'link2Text', rows[8]);
-    appendHeroUrl(rows[8], rows[9]);
-    appendHeroTextField(rows[9], 'buttonText', rows[11]);
-    appendHeroUrl(rows[10], rows[12]);
-    appendHeroTextField(rows[11], 'primaryButtonText', rows[13]);
-    appendHeroUrl(rows[12], rows[14]);
-    appendHeroTextField(rows[13], 'secondaryButtonText', rows[15]);
-    appendHeroUrl(rows[14], rows[16]);
-
-    appendHeroTextField(rows[17], 'bannerLinkText', rows[17]);
-
-    const bannerLinkUrlAnchor = rows[18]?.querySelector('a');
-    if (bannerLinkUrlAnchor) {
-      const bannerContainer = document.createElement('div');
-      bannerContainer.className = 'button-container';
-      bannerContainer.append(bannerLinkUrlAnchor.cloneNode(true));
-      hero.append(bannerContainer);
-    }
-  });
-}
-
 /**
  * Loads a fragment
  */
-export async function loadFragment(path, isHeroFragment = false) {
+export async function loadFragment(path) {
   if (path && path.startsWith('/')) {
     const fragmentPath = path.replace(/(\.plain)?\.html/, '');
 
@@ -130,16 +64,6 @@ export async function loadFragment(path, isHeroFragment = false) {
       resetAttributeBase('img', 'src');
       resetAttributeBase('source', 'srcset');
 
-      if (isHeroFragment) {
-        try {
-          normalizeHeroForFragment(main);
-        } catch (e) {
-          // Keep fragment rendering even if compatibility mapping fails.
-          // eslint-disable-next-line no-console
-          console.warn('fragment: hero field normalization failed', e);
-        }
-      }
-
       decorateMain(main);
       await loadSections(main);
 
@@ -151,7 +75,7 @@ export async function loadFragment(path, isHeroFragment = false) {
 }
 
 /**
- * Standard Fragment variations
+ * Standard Fragment
  */
 function decorateStandardFragment(block, fragment) {
   const fragmentSection = fragment.querySelector(':scope .section');
@@ -161,21 +85,6 @@ function decorateStandardFragment(block, fragment) {
     block.classList.remove('section');
     block.replaceChildren(...fragmentSection.childNodes);
   }
-}
-
-function decorateHeroSectionFragment(block, fragment) {
-  const heroBlock = fragment.querySelector('.hero');
-  const heroSection = heroBlock?.closest('.section');
-
-  if (!heroSection) {
-    return false;
-  }
-
-  block.classList.add(...heroSection.classList);
-  block.classList.remove('section');
-  block.replaceChildren(...heroSection.childNodes);
-
-  return true;
 }
 
 // Classes set by the hero block's Style tab (background/text/button color).
@@ -195,9 +104,7 @@ function applyHeroStyleClasses(block, hero) {
  * Full Hero
  */
 function renderFullHero(block, fragment) {
-  if (!decorateHeroSectionFragment(block, fragment)) {
-    decorateStandardFragment(block, fragment);
-  }
+  decorateStandardFragment(block, fragment);
 }
 
 /**
@@ -383,7 +290,7 @@ export default async function decorate(block) {
     ? link.getAttribute('href')
     : getText(block, 'reference');
 
-  const fragment = await loadFragment(path, fragmentType === 'hero');
+  const fragment = await loadFragment(path);
 
   if (!fragment) {
     return;
