@@ -93,27 +93,14 @@ function normalizeHeroForFragment(main) {
     appendHeroTextField(rows[13], 'secondaryButtonText', rows[15]);
     appendHeroUrl(rows[14], rows[16]);
 
-    const bannerText = getRowContent(rows[17])?.textContent?.trim();
-    const bannerUrl = rows[18]?.querySelector('a')?.cloneNode(true);
+    appendHeroTextField(rows[17], 'bannerLinkText', rows[17]);
 
-    [[17, 19], [18, 20], [19, 21], [20, 22], [21, 23]].forEach(
-      ([targetIndex, sourceIndex]) => {
-        if (rows[targetIndex] && rows[sourceIndex]) {
-          rows[targetIndex].textContent = rows[sourceIndex].textContent;
-        }
-      },
-    );
-
-    if (bannerText) {
-      appendHeroTextField(rows[17], 'bannerLinkText', {
-        textContent: bannerText,
-      });
-    }
-    if (bannerUrl) {
-      const bannerLinkContainer = document.createElement('div');
-      bannerLinkContainer.className = 'button-container';
-      bannerLinkContainer.append(bannerUrl);
-      hero.append(bannerLinkContainer);
+    const bannerLinkUrlAnchor = rows[18]?.querySelector('a');
+    if (bannerLinkUrlAnchor) {
+      const bannerContainer = document.createElement('div');
+      bannerContainer.className = 'button-container';
+      bannerContainer.append(bannerLinkUrlAnchor.cloneNode(true));
+      hero.append(bannerContainer);
     }
   });
 }
@@ -144,7 +131,13 @@ export async function loadFragment(path, isHeroFragment = false) {
       resetAttributeBase('source', 'srcset');
 
       if (isHeroFragment) {
-        normalizeHeroForFragment(main);
+        try {
+          normalizeHeroForFragment(main);
+        } catch (e) {
+          // Keep fragment rendering even if compatibility mapping fails.
+          // eslint-disable-next-line no-console
+          console.warn('fragment: hero field normalization failed', e);
+        }
       }
 
       decorateMain(main);
@@ -170,6 +163,21 @@ function decorateStandardFragment(block, fragment) {
   }
 }
 
+function decorateHeroSectionFragment(block, fragment) {
+  const heroBlock = fragment.querySelector('.hero');
+  const heroSection = heroBlock?.closest('.section');
+
+  if (!heroSection) {
+    return false;
+  }
+
+  block.classList.add(...heroSection.classList);
+  block.classList.remove('section');
+  block.replaceChildren(...heroSection.childNodes);
+
+  return true;
+}
+
 // Classes set by the hero block's Style tab (background/text/button color).
 // The image-text, without-media and text-only layouts rebuild the DOM from
 // individual cloned fields, so these classes must be copied across
@@ -187,7 +195,9 @@ function applyHeroStyleClasses(block, hero) {
  * Full Hero
  */
 function renderFullHero(block, fragment) {
-  decorateStandardFragment(block, fragment);
+  if (!decorateHeroSectionFragment(block, fragment)) {
+    decorateStandardFragment(block, fragment);
+  }
 }
 
 /**
