@@ -104,6 +104,8 @@ function applyHeroStyleClasses(block, hero) {
  * Full Hero
  */
 function renderFullHero(block, fragment) {
+  const hero = fragment.querySelector('.hero');
+
   console.log(
     'Hero Title:',
     fragment.querySelector('.hero-title'),
@@ -113,6 +115,8 @@ function renderFullHero(block, fragment) {
     'Hero Links:',
     fragment.querySelectorAll('.hero-link'),
   );
+
+  console.log('Hero HTML:', hero?.innerHTML);
 
   decorateStandardFragment(block, fragment);
 }
