@@ -92,18 +92,6 @@ function getContent(block) {
 
 function buildLink(textEl, urlEl) {
   const text = textEl?.textContent?.trim();
-  console.log('Link Text Element:', textEl);
-  console.log('Link URL Element:', urlEl);
-
-  console.log(
-    'Link Text Value:',
-    textEl?.textContent?.trim(),
-  );
-
-  console.log(
-    'Link URL Value:',
-    urlEl?.href || urlEl?.textContent?.trim(),
-  );
 
   const url = urlEl?.href
     || urlEl?.textContent?.trim();
@@ -149,9 +137,6 @@ function buildHeading(block, titleType) {
  */
 function decorateSplitHero(block, titleType) {
   const fields = getContent(block);
-  console.log('fields.title:', fields.title);
-  console.log('fields.link1Text:', fields.link1Text);
-  console.log('fields.link2Text:', fields.link2Text);
   const content = document.createElement('div');
   content.className = 'hero-content';
   const overline = getFieldElement(block, 'overline');
@@ -161,8 +146,6 @@ function decorateSplitHero(block, titleType) {
   }
 
   const heading = buildHeading(block, titleType);
-  console.log('Generated Heading:', heading);
-  console.log('buildHeading title:', fields.title);
   if (heading) content.append(heading);
 
   const descriptionEl = fields.description;
@@ -211,7 +194,7 @@ function decorateSplitHero(block, titleType) {
 
     media.append(optimizedPicture);
   }
-  console.log('Content before return:', content.outerHTML);
+
   return [content, media];
 }
 
@@ -291,26 +274,6 @@ function decorateCenteredHero(block, titleType) {
   const actions = document.createElement('div');
   actions.className = 'hero-actions';
 
-  console.log(
-    'Primary Button Text:',
-    fields.primaryButtonText?.textContent,
-  );
-
-  console.log(
-    'Primary Button URL:',
-    fields.primaryButtonUrl?.href,
-  );
-
-  console.log(
-    'Secondary Button Text:',
-    fields.secondaryButtonText?.textContent,
-  );
-
-  console.log(
-    'Secondary Button URL:',
-    fields.secondaryButtonUrl?.href,
-  );
-
   const primaryButton = buildLink(
     fields.primaryButtonText,
     fields.primaryButtonUrl,
@@ -356,8 +319,6 @@ function decorateCenteredHero(block, titleType) {
 /** variant-4 */
 function decorateBannerHero(block, titleType) {
   const fields = getContent(block);
-  console.log('Banner URL Element:', fields.bannerLinkUrl);
-  console.log('Banner href:', fields.bannerLinkUrl?.href);
   const content = document.createElement('div');
   content.className = 'hero-banner-content';
 
@@ -385,8 +346,6 @@ function decorateBannerHero(block, titleType) {
   link.className = 'hero-banner-link';
   link.href = url || '#';
 
-  console.log('Rendered href:', link.href);
-
   link.innerHTML = `
     <span>${text || 'Link'}</span>
     <span>&rarr;</span>
@@ -408,7 +367,6 @@ export default function decorate(block) {
   const fields = getContent(block);
   const heroType = fields.heroType || 'split';
   const titleType = fields.titleType || 'h1';
-  console.log('heroType:', heroType);
 
   const { textColor } = fields;
 
@@ -442,7 +400,6 @@ export default function decorate(block) {
     // Never leave the raw authoring markup (e.g. an oversized, unstyled
     // image) on the page if a single field is malformed/unexpected.
     // eslint-disable-next-line no-console
-    console.error('hero: failed to decorate variant', heroType, error);
     fragments = [];
   }
 
