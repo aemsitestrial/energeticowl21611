@@ -76,7 +76,7 @@
               "name": "imagePosition"
             },
             {
-              "name": "buttonPosition"
+              "name": "contentPosition"
             }
           ]
         },
@@ -377,7 +377,7 @@
         },
         {
           "component": "select",
-          "name": "buttonPosition",
+          "name": "contentPosition",
           "label": "Button Position",
           "valueType": "string",
           "value": "hero-button-center",
@@ -395,15 +395,15 @@
           "options": [
             {
               "name": "Left",
-              "value": "hero-button-left"
+              "value": "hero-content-left"
             },
             {
               "name": "Center",
-              "value": "hero-button-center"
+              "value": "hero-content-center"
             },
             {
               "name": "Right",
-              "value": "hero-button-right"
+              "value": "hero-content-right"
             }
           ]
         }
