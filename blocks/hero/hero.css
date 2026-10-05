@@ -350,42 +350,19 @@ padding: 0 32px;
 /* Style tab: button position (Overlay + Centered variants). Placed last so
    these higher-specificity overrides always win over each variant's base
    .hero-button/.hero-actions rules above, regardless of source order. */
-.hero.hero-overlay.hero-content-left .hero-overlay-content {
-  align-items: flex-start;
-  text-align: left;
+.hero.hero-overlay.hero-button-center .hero-button {
+  align-self: center;
 }
 
-.hero.hero-overlay.hero-content-center .hero-overlay-content {
-  align-items: center;
-  text-align: center;
+.hero.hero-overlay.hero-button-right .hero-button {
+  align-self: flex-end;
 }
 
-.hero.hero-overlay.hero-content-right .hero-overlay-content {
-  align-items: flex-end;
-  text-align: right;
-}
-
-.hero.hero-centered.hero-content-left .hero-centered-content {
-  text-align: left;
-}
-
-.hero.hero-centered.hero-content-left .hero-actions {
+.hero.hero-centered.hero-button-left .hero-actions {
   justify-content: flex-start;
 }
 
-.hero.hero-centered.hero-content-center .hero-centered-content {
-  text-align: center;
-}
-
-.hero.hero-centered.hero-content-center .hero-actions {
-  justify-content: center;
-}
-
-.hero.hero-centered.hero-content-right .hero-centered-content {
-  text-align: right;
-}
-
-.hero.hero-centered.hero-content-right .hero-actions {
+.hero.hero-centered.hero-button-right .hero-actions {
   justify-content: flex-end;
 }
 

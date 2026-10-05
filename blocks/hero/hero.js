@@ -80,7 +80,7 @@ function getContent(block) {
     textColor: rows[18]?.textContent?.trim(),
     buttonColor: rows[19]?.textContent?.trim(),
     imagePosition: rows[20]?.textContent?.trim(),
-    contentPosition: rows[21]?.textContent?.trim(),
+    buttonPosition: rows[21]?.textContent?.trim(),
   };
 }
 
@@ -415,7 +415,7 @@ export default function decorate(block) {
   const { backgroundColor } = fields;
   const { buttonColor } = fields;
   const { imagePosition } = fields;
-  const { contentPosition } = fields;
+  const { buttonPosition } = fields;
 
   // Additional variants (variant 2, variant 3, ...) can branch here based on heroType.
   let fragments;
@@ -462,6 +462,6 @@ export default function decorate(block) {
   if (backgroundColor) block.classList.add(backgroundColor);
   if (buttonColor) block.classList.add(buttonColor);
   if (imagePosition) block.classList.add(imagePosition);
-  if (contentPosition) block.classList.add(contentPosition);
+  if (buttonPosition) block.classList.add(buttonPosition);
   block.append(...fragments);
 }

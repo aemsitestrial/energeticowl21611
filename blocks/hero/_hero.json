@@ -76,7 +76,7 @@
               "name": "imagePosition"
             },
             {
-              "name": "contentPosition"
+              "name": "buttonPosition"
             }
           ]
         },
@@ -377,7 +377,7 @@
         },
         {
           "component": "select",
-          "name": "contentPosition",
+          "name": "buttonPosition",
           "label": "Button Position",
           "valueType": "string",
           "value": "hero-button-center",
