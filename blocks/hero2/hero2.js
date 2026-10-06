@@ -23,8 +23,13 @@ function getContent(block) {
 
 export default function decorate(block) {
   const content = getContent(block);
-
-  block.textContent = '';
+  console.log('BACKGROUND:', content.backgroundImage);
+  console.log('CTA TEXT:', content.ctaText);
+  console.log('CTA LINK:', content.ctaLink);
+  console.log('BLOCK BEFORE CLEAR:', block.innerHTML);
+  const originalHtml = block.innerHTML;
+  console.log(originalHtml);
+  block.innerHTML = '';
   block.classList.add('hero2');
 
   if (content.backgroundImage) {
