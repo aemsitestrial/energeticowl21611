@@ -28,8 +28,14 @@ export default function decorate(block) {
   block.classList.add('hero2');
 
   if (content.backgroundImage) {
-    content.backgroundImage.classList.add('hero2-background-image');
-    block.append(content.backgroundImage);
+    const bgImg = content.backgroundImage.querySelector('img')
+      || content.backgroundImage;
+
+    const bgSrc = bgImg.getAttribute('src');
+
+    if (bgSrc) {
+      block.style.backgroundImage = `url(${bgSrc})`;
+    }
   }
 
   const contentWrapper = document.createElement('div');
