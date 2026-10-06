@@ -245,12 +245,6 @@ function decorateOverlayHero(block, titleType) {
 /** variant-3 */
 function decorateCenteredHero(block, titleType) {
   const fields = getContent(block);
-  [...block.children].forEach((row, index) => {
-    console.log(
-      `Row ${index}:`,
-      row.textContent.trim(),
-    );
-  });
 
   const content = document.createElement('div');
   content.className = 'hero-centered-content';
