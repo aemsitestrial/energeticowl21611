@@ -1,0 +1,57 @@
+{
+  "definitions": [
+    {
+      "title": "Hero 2",
+      "id": "hero2",
+      "fields": [
+        {
+          "component": "reference",
+          "name": "icon",
+          "label": "Icon",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title"
+        },
+        {
+          "component": "text",
+          "name": "ctaText",
+          "label": "CTA Text"
+        },
+        {
+          "component": "text",
+          "name": "ctaLink",
+          "label": "CTA Link"
+        },
+        {
+          "component": "reference",
+          "name": "backgroundImage",
+          "label": "Background Image",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+
+  "models": [
+    {
+      "id": "hero2",
+      "fields": [
+        {
+          "component": "group",
+          "name": "hero2",
+          "label": "Hero 2",
+          "definition": "hero2"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

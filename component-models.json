@@ -5416,6 +5416,17 @@
     ]
   },
   {
+    "id": "hero2",
+    "fields": [
+      {
+        "component": "group",
+        "name": "hero2",
+        "label": "Hero 2",
+        "definition": "hero2"
+      }
+    ]
+  },
+  {
     "id": "hero",
     "fields": [
       {
