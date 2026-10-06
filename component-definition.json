@@ -986,25 +986,67 @@
             "da": {
               "fields": [
                 {
+                  "name": "imageSection"
+                },
+                {
                   "name": "heroIcon"
+                },
+                {
+                  "name": "heroIconAlt"
+                },
+                {
+                  "name": "heroImageType"
+                },
+                {
+                  "name": "heroLottoImagePath"
+                },
+                {
+                  "name": "heroImageAlt"
+                },
+                {
+                  "name": "heroView"
+                },
+                {
+                  "name": "contentSection"
                 },
                 {
                   "name": "eyebrowText"
                 },
                 {
-                  "name": "heading"
+                  "name": "title"
                 },
                 {
-                  "name": "ctaText"
+                  "name": "description"
+                },
+                {
+                  "name": "linkSection"
+                },
+                {
+                  "name": "ctaTitle"
                 },
                 {
                   "name": "ctaLink"
                 },
                 {
-                  "name": "heroImage"
+                  "name": "ctaLinkType"
                 },
                 {
-                  "name": "heroImageAlt"
+                  "name": "ctaView"
+                },
+                {
+                  "name": "motionSection"
+                },
+                {
+                  "name": "motionType"
+                },
+                {
+                  "name": "styleSection"
+                },
+                {
+                  "name": "alignment"
+                },
+                {
+                  "name": "bgColor"
                 }
               ]
             },
