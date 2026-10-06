@@ -74,17 +74,41 @@
   ],
 
   "models": [
-    {
-      "id": "hero2",
-      "fields": [
-        {
-          "component": "group",
-          "name": "hero2",
-          "label": "Hero 2",
-          "definition": "hero2"
-        }
-      ]
-    }
-  ],
+  {
+    "id": "hero2",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "icon",
+        "label": "Icon"
+      },
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "label": "Eyebrow"
+      },
+      {
+        "component": "textarea",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "reference",
+        "name": "backgroundImage",
+        "label": "Background Image"
+      }
+    ]
+  }
+],
   "filters": []
 }
