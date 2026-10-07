@@ -23,10 +23,7 @@ function getContent(block) {
 
 export default function decorate(block) {
   const content = getContent(block);
-  console.log('TITLE:', content.title);
-  console.log(
-    block.querySelector('[data-aue-prop="title"]'),
-  );
+  console.log(block.innerHTML);
   block.innerHTML = '';
   block.classList.add('hero2');
 
