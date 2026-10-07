@@ -12,7 +12,7 @@ function getContent(block) {
   return {
     icon: getFieldElement(block, 'icon'),
     eyebrow: getTextValue(block, 'eyebrow'),
-    title: getFieldElement(block, 'title')?.textContent?.trim(),
+    title: block.querySelector('div:nth-child(3) p')?.textContent?.trim(),
 
     ctaText: getTextValue(block, 'ctaText'),
     ctaLink: getTextValue(block, 'ctaLink'),
@@ -23,7 +23,6 @@ function getContent(block) {
 
 export default function decorate(block) {
   const content = getContent(block);
-  console.log(block.innerHTML);
   block.innerHTML = '';
   block.classList.add('hero2');
 
