@@ -12,7 +12,7 @@ function getContent(block) {
   return {
     icon: getFieldElement(block, 'icon'),
     eyebrow: getTextValue(block, 'eyebrow'),
-    title: getTextValue(block, 'title'),
+    title: getFieldElement(block, 'title')?.textContent?.trim(),
 
     ctaText: getTextValue(block, 'ctaText'),
     ctaLink: getTextValue(block, 'ctaLink'),
@@ -23,12 +23,10 @@ function getContent(block) {
 
 export default function decorate(block) {
   const content = getContent(block);
-  console.log('BACKGROUND:', content.backgroundImage);
-  console.log('CTA TEXT:', content.ctaText);
-  console.log('CTA LINK:', content.ctaLink);
-  console.log('BLOCK BEFORE CLEAR:', block.innerHTML);
-  const originalHtml = block.innerHTML;
-  console.log(originalHtml);
+  console.log('TITLE:', content.title);
+  console.log(
+    block.querySelector('[data-aue-prop="title"]')
+  );
   block.innerHTML = '';
   block.classList.add('hero2');
 
