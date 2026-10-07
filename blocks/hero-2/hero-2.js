@@ -66,8 +66,13 @@ export default function decorate(block) {
 
     cta.className = 'hero2-cta';
     cta.href = content.ctaLink || '#';
-    cta.textContent = content.ctaText;
-
+    const label = document.createElement('span');
+    label.textContent = content.ctaText;
+    const arrow = document.createElement('img');
+    arrow.src = '/content/dam/2026/39/energeticowl21611/icons/arrow 24x24.png';
+    arrow.alt = '';
+    arrow.className = 'hero2-cta-arrow';
+    cta.append(label, arrow);
     contentWrapper.append(cta);
   }
 
