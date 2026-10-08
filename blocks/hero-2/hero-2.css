@@ -83,8 +83,15 @@
 .hero2-cta-arrow {
 width: 24px;
 height: 24px;
-color: #fff;
 object-fit: contain;
+filter: brightness(0) invert(1);
+}
+
+.hero2-cta,
+.hero2-cta:link,
+.hero2-cta:visited {
+  color: #fff !important;
+  text-decoration: none;
 }
 
 .hero2-cta:hover {
@@ -144,3 +151,4 @@ object-fit: contain;
     padding: 14px 24px;
   }
 }
+

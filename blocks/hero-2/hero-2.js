@@ -37,6 +37,8 @@ function getContent(block) {
 
 export default function decorate(block) {
   const content = getContent(block);
+  console.log('CTA LINK:', content.ctaLink);
+  console.log('CTA LINK TYPE:', content.ctaLinkType);
   block.innerHTML = '';
   block.classList.add('hero2');
   if (content.alignment) {
