@@ -190,7 +190,13 @@ function createCta(data) {
     return null;
   }
 
-  const link = document.createElement('a');
+  const link = [...document.querySelectorAll('a')].find(
+    (a) => a.textContent.includes('Explore what we do'),
+  );
+
+  console.log(link);
+  console.log(link?.target);
+  console.log(link?.href);
 
   link.className = [
     'cta-link',
