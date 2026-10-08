@@ -101,7 +101,7 @@
   {
     "id": "hero2",
     "components": [
-      "cta-item"
+      "cta"
     ]
   },
   {

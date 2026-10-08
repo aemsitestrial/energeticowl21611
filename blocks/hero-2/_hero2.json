@@ -21,13 +21,6 @@
             { "name": "title" },
             { "name": "description" },
 
-            { "name": "linkSection" },
-
-            { "name": "ctaTitle" },
-            { "name": "ctaLink" },
-            { "name": "ctaLinkType" },
-            { "name": "ctaView" },
-
             { "name": "styleSection" },
 
             { "name": "alignment" },
@@ -131,57 +124,6 @@
 
       {
         "component": "fieldset",
-        "name": "linkSection",
-        "label": "Link Section"
-      },
-
-      {
-        "component": "text",
-        "name": "ctaTitle",
-        "label": "CTA Title"
-      },
-      {
-        "component": "text",
-        "name": "ctaLink",
-        "label": "CTA Link"
-      },
-      {
-        "component": "select",
-        "name": "ctaLinkType",
-        "label": "CTA Link Type",
-        "options": [
-          {
-            "name": "Default",
-            "value": "default"
-          },
-          {
-            "name": "Open In New Window",
-            "value": "new-window"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "ctaView",
-        "label": "CTA View",
-        "options": [
-          {
-            "name": "Default",
-            "value": "default"
-          },
-          {
-            "name": "Primary",
-            "value": "primary"
-          },
-          {
-            "name": "Secondary",
-            "value": "secondary"
-          }
-        ]
-      },
-
-      {
-        "component": "fieldset",
         "name": "styleSection",
         "label": "Style"
       },
@@ -224,7 +166,7 @@
     {
       "id": "hero2",
       "components": [
-        "cta-item"
+        "cta"
       ]
     }
   ]
