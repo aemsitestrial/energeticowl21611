@@ -27,6 +27,9 @@
   height: 64px;
   object-fit: contain;
   margin-bottom: 24px;
+  filter: brightness(0) saturate(100%)
+    invert(36%) sepia(95%) saturate(1941%)
+    hue-rotate(221deg) brightness(98%) contrast(96%);
 }
 
 .hero2-eyebrow {
@@ -98,14 +101,18 @@ object-fit: contain;
     margin-bottom: 20px;
   }
 
+  .hero2-icon svg path{
+    stroke: #4B6EF5;
+    }
+
   .hero2-eyebrow {
     font-size: 14px;
   }
 
-  .hero2-title {
+  /* .hero2-title {
     font-size: 40px;
     margin-bottom: 24px;
-  }
+  } */
 
   .hero2-cta {
     width: 100%;
