@@ -38,6 +38,10 @@ function getContent(block) {
 
 export default function decorate(block) {
   const content = getContent(block);
+  console.log(
+    [...block.querySelectorAll('p')]
+      .map((el) => el.textContent.trim()),
+  );
   console.log(block.innerHTML);
   console.log('CTA LINK ELEMENT:', content.ctaLinkElement);
   console.log('CTA LINK:', content.ctaLink);
