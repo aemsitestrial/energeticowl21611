@@ -206,7 +206,19 @@ function createCta(data) {
 
   console.log('linkTarget =', data.linkTarget);
 
-  if (data.linkTarget === 'new-window') {
+  const normalizedTarget = String(data.linkTarget || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-');
+
+  const opensNewTab = [
+    '_blank',
+    'blank',
+    'new-tab',
+    'new-window',
+  ].includes(normalizedTarget);
+
+  if (opensNewTab) {
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
   }
