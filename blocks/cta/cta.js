@@ -1,7 +1,7 @@
 const DEFAULTS = {
   text_cta: '',
   ctaLink: '',
-  openInNewTab: false,
+  linkTarget: 'default',
   ariaLabel: '',
   shape: 'rectangle',
   backgroundColor: '',
@@ -15,6 +15,19 @@ const ALLOWED_SHAPES = [
   'rounded',
   'pill',
 ];
+
+const ALLOWED_LINK_TARGETS = [
+  'default',
+  'new-window',
+];
+
+function normalizeLinkTarget(value) {
+  if (ALLOWED_LINK_TARGETS.includes(value)) {
+    return value;
+  }
+
+  return DEFAULTS.linkTarget;
+}
 
 const ALLOWED_ARROWS = [
   'none',
@@ -32,15 +45,6 @@ function getFieldValue(block, index, fallback = '') {
   return field.textContent.trim() || fallback;
 }
 
-function getBooleanFieldValue(block, index, fallback = false) {
-  const value = getFieldValue(block, index, '');
-
-  if (!value) {
-    return fallback;
-  }
-
-  return value.toLowerCase() === 'true';
-}
 
 function normalizeShape(value) {
   if (ALLOWED_SHAPES.includes(value)) {
@@ -132,10 +136,12 @@ function readBlockContent(block) {
       DEFAULTS.ctaLink,
     ),
 
-    openInNewTab: getBooleanFieldValue(
-      block,
-      2,
-      DEFAULTS.openInNewTab,
+    linkTarget: normalizeLinkTarget(
+      getFieldValue(
+        block,
+        2,
+        DEFAULTS.linkTarget,
+      ),
     ),
 
     ariaLabel: getFieldValue(
@@ -199,7 +205,7 @@ function createCta(data) {
     data.ariaLabel || data.text_cta,
   );
 
-  if (data.openInNewTab) {
+  if (data.linkTarget === 'new-window') {
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
   }
