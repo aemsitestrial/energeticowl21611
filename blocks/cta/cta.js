@@ -45,7 +45,6 @@ function getFieldValue(block, index, fallback = '') {
   return field.textContent.trim() || fallback;
 }
 
-
 function normalizeShape(value) {
   if (ALLOWED_SHAPES.includes(value)) {
     return value;
