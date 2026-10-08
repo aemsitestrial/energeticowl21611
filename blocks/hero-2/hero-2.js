@@ -26,11 +26,9 @@ function getContent(block) {
     description: getFieldElement(block, 'description'),
 
     ctaTitle: getTextValue(block, 'ctaTitle'),
-    ctaLink: getTextValue(block, 'ctaLink'),
-    ctaLinkType: getTextValue(block, 'ctaLinkType'),
+    ctaLinkElement: block.querySelector('.button-container a'),
+    ctaLinkType: block.querySelector('div:nth-child(14) p')?.textContent?.trim(),
 
-    ctaLinkElement: getFieldElement(block, 'ctaLink'),
-    ctaLinkTypeElement: getFieldElement(block, 'ctaLinkType'),
     ctaView: getTextValue(block, 'ctaView'),
 
     alignment: getTextValue(block, 'alignment'),
@@ -105,10 +103,9 @@ export default function decorate(block) {
   if (content.ctaTitle) {
     const cta = document.createElement('a');
 
-    const authoredLink = content.ctaLinkElement?.querySelector('a');
-
     cta.className = 'hero2-cta';
-    cta.href = authoredLink?.href || content.ctaLink || '#';
+
+    cta.href = content.ctaLinkElement?.href || '#';
 
     if (content.ctaLinkType === 'new-window') {
       cta.target = '_blank';
