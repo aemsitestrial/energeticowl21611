@@ -895,22 +895,61 @@
             "da": {
               "fields": [
                 {
-                  "name": "icon"
+                  "name": "imageSection"
                 },
                 {
-                  "name": "eyebrow"
+                  "name": "heroIcon"
+                },
+                {
+                  "name": "heroIconAlt"
+                },
+                {
+                  "name": "heroImageType"
+                },
+                {
+                  "name": "heroLottoImagePath"
+                },
+                {
+                  "name": "heroImageAlt"
+                },
+                {
+                  "name": "heroView"
+                },
+                {
+                  "name": "contentSection"
+                },
+                {
+                  "name": "eyebrowText"
                 },
                 {
                   "name": "title"
                 },
                 {
-                  "name": "ctaText"
+                  "name": "description"
+                },
+                {
+                  "name": "linkSection"
+                },
+                {
+                  "name": "ctaTitle"
                 },
                 {
                   "name": "ctaLink"
                 },
                 {
-                  "name": "backgroundImage"
+                  "name": "ctaLinkType"
+                },
+                {
+                  "name": "ctaView"
+                },
+                {
+                  "name": "styleSection"
+                },
+                {
+                  "name": "alignment"
+                },
+                {
+                  "name": "bgColor"
                 }
               ]
             },
@@ -924,40 +963,7 @@
               }
             }
           },
-          "fields": [
-            {
-              "component": "reference",
-              "name": "icon",
-              "label": "Icon",
-              "valueType": "string"
-            },
-            {
-              "component": "text",
-              "name": "eyebrow",
-              "label": "Eyebrow"
-            },
-            {
-              "component": "text",
-              "name": "title",
-              "label": "Title"
-            },
-            {
-              "component": "text",
-              "name": "ctaText",
-              "label": "CTA Text"
-            },
-            {
-              "component": "text",
-              "name": "ctaLink",
-              "label": "CTA Link"
-            },
-            {
-              "component": "reference",
-              "name": "backgroundImage",
-              "label": "Background Image",
-              "valueType": "string"
-            }
-          ]
+          "fields": []
         },
         {
           "title": "Hero",

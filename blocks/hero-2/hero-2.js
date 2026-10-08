@@ -10,14 +10,28 @@ function getTextValue(block, name, defaultValue = '') {
 
 function getContent(block) {
   return {
-    icon: getFieldElement(block, 'icon'),
-    eyebrow: getTextValue(block, 'eyebrow'),
-    title: block.querySelector('div:nth-child(3) p')?.textContent?.trim(),
+    heroIcon: getFieldElement(block, 'heroIcon'),
+    heroIconAlt: getTextValue(block, 'heroIconAlt'),
 
-    ctaText: getTextValue(block, 'ctaText'),
+    heroImageType: getTextValue(block, 'heroImageType'),
+    heroLottoImagePath: getFieldElement(block, 'heroLottoImagePath'),
+    heroImageAlt: getTextValue(block, 'heroImageAlt'),
+    heroView: getTextValue(block, 'heroView'),
+
+    eyebrowText: getTextValue(block, 'eyebrowText'),
+
+    title: block.querySelector('div:nth-child(10) p')
+      ?.textContent?.trim(),
+
+    description: getFieldElement(block, 'description'),
+
+    ctaTitle: getTextValue(block, 'ctaTitle'),
     ctaLink: getTextValue(block, 'ctaLink'),
+    ctaLinkType: getTextValue(block, 'ctaLinkType'),
+    ctaView: getTextValue(block, 'ctaView'),
 
-    backgroundImage: getFieldElement(block, 'backgroundImage'),
+    alignment: getTextValue(block, 'alignment'),
+    bgColor: getTextValue(block, 'bgColor'),
   };
 }
 
@@ -25,13 +39,19 @@ export default function decorate(block) {
   const content = getContent(block);
   block.innerHTML = '';
   block.classList.add('hero2');
+  if (content.alignment) {
+    block.classList.add(`hero2-align-${content.alignment}`);
+  }
 
-  if (content.backgroundImage) {
-    const bgImg = content.backgroundImage.querySelector('img')
-      || content.backgroundImage;
+  if (content.heroLottoImagePath) {
+    const bgImg = content.heroLottoImagePath.querySelector('img')
+      || content.heroLottoImagePath;
 
     const bgSrc = bgImg.getAttribute('src');
 
+    if (content.heroImageAlt) {
+      bgImg.alt = content.heroImageAlt;
+    }
     if (bgSrc) {
       block.style.backgroundImage = `url(${bgSrc})`;
     }
@@ -40,15 +60,20 @@ export default function decorate(block) {
   const contentWrapper = document.createElement('div');
   contentWrapper.className = 'hero2-content';
 
-  if (content.icon) {
-    content.icon.classList.add('hero2-icon');
-    contentWrapper.append(content.icon);
+  if (content.heroIcon) {
+    content.heroIcon.classList.add('hero2-icon');
+
+    if (content.heroIconAlt) {
+      content.heroIcon.alt = content.heroIconAlt;
+    }
+
+    contentWrapper.append(content.heroIcon);
   }
 
-  if (content.eyebrow) {
+  if (content.eyebrowText) {
     const eyebrow = document.createElement('p');
     eyebrow.className = 'hero2-eyebrow';
-    eyebrow.textContent = content.eyebrow;
+    eyebrow.textContent = content.eyebrowText;
 
     contentWrapper.append(eyebrow);
   }
@@ -61,18 +86,36 @@ export default function decorate(block) {
     contentWrapper.append(title);
   }
 
-  if (content.ctaText) {
+  if (content.description) {
+    const description = document.createElement('div');
+
+    description.className = 'hero2-description';
+    description.innerHTML = content.description.innerHTML;
+
+    contentWrapper.append(description);
+  }
+
+  if (content.ctaTitle) {
     const cta = document.createElement('a');
 
     cta.className = 'hero2-cta';
     cta.href = content.ctaLink || '#';
+
+    if (content.ctaLinkType === 'new-window') {
+      cta.target = '_blank';
+      cta.rel = 'noopener noreferrer';
+    }
+
     const label = document.createElement('span');
-    label.textContent = content.ctaText;
+    label.textContent = content.ctaTitle;
+
     const arrow = document.createElement('img');
     arrow.src = '/content/dam/2026/39/energeticowl21611/icons/arrow 14x14.svg';
     arrow.alt = '';
     arrow.className = 'hero2-cta-arrow';
+
     cta.append(label, arrow);
+
     contentWrapper.append(cta);
   }
 

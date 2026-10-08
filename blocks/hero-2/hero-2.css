@@ -15,6 +15,7 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
+  min-height: inherit;
   align-items: center;
   text-align: center;
   width:100%;
@@ -23,7 +24,6 @@
 }
 
 .hero2-icon {
-  color: #4673DB;
   width: 64px;
   height: 64px;
   object-fit: contain;
@@ -54,6 +54,16 @@
   text-wrap: balance;
 }
 
+.hero2-description {
+  max-width: 800px;
+  margin: 0 0 32px;
+  text-align: center;
+}
+
+.hero2-description p {
+  margin: 0;
+}
+
 
 .hero2-cta {
   display: inline-flex;
@@ -81,6 +91,18 @@ object-fit: contain;
   background: #222;
 }
 
+.hero2-align-top .hero2-content {
+  justify-content: flex-start;
+}
+
+.hero2-align-middle .hero2-content {
+  justify-content: center;
+}
+
+.hero2-align-bottom .hero2-content {
+  justify-content: flex-end;
+}
+
 @media (width <= 1024px) {
   .hero2 {
     min-height: 750px;
@@ -106,9 +128,6 @@ object-fit: contain;
     margin-bottom: 20px;
   }
 
-  .hero2-icon svg path{
-    stroke: #4B6EF5;
-    }
 
   .hero2-eyebrow {
     font-size: 14px;
