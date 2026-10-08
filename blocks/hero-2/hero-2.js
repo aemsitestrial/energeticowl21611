@@ -28,6 +28,9 @@ function getContent(block) {
     ctaTitle: getTextValue(block, 'ctaTitle'),
     ctaLink: getTextValue(block, 'ctaLink'),
     ctaLinkType: getTextValue(block, 'ctaLinkType'),
+
+    ctaLinkElement: getFieldElement(block, 'ctaLink'),
+    ctaLinkTypeElement: getFieldElement(block, 'ctaLinkType'),
     ctaView: getTextValue(block, 'ctaView'),
 
     alignment: getTextValue(block, 'alignment'),
@@ -37,6 +40,7 @@ function getContent(block) {
 
 export default function decorate(block) {
   const content = getContent(block);
+  console.log('CTA LINK ELEMENT:', content.ctaLinkElement);
   console.log('CTA LINK:', content.ctaLink);
   console.log('CTA LINK TYPE:', content.ctaLinkType);
   block.innerHTML = '';
@@ -100,8 +104,10 @@ export default function decorate(block) {
   if (content.ctaTitle) {
     const cta = document.createElement('a');
 
+    const authoredLink = content.ctaLinkElement?.querySelector('a');
+
     cta.className = 'hero2-cta';
-    cta.href = content.ctaLink || '#';
+    cta.href = authoredLink?.href || content.ctaLink || '#';
 
     if (content.ctaLinkType === 'new-window') {
       cta.target = '_blank';
