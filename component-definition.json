@@ -271,6 +271,21 @@
           }
         },
         {
+          "title": "CTA",
+          "id": "cta-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "CTA",
+                  "model": "cta"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "DM Scene7 Template",
           "id": "dm-scene7-template",
           "plugins": {

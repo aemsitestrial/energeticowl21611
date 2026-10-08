@@ -1,3 +1,5 @@
+import decorateCta from '../cta/cta.js';
+
 function getFieldElement(block, name) {
   return block.querySelector(`[data-aue-prop="${name}"]`);
 }
@@ -27,7 +29,9 @@ function getContent(block) {
 
     ctaTitle: getTextValue(block, 'ctaTitle'),
     ctaLinkElement: block.querySelector('.button-container a'),
-    ctaLinkType: block.querySelector('div:nth-child(14) p')?.textContent?.trim(),
+    ctaLinkType: [...block.querySelectorAll('p')]
+      .map((p) => p.textContent.trim())
+      .find((text) => text === 'new-window'),
 
     ctaView: getTextValue(block, 'ctaView'),
 
@@ -37,15 +41,14 @@ function getContent(block) {
 }
 
 export default function decorate(block) {
+  // CTA items are rows with several cells; hero field rows have a single cell.
+  const ctaItems = [...block.children].filter((row) => row.children.length > 1);
+  ctaItems.forEach((row) => {
+    row.remove();
+    decorateCta(row);
+  });
+
   const content = getContent(block);
-  console.log(
-    [...block.querySelectorAll('p')]
-      .map((el) => el.textContent.trim()),
-  );
-  console.log(block.innerHTML);
-  console.log('CTA LINK ELEMENT:', content.ctaLinkElement);
-  console.log('CTA LINK:', content.ctaLink);
-  console.log('CTA LINK TYPE:', content.ctaLinkType);
   block.innerHTML = '';
   block.classList.add('hero2');
   if (content.alignment) {
@@ -127,6 +130,13 @@ export default function decorate(block) {
     cta.append(label, arrow);
 
     contentWrapper.append(cta);
+  }
+
+  if (ctaItems.length) {
+    const ctaList = document.createElement('div');
+    ctaList.className = 'hero2-cta-items';
+    ctaList.append(...ctaItems);
+    contentWrapper.append(ctaList);
   }
 
   block.append(contentWrapper);

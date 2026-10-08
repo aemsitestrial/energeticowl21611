@@ -22,6 +22,10 @@ const ALLOWED_LINK_TARGETS = [
 ];
 
 function normalizeLinkTarget(value) {
+  if (String(value).trim().toLowerCase() === 'true') {
+    return 'new-window';
+  }
+
   if (ALLOWED_LINK_TARGETS.includes(value)) {
     return value;
   }
@@ -136,11 +140,10 @@ function readBlockContent(block) {
     ),
 
     linkTarget: normalizeLinkTarget(
-      getFieldValue(
-        block,
-        2,
-        DEFAULTS.linkTarget,
-      ),
+      [...block.children]
+        .map((cell) => cell.textContent.trim().toLowerCase())
+        .find((text) => text === 'new-window' || text === 'true')
+        || DEFAULTS.linkTarget,
     ),
 
     ariaLabel: getFieldValue(
@@ -190,13 +193,7 @@ function createCta(data) {
     return null;
   }
 
-  const link = [...document.querySelectorAll('a')].find(
-    (a) => a.textContent.includes('Explore what we do'),
-  );
-
-  console.log(link);
-  console.log(link?.target);
-  console.log(link?.href);
+  const link = document.createElement('a');
 
   link.className = [
     'cta-link',
@@ -209,8 +206,6 @@ function createCta(data) {
     'aria-label',
     data.ariaLabel || data.text_cta,
   );
-
-  console.log('linkTarget =', data.linkTarget);
 
   const normalizedTarget = String(data.linkTarget || '')
     .trim()
@@ -228,8 +223,6 @@ function createCta(data) {
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
   }
-
-  console.log(link.outerHTML);
 
   if (isValidCssColor(data.backgroundColor)) {
     link.style.backgroundColor = data.backgroundColor;
@@ -266,9 +259,6 @@ function createCta(data) {
 }
 
 export default function decorate(block) {
-  console.log(
-    [...block.children].map((el) => el.textContent.trim()),
-  );
   const data = readBlockContent(block);
   const cta = createCta(data);
 

@@ -224,7 +224,7 @@
     {
       "id": "hero2",
       "components": [
-        "cta"
+        "cta-item"
       ]
     }
   ]

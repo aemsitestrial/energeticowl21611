@@ -108,6 +108,18 @@ filter: brightness(0) invert(1);
   background: #222;
 }
 
+.hero2-cta-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.hero2-cta-items > div {
+  display: block;
+}
+
 .hero2-align-top .hero2-content {
   justify-content: flex-start;
   padding-top: 80px;
