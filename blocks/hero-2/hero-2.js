@@ -40,6 +40,7 @@ function getContent(block) {
 
 export default function decorate(block) {
   const content = getContent(block);
+  console.log(block.innerHTML);
   console.log('CTA LINK ELEMENT:', content.ctaLinkElement);
   console.log('CTA LINK:', content.ctaLink);
   console.log('CTA LINK TYPE:', content.ctaLinkType);
