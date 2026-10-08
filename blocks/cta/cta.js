@@ -204,6 +204,8 @@ function createCta(data) {
     data.ariaLabel || data.text_cta,
   );
 
+  console.log('linkTarget =', data.linkTarget);
+
   if (data.linkTarget === 'new-window') {
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
@@ -244,6 +246,9 @@ function createCta(data) {
 }
 
 export default function decorate(block) {
+  console.log(
+    [...block.children].map((el) => el.textContent.trim()),
+  );
   const data = readBlockContent(block);
   const cta = createCta(data);
 

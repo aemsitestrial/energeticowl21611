@@ -40,7 +40,7 @@
           "component": "select",
           "valueType": "string",
           "name": "linkTarget",
-          "label": "Link Target",
+          "label": "CTA Link Type",
           "value": "default",
           "options": [
             {
