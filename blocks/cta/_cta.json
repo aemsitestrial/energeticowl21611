@@ -77,13 +77,6 @@
         },
 
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "ariaLabel",
-          "label": "ARIA Label",
-          "value": ""
-        },
-        {
           "component": "select",
           "valueType": "string",
           "name": "shape",
