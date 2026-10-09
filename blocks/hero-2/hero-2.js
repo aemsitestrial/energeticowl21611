@@ -23,18 +23,16 @@ function getContent(block) {
 
     eyebrowText: getTextValue(block, 'eyebrowText'),
 
-    title: block.querySelector('div:nth-child(10) p')
-      ?.textContent?.trim(),
+    title:
+      getFieldElement(block, 'description')
+        ?.closest('div')
+        ?.parentElement
+        ?.previousElementSibling
+        ?.querySelector('p')
+        ?.textContent
+        ?.trim(),
 
     description: getFieldElement(block, 'description'),
-
-    ctaTitle: getTextValue(block, 'ctaTitle'),
-    ctaLinkElement: block.querySelector('.button-container a'),
-    ctaLinkType: [...block.querySelectorAll('p')]
-      .map((p) => p.textContent.trim())
-      .find((text) => text === 'new-window'),
-
-    ctaView: getTextValue(block, 'ctaView'),
 
     alignment: getTextValue(block, 'alignment'),
     bgColor: getTextValue(block, 'bgColor'),
@@ -112,31 +110,6 @@ export default function decorate(block) {
     description.innerHTML = content.description.innerHTML;
 
     contentWrapper.append(description);
-  }
-
-  if (content.ctaTitle) {
-    const cta = document.createElement('a');
-
-    cta.className = 'hero2-cta';
-
-    cta.href = content.ctaLinkElement?.href || '#';
-
-    if (content.ctaLinkType === 'new-window') {
-      cta.target = '_blank';
-      cta.rel = 'noopener noreferrer';
-    }
-
-    const label = document.createElement('span');
-    label.textContent = content.ctaTitle;
-
-    const arrow = document.createElement('img');
-    arrow.src = '/content/dam/2026/39/energeticowl21611/icons/arrow 14x14.svg';
-    arrow.alt = '';
-    arrow.className = 'hero2-cta-arrow';
-
-    cta.append(label, arrow);
-
-    contentWrapper.append(cta);
   }
 
   if (ctaItems.length) {
