@@ -239,10 +239,7 @@ function createCta(data) {
     link.style.backgroundColor = data.backgroundColor;
   }
 
-  if (
-    ['primary', 'secondary'].includes(data.ctaView)
-    && isValidCssColor(data.textColor)
-  ) {
+  if (isValidCssColor(data.textColor)) {
     link.style.color = data.textColor;
   }
 

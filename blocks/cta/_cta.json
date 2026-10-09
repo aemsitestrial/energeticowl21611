@@ -89,6 +89,12 @@
           "name": "shape",
           "label": "Shape",
           "value": "rectangle",
+          "condition": {
+            "in": [
+              { "var": "ctaView" },
+              ["primary", "secondary"]
+            ]
+          },
           "options": [
             {
               "name": "Rectangle",
@@ -109,7 +115,10 @@
           "valueType": "string",
           "name": "backgroundColor",
           "label": "Background Color",
-          "value": ""
+          "value": "",
+          "condition": {
+            "===": [{ "var": "ctaView" }, "primary"]
+          }
         },
         {
           "component": "text",
@@ -123,7 +132,13 @@
           "valueType": "string",
           "name": "borderColor",
           "label": "Border Color",
-          "value": ""
+          "value": "",
+          "condition": {
+            "in": [
+              { "var": "ctaView" },
+              ["primary", "secondary"]
+            ]
+          }
         },
         {
           "component": "select",
