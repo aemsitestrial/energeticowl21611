@@ -232,6 +232,9 @@ function createCta(data) {
     link.rel = 'noopener noreferrer';
   }
 
+  console.log('opensNewTab:', opensNewTab);
+  console.log('target:', link.target);
+
   if (isValidCssColor(data.backgroundColor)) {
     link.style.backgroundColor = data.backgroundColor;
   }
