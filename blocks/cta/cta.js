@@ -84,44 +84,17 @@ function createArrow(direction) {
   wrapper.className = `cta-arrow cta-arrow-${direction}`;
   wrapper.setAttribute('aria-hidden', 'true');
 
-  const svg = document.createElementNS(
-    'http://www.w3.org/2000/svg',
-    'svg',
-  );
+  const arrow = document.createElement('img');
 
-  svg.classList.add('cta-arrow-icon');
-
-  svg.setAttribute('viewBox', '0 0 24 24');
-  svg.setAttribute('width', '1em');
-  svg.setAttribute('height', '1em');
-  svg.setAttribute('focusable', 'false');
-  svg.setAttribute('aria-hidden', 'true');
-
-  const path = document.createElementNS(
-    'http://www.w3.org/2000/svg',
-    'path',
-  );
+  arrow.src = '/content/dam/2026/39/energeticowl21611/icons/arrow 14x14.svg';
+  arrow.alt = '';
+  arrow.className = 'cta-arrow-icon';
 
   if (direction === 'left') {
-    path.setAttribute(
-      'd',
-      'M19 12H5M12 19l-7-7 7-7',
-    );
-  } else {
-    path.setAttribute(
-      'd',
-      'M5 12h14M12 5l7 7-7 7',
-    );
+    arrow.classList.add('cta-arrow-icon-left');
   }
 
-  path.setAttribute('fill', 'none');
-  path.setAttribute('stroke', 'currentColor');
-  path.setAttribute('stroke-width', '2');
-  path.setAttribute('stroke-linecap', 'round');
-  path.setAttribute('stroke-linejoin', 'round');
-
-  svg.appendChild(path);
-  wrapper.appendChild(svg);
+  wrapper.appendChild(arrow);
 
   return wrapper;
 }

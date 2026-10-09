@@ -84,9 +84,10 @@
 
 .cta-arrow-icon {
   display: block;
-  width: 1em;
-  height: 1em;
-  color: inherit;
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .cta-link:hover {
