@@ -18,12 +18,13 @@ function getAlignment(block) {
     return fromField;
   }
 
-  // Fallback: a single-cell row whose text is exactly an alignment value.
-  const match = [...block.querySelectorAll('div')]
+  // Fallback: the last leaf element whose text is exactly an alignment value
+  // (alignment rows come after title/description in the authored order).
+  const matches = [...block.querySelectorAll('div, p')]
     .filter((el) => !el.children.length)
     .map((el) => el.textContent.trim().toLowerCase())
-    .find((text) => allowed.includes(text));
-  return match || '';
+    .filter((text) => allowed.includes(text));
+  return matches.pop() || '';
 }
 
 function getContent(block) {
