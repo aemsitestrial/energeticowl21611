@@ -2,6 +2,7 @@ const DEFAULTS = {
   text_cta: '',
   ctaLink: '',
   linkTarget: 'default',
+  ctaView: 'default',
   ariaLabel: '',
   shape: 'rectangle',
   backgroundColor: '',
@@ -195,8 +196,6 @@ function readBlockContent(block) {
 }
 
 function createCta(data) {
-  console.log('linkTarget:', data.linkTarget);
-  console.log('CTA data:', data);
   if (!data.text_cta || !data.ctaLink) {
     return null;
   }
@@ -206,6 +205,7 @@ function createCta(data) {
   link.className = [
     'cta-link',
     `cta-link-${data.shape}`,
+    `cta-view-${data.ctaView}`,
   ].join(' ');
 
   link.href = data.ctaLink;
@@ -232,18 +232,24 @@ function createCta(data) {
     link.rel = 'noopener noreferrer';
   }
 
-  console.log('opensNewTab:', opensNewTab);
-  console.log('target:', link.target);
-
-  if (isValidCssColor(data.backgroundColor)) {
+  if (
+    data.ctaView === 'primary'
+    && isValidCssColor(data.backgroundColor)
+  ) {
     link.style.backgroundColor = data.backgroundColor;
   }
 
-  if (isValidCssColor(data.textColor)) {
+  if (
+    ['primary', 'secondary'].includes(data.ctaView)
+    && isValidCssColor(data.textColor)
+  ) {
     link.style.color = data.textColor;
   }
 
-  if (isValidCssColor(data.borderColor)) {
+  if (
+    ['primary', 'secondary'].includes(data.ctaView)
+    && isValidCssColor(data.borderColor)
+  ) {
     link.style.borderColor = data.borderColor;
   }
 

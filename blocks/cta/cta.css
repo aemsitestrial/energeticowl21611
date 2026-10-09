@@ -39,6 +39,32 @@
   border-radius: 9999px;
 }
 
+.cta-link.cta-view-default.cta-link-pill,
+.cta-link.cta-view-default.cta-link-rounded,
+.cta-link.cta-view-default.cta-link-rectangle {
+  border-radius: 0;
+}
+
+/* Default View */
+.cta-link.cta-view-default {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Primary View */
+.cta-link.cta-view-primary {
+  padding: 0.75rem 1.25rem;
+}
+
+/* Secondary View */
+.cta-link.cta-view-secondary {
+  background: transparent;
+  border-width: 1px;
+  border-style: solid;
+}
+
 .cta-text {
   display: inline-block;
   min-width: 0;
@@ -64,7 +90,7 @@
 }
 
 .cta-link:hover {
-  transform: translateY(-1px);
+  transform: none;
 }
 
 .cta-link:active {
