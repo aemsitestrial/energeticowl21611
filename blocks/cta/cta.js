@@ -145,13 +145,13 @@ function readBlockContent(block) {
         .find((text) => text === 'new-window' || text === 'true')
         || DEFAULTS.linkTarget,
     ),
-    
+
     ctaView: getFieldValue(
       block,
       3,
       'default',
     ),
-    
+
     ariaLabel: getFieldValue(
       block,
       4,
@@ -195,7 +195,6 @@ function readBlockContent(block) {
 }
 
 function createCta(data) {
-
   console.log('linkTarget:', data.linkTarget);
   console.log('CTA data:', data);
   if (!data.text_cta || !data.ctaLink) {
