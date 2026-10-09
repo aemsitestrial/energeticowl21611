@@ -1,3 +1,4 @@
+import { loadCSS } from '../../scripts/aem.js';
 import decorateCta from '../cta/cta.js';
 
 function getFieldElement(block, name) {
@@ -43,8 +44,14 @@ function getContent(block) {
 export default function decorate(block) {
   // CTA items are rows with several cells; hero field rows have a single cell.
   const ctaItems = [...block.children].filter((row) => row.children.length > 1);
+  if (ctaItems.length) {
+    // Nested CTA rows are not loaded as standalone blocks, so load their CSS here.
+    loadCSS(`${window.hlx.codeBasePath}/blocks/cta/cta.css`);
+  }
   ctaItems.forEach((row) => {
     row.remove();
+    row.classList.add('cta', 'block');
+    row.dataset.blockName = 'cta';
     decorateCta(row);
   });
 

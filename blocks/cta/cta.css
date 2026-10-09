@@ -2,7 +2,8 @@
   box-sizing: border-box;
 }
 
-.cta-link {
+.cta-link,
+.cta-link:any-link {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -26,15 +27,20 @@
     filter 160ms ease;
 }
 
-.cta-link-rectangle {
+.cta-link:any-link:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.cta-link.cta-link-rectangle {
   border-radius: 0;
 }
 
-.cta-link-rounded {
+.cta-link.cta-link-rounded {
   border-radius: 0.375rem;
 }
 
-.cta-link-pill {
+.cta-link.cta-link-pill {
   border-radius: 9999px;
 }
 
