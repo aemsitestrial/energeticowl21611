@@ -195,6 +195,9 @@ function readBlockContent(block) {
 }
 
 function createCta(data) {
+
+  console.log('linkTarget:', data.linkTarget);
+  console.log('CTA data:', data);
   if (!data.text_cta || !data.ctaLink) {
     return null;
   }
