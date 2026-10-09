@@ -12,6 +12,18 @@ function getTextValue(block, name, defaultValue = '') {
 }
 
 function getContent(block) {
+  console.log(
+    'TITLE FIELD :',
+    block.querySelector('div:nth-child(10) p')
+      ?.textContent?.trim(),
+  );
+
+  console.log(
+    'DESCRIPTION FIELD :',
+    getFieldElement(block, 'description'),
+  );
+
+  console.log(block.innerHTML);
   return {
     heroIcon: getFieldElement(block, 'heroIcon'),
     heroIconAlt: getTextValue(block, 'heroIconAlt'),
@@ -24,10 +36,10 @@ function getContent(block) {
     eyebrowText: getTextValue(block, 'eyebrowText'),
 
     title:
-      getFieldElement(block, 'description')
+      getFieldElement(block, 'eyebrowText')
         ?.closest('div')
         ?.parentElement
-        ?.previousElementSibling
+        ?.nextElementSibling
         ?.querySelector('p')
         ?.textContent
         ?.trim(),
