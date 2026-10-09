@@ -11,6 +11,21 @@ function getTextValue(block, name, defaultValue = '') {
   return field?.textContent?.trim() || defaultValue;
 }
 
+function getAlignment(block) {
+  const allowed = ['top', 'middle', 'bottom'];
+  const fromField = getTextValue(block, 'alignment').toLowerCase();
+  if (allowed.includes(fromField)) {
+    return fromField;
+  }
+
+  // Fallback: a single-cell row whose text is exactly an alignment value.
+  const match = [...block.querySelectorAll('div')]
+    .filter((el) => !el.children.length)
+    .map((el) => el.textContent.trim().toLowerCase())
+    .find((text) => allowed.includes(text));
+  return match || '';
+}
+
 function getContent(block) {
   console.log(
     'TITLE FIELD :',
@@ -46,7 +61,7 @@ function getContent(block) {
 
     description: getFieldElement(block, 'description'),
 
-    alignment: getTextValue(block, 'alignment'),
+    alignment: getAlignment(block),
     bgColor: getTextValue(block, 'bgColor'),
   };
 }

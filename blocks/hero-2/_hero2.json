@@ -110,6 +110,18 @@
         },
 
         {
+          "component": "select",
+          "name": "motionType",
+          "label": "Motion Type",
+          "options": [
+            {
+              "name": "Select",
+              "value": "Select"
+            }
+          ]
+        },
+
+        {
           "component": "fieldset",
           "name": "styleSection",
           "label": "Style"
