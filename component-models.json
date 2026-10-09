@@ -5596,6 +5596,8 @@
         "component": "select",
         "name": "heroImageType",
         "label": "Hero Image Type",
+        "valueType": "string",
+        "value": "default",
         "options": [
           {
             "name": "Default",
@@ -5609,8 +5611,35 @@
       },
       {
         "component": "reference",
+        "name": "heroImage",
+        "label": "Hero Image",
+        "description": "Default: any image format is allowed.",
+        "valueType": "string",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "heroImageType"
+            },
+            "default"
+          ]
+        }
+      },
+      {
+        "component": "reference",
         "name": "heroLottoImagePath",
-        "label": "Hero Lotto Image Path"
+        "label": "Hero Lotto Image Path",
+        "description": "Lotto: only .zip or .svg files are allowed.",
+        "valueType": "string",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "heroImageType"
+            },
+            "lotto"
+          ]
+        }
       },
       {
         "component": "text",
