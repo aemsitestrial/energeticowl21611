@@ -53,6 +53,29 @@
             }
           ]
         },
+
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "ctaView",
+          "label": "CTA View",
+          "value": "default",
+          "options": [
+            {
+              "name": "Default",
+              "value": "default"
+            },
+            {
+              "name": "Primary",
+              "value": "primary"
+            },
+            {
+              "name": "Secondary",
+              "value": "secondary"
+            }
+          ]
+        },
+
         {
           "component": "text",
           "valueType": "string",

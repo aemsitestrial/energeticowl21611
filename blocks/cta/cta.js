@@ -145,43 +145,49 @@ function readBlockContent(block) {
         .find((text) => text === 'new-window' || text === 'true')
         || DEFAULTS.linkTarget,
     ),
-
-    ariaLabel: getFieldValue(
+    
+    ctaView: getFieldValue(
       block,
       3,
+      'default',
+    ),
+    
+    ariaLabel: getFieldValue(
+      block,
+      4,
       DEFAULTS.ariaLabel,
     ),
 
     shape: normalizeShape(
       getFieldValue(
         block,
-        4,
+        5,
         DEFAULTS.shape,
       ),
     ),
 
     backgroundColor: getFieldValue(
       block,
-      5,
+      6,
       DEFAULTS.backgroundColor,
     ),
 
     textColor: getFieldValue(
       block,
-      6,
+      7,
       DEFAULTS.textColor,
     ),
 
     borderColor: getFieldValue(
       block,
-      7,
+      8,
       DEFAULTS.borderColor,
     ),
 
     arrowDirection: normalizeArrow(
       getFieldValue(
         block,
-        8,
+        9,
         DEFAULTS.arrowDirection,
       ),
     ),
