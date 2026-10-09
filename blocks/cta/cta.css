@@ -27,11 +27,6 @@
     filter 160ms ease;
 }
 
-.cta-link:any-link:hover {
-  color: #000;
-  text-decoration: none;
-}
-
 .cta-link.cta-link-rectangle {
   border-radius: 0;
 }
@@ -76,14 +71,6 @@
   transform: translateY(0);
 }
 
-.cta-link:hover .cta-arrow-right {
-  transform: translateX(3px);
-}
-
-.cta-link:hover .cta-arrow-left {
-  transform: translateX(-3px);
-}
-
 .cta-link:focus {
   outline: 3px solid currentcolor;
   outline-offset: 3px;
@@ -92,6 +79,19 @@
 .cta-link:focus-visible {
   outline: 3px solid currentcolor;
   outline-offset: 3px;
+}
+
+.cta-link:hover .cta-arrow-right {
+  transform: translateX(3px);
+}
+
+.cta-link:hover .cta-arrow-left {
+  transform: translateX(-3px);
+}
+
+.cta-link:any-link:hover {
+  color: #000;
+  text-decoration: none;
 }
 
 .cta-link:focus:not(:focus-visible) {
