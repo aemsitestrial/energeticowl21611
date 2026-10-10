@@ -3,7 +3,6 @@ const DEFAULTS = {
   ctaLink: '',
   linkTarget: 'default',
   ctaView: 'default',
-  ariaLabel: '',
   shape: 'rectangle',
   backgroundColor: '',
   textColor: '',
@@ -126,42 +125,36 @@ function readBlockContent(block) {
       'default',
     ),
 
-    ariaLabel: getFieldValue(
-      block,
-      4,
-      DEFAULTS.ariaLabel,
-    ),
-
     shape: normalizeShape(
       getFieldValue(
         block,
-        5,
+        4,
         DEFAULTS.shape,
       ),
     ),
 
     backgroundColor: getFieldValue(
       block,
-      6,
+      5,
       DEFAULTS.backgroundColor,
     ),
 
     textColor: getFieldValue(
       block,
-      7,
+      6,
       DEFAULTS.textColor,
     ),
 
     borderColor: getFieldValue(
       block,
-      8,
+      7,
       DEFAULTS.borderColor,
     ),
 
     arrowDirection: normalizeArrow(
       getFieldValue(
         block,
-        9,
+        8,
         DEFAULTS.arrowDirection,
       ),
     ),
@@ -185,7 +178,7 @@ function createCta(data) {
 
   link.setAttribute(
     'aria-label',
-    data.ariaLabel || data.text_cta,
+    data.text_cta,
   );
 
   const normalizedTarget = String(data.linkTarget || '')
