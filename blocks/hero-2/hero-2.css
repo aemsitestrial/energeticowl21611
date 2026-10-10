@@ -1,6 +1,6 @@
 .hero2 {
   position: relative;
-  min-height: 900px;
+  min-height: 1000px;
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -45,49 +45,60 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  gap: 120px;
   width: 100%;
   max-width: 1200px;
-  padding: 0 24px;
+  min-height: 1000px;
+  padding: 0 44px;
 }
 
 .hero2-icon {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
   filter: brightness(0) saturate(100%)
     invert(36%) sepia(95%) saturate(1941%)
     hue-rotate(221deg) brightness(98%) contrast(96%);
 }
 
 .hero2-eyebrow {
+  font-family: Inter, sans-serif;
   color: #4673DB;
-  margin: 0 0 16px;
+  margin: 0;
   font-size: 16px;
-  font-weight: 500;
-  line-height: 1.4;
+  font-weight: 600;
+  line-height: 160%;
 }
 
 .hero2-title {
+  font-family: Inter, sans-serif;
   width: 100%;
-  max-width: 1200px;
-  margin: 24px 0 40px;
+  max-width: 1352px;
+  margin:0;
+  margin-top: 24px;
+  margin-bottom: 40px;
   color: #000;
   font-size: 64px;
-  font-weight: 400;
-  font-family: Arial, sans-serif !important;
-  line-height: 1.1;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: -0.025em;
   text-align: center;
   text-wrap: balance;
 }
 
 .hero2-description {
-  max-width: 800px;
+  max-width: 850px;
   margin: 0 0 32px;
   text-align: center;
 }
 
 .hero2-description p {
+  font-family: Inter, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: -0.025em;
   margin: 0;
 }
 
@@ -98,7 +109,7 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
-  margin-top: 16px;
+  margin-top: 48px;
 }
 
 .hero2-cta-items > div {
