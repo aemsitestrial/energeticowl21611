@@ -45,11 +45,10 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 120px;
   width: 100%;
   max-width: 1200px;
   min-height: 1000px;
-  padding: 0 44px;
+  padding: 0 24px;
 }
 
 .hero2-icon {
