@@ -205,12 +205,16 @@ function getTextCandidates(block) {
     'black',
     'white',
     'new-window',
+    'select',
   ]);
 
   return getRows(block)
     .filter((row) => !row.querySelector('img, picture, a[href]'))
-    .map((row) => row.textContent.trim())
-    .filter((text) => text && !controlValues.has(text.toLowerCase()));
+    .map((row) => ({
+      text: row.textContent.trim(),
+      element: row.children.length === 1 ? row.firstElementChild : row,
+    }))
+    .filter(({ text }) => text && !controlValues.has(text.toLowerCase()));
 }
 
 function getAlignment(block) {
@@ -235,6 +239,24 @@ function getContent(block) {
   const textCandidates = getTextCandidates(block);
   const titleFromField = getTextValue(block, 'title');
   const descriptionFromField = getFieldElement(block, 'description');
+  const eyebrowFromField = getTextValue(block, 'eyebrowText');
+
+  // Without field markers the authored order is eyebrow, title, description.
+  // With only two text rows, they are title and description (eyebrow is optional).
+  let fallback;
+  if (textCandidates.length >= 3) {
+    fallback = {
+      eyebrow: textCandidates[0].text,
+      title: textCandidates[1].text,
+      description: textCandidates[2].element,
+    };
+  } else {
+    fallback = {
+      eyebrow: '',
+      title: textCandidates[0]?.text || '',
+      description: textCandidates[1]?.element || '',
+    };
+  }
 
   return {
     heroIconSrc: iconImage?.getAttribute('src') || '',
@@ -247,11 +269,11 @@ function getContent(block) {
     heroImageAlt: getTextValue(block, 'heroImageAlt'),
     heroView: getTextValue(block, 'heroView'),
 
-    eyebrowText: getTextValue(block, 'eyebrowText'),
+    eyebrowText: eyebrowFromField || fallback.eyebrow,
 
-    title: titleFromField || textCandidates[0] || '',
+    title: titleFromField || fallback.title,
 
-    description: descriptionFromField || textCandidates[1] || '',
+    description: descriptionFromField || fallback.description,
 
     alignment: getAlignment(block),
     bgColor: getTextValue(block, 'bgColor'),
