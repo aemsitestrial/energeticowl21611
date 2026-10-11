@@ -43,7 +43,7 @@ function getAssetUrl(element) {
  * field marker is unavailable (e.g. published page), scans the block for a
  * matching asset. Any other file type is rejected.
  */
-function getLottoAssetUrl(block, field) {
+function getLottoAssetUrl(block, field, icon) {
   const fieldUrl = getAssetUrl(field);
   if (LOTTO_ALLOWED_EXTENSIONS.includes(getExtension(fieldUrl))) {
     return fieldUrl;
@@ -56,6 +56,7 @@ function getLottoAssetUrl(block, field) {
   }
 
   const candidate = [...block.querySelectorAll('a[href], img[src]')]
+    .filter((node) => node !== icon)
     .map((node) => node.getAttribute(node.tagName === 'A' ? 'href' : 'src'))
     .find((url) => LOTTO_ALLOWED_EXTENSIONS.includes(getExtension(url)));
 
@@ -162,40 +163,69 @@ function getRows(block) {
   return [...block.querySelectorAll(':scope > div')];
 }
 
-function getPrimaryBackgroundImage(block) {
-  const heroIcon = getFieldElement(block, 'heroIcon')
-    ?.querySelector('img');
+const IMAGE_TYPES = ['default', 'lotto'];
 
-  const images = [...block.querySelectorAll('picture img, img')]
-    .filter((img) => !img.closest('a'))
-    .filter((img) => img !== heroIcon);
-
-  if (!images.length) {
-    return null;
-  }
-
-  return images.reduce((largest, current) => {
-    const currentArea = (Number(current.getAttribute('width')) || 0)
-      * (Number(current.getAttribute('height')) || 0);
-
-    const largestArea = (Number(largest.getAttribute('width')) || 0)
-      * (Number(largest.getAttribute('height')) || 0);
-
-    return currentArea > largestArea ? current : largest;
-  });
+function getImageIn(element) {
+  if (!element) return null;
+  if (element.matches('img')) return element;
+  return element.querySelector('img');
 }
 
-function getHeroIconImage(block, backgroundImage) {
-  const explicitIcon = getFieldElement(block, 'heroIcon')?.querySelector('img');
-  if (explicitIcon) return explicitIcon;
+function getRowImage(row) {
+  return [...row.querySelectorAll('img')].find((img) => !img.closest('a')) || null;
+}
 
-  return [...block.querySelectorAll('picture img, img')]
-    .filter((img) => img !== backgroundImage && !img.closest('a'))
-    .find((img) => {
-      const width = Number(img.getAttribute('width')) || 0;
-      const height = Number(img.getAttribute('height')) || 0;
-      return width <= 200 && height <= 200;
-    }) || null;
+// The row holding the Hero Image Type value ("default" / "lotto").
+// Icon is authored before it, the hero image / lotto path after it.
+function getImageTypeRowIndex(block) {
+  return getRows(block).findIndex((row) => !row.querySelector('img, a[href]')
+    && IMAGE_TYPES.includes(row.textContent.trim().toLowerCase()));
+}
+
+/**
+ * Splits the authored images into the hero icon and the background image.
+ * Uses the field markers when present (editor), otherwise the authored order.
+ */
+function getHeroImages(block) {
+  const iconField = getFieldElement(block, 'heroIcon');
+  const imageField = getFieldElement(block, 'heroImage');
+  if (iconField || imageField) {
+    return { icon: getImageIn(iconField), background: getImageIn(imageField) };
+  }
+
+  const rows = getRows(block);
+  const typeIndex = getImageTypeRowIndex(block);
+  let icon = null;
+  let background = null;
+
+  if (typeIndex >= 0) {
+    rows.forEach((row, index) => {
+      const img = getRowImage(row);
+      if (!img) return;
+      if (index < typeIndex) icon = icon || img;
+      else background = background || img;
+    });
+    return { icon, background };
+  }
+
+  const withImages = rows.map((row) => getRowImage(row)).filter(Boolean);
+  if (withImages.length > 1) {
+    [icon] = withImages;
+    background = withImages[withImages.length - 1];
+  } else if (withImages.length === 1) {
+    // Icon is the first authored field.
+    if (getRowImage(rows[0]) === withImages[0]) [icon] = withImages;
+    else [background] = withImages;
+  }
+  return { icon, background };
+}
+
+function getImageType(block) {
+  const fromField = getTextValue(block, 'heroImageType').toLowerCase();
+  if (IMAGE_TYPES.includes(fromField)) return fromField;
+
+  const typeRow = getRows(block)[getImageTypeRowIndex(block)];
+  return typeRow ? typeRow.textContent.trim().toLowerCase() : 'default';
 }
 
 function getTextCandidates(block) {
@@ -243,8 +273,7 @@ function getAlignment(block) {
 }
 
 function getContent(block) {
-  const backgroundImage = getPrimaryBackgroundImage(block);
-  const iconImage = getHeroIconImage(block, backgroundImage);
+  const { icon: iconImage, background: backgroundImage } = getHeroImages(block);
   const textCandidates = getTextCandidates(block);
   const titleFromField = getTextValue(block, 'title');
   const descriptionFromField = getFieldElement(block, 'description');
@@ -269,13 +298,13 @@ function getContent(block) {
 
   return {
     heroIconSrc: iconImage?.getAttribute('src') || '',
-    heroIconAlt: getTextValue(block, 'heroIconAlt'),
+    heroIconAlt: getTextValue(block, 'heroIconAlt') || iconImage?.getAttribute('alt') || '',
 
-    heroImageType: getTextValue(block, 'heroImageType', 'default'),
+    heroImageType: getImageType(block),
     heroImage: getFieldElement(block, 'heroImage'),
     heroLottoImagePath: getFieldElement(block, 'heroLottoImagePath'),
     heroImageSrc: backgroundImage?.getAttribute('src') || '',
-    heroImageAlt: getTextValue(block, 'heroImageAlt'),
+    heroImageAlt: getTextValue(block, 'heroImageAlt') || backgroundImage?.getAttribute('alt') || '',
     heroView: getTextValue(block, 'heroView'),
 
     eyebrowText: eyebrowFromField || fallback.eyebrow,
@@ -305,7 +334,7 @@ export default function decorate(block) {
 
   const content = getContent(block);
   const lottoUrl = content.heroImageType === 'lotto'
-    ? getLottoAssetUrl(block, content.heroLottoImagePath)
+    ? getLottoAssetUrl(block, content.heroLottoImagePath, getHeroImages(block).icon)
     : '';
   block.innerHTML = '';
   block.classList.add('hero2');
