@@ -56,9 +56,6 @@
   height: 48px;
   object-fit: contain;
   margin-bottom: 8px;
-  filter: brightness(0) saturate(100%)
-    invert(36%) sepia(95%) saturate(1941%)
-    hue-rotate(221deg) brightness(98%) contrast(96%);
 }
 
 .hero2-eyebrow {
