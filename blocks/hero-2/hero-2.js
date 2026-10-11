@@ -163,15 +163,24 @@ function getRows(block) {
 }
 
 function getPrimaryBackgroundImage(block) {
+  const heroIcon = getFieldElement(block, 'heroIcon')
+    ?.querySelector('img');
+
   const images = [...block.querySelectorAll('picture img, img')]
-    .filter((img) => !img.closest('a'));
-  if (!images.length) return null;
+    .filter((img) => !img.closest('a'))
+    .filter((img) => img !== heroIcon);
+
+  if (!images.length) {
+    return null;
+  }
 
   return images.reduce((largest, current) => {
     const currentArea = (Number(current.getAttribute('width')) || 0)
       * (Number(current.getAttribute('height')) || 0);
+
     const largestArea = (Number(largest.getAttribute('width')) || 0)
       * (Number(largest.getAttribute('height')) || 0);
+
     return currentArea > largestArea ? current : largest;
   });
 }
