@@ -52,10 +52,15 @@
 }
 
 .hero2-icon {
+  display: block;
   width: 48px;
   height: 48px;
-  object-fit: contain;
   margin-bottom: 8px;
+  background-color: #4673DB;
+  mask-image: var(--hero2-icon-src);
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
 }
 
 .hero2-eyebrow {

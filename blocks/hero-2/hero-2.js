@@ -280,19 +280,33 @@ function getContent(block) {
   const eyebrowFromField = getTextValue(block, 'eyebrowText');
 
   // Without field markers the authored order is eyebrow, title, description.
-  // With only two text rows, they are title and description (eyebrow is optional).
+  // Empty fields leave no row, so the description is recognised by its rich text
+  // markup (<p>, lists) when it differs from the plain text eyebrow/title rows.
+  const isRich = (candidate) => !!candidate.element.querySelector('p, ul, ol');
+  const richCandidates = textCandidates.filter(isRich);
+  const hasDescription = richCandidates.length > 0
+    && richCandidates.length < textCandidates.length;
+  const description = hasDescription ? richCandidates[richCandidates.length - 1] : null;
+  const plain = textCandidates.filter((candidate) => candidate !== description);
+
   let fallback;
-  if (textCandidates.length >= 3) {
+  if (plain.length >= 3 && !description) {
     fallback = {
-      eyebrow: textCandidates[0].text,
-      title: textCandidates[1].text,
-      description: textCandidates[2].element,
+      eyebrow: plain[0].text,
+      title: plain[1].text,
+      description: plain[2].element,
+    };
+  } else if (plain.length >= 2) {
+    fallback = {
+      eyebrow: plain[0].text,
+      title: plain[1].text,
+      description: description?.element || '',
     };
   } else {
     fallback = {
       eyebrow: '',
-      title: textCandidates[0]?.text || '',
-      description: textCandidates[1]?.element || '',
+      title: plain[0]?.text || '',
+      description: description?.element || '',
     };
   }
 
@@ -368,10 +382,15 @@ export default function decorate(block) {
   contentWrapper.className = 'hero2-content';
 
   if (content.heroIconSrc) {
-    const icon = document.createElement('img');
+    const icon = document.createElement('span');
     icon.className = 'hero2-icon';
-    icon.src = content.heroIconSrc;
-    icon.alt = content.heroIconAlt || '';
+    icon.style.setProperty('--hero2-icon-src', `url("${content.heroIconSrc.replace(/"/g, '%22')}")`);
+    if (content.heroIconAlt) {
+      icon.setAttribute('role', 'img');
+      icon.setAttribute('aria-label', content.heroIconAlt);
+    } else {
+      icon.setAttribute('aria-hidden', 'true');
+    }
     contentWrapper.append(icon);
   }
 
