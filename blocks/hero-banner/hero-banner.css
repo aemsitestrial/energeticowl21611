@@ -37,7 +37,7 @@
 }
 
 .hero-banner.hero-banner-bg-white::before {
-  background: rgb(255, 255, 255, 80%);
+  background: rgb(255 255 255 / 80%);
 }
 
 .hero-banner.hero-banner-bg-black::before {
