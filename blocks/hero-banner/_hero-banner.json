@@ -37,7 +37,7 @@
       "id": "hero-banner",
       "fields": [
         {
-          "component": "fieldset",
+          "component": "tab",
           "name": "imageSection",
           "label": "Image Section"
         },
@@ -104,7 +104,7 @@
         },
 
         {
-          "component": "fieldset",
+          "component": "tab",
           "name": "contentSection",
           "label": "Content Section"
         },
@@ -137,7 +137,7 @@
         },
 
         {
-          "component": "fieldset",
+          "component": "tab",
           "name": "styleSection",
           "label": "Style"
         },
@@ -157,6 +157,66 @@
             {
               "name": "Bottom",
               "value": "bottom"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "iconColor",
+          "label": "Icon Color",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Black",
+              "value": "black"
+            },
+            {
+              "name": "White",
+              "value": "white"
+            },
+            {
+              "name": "Blue",
+              "value": "blue"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "titleColor",
+          "label": "Title Color",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Black",
+              "value": "black"
+            },
+            {
+              "name": "White",
+              "value": "white"
+            },
+            {
+              "name": "Grey",
+              "value": "grey"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "descriptionColor",
+          "label": "Description Color",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Black",
+              "value": "black"
+            },
+            {
+              "name": "White",
+              "value": "white"
+            },
+            {
+              "name": "Grey",
+              "value": "grey"
             }
           ]
         },

@@ -246,6 +246,8 @@ function getTextCandidates(block) {
     'new-window',
     'none',
     'select',
+    'blue',
+    'grey',
   ]);
 
   return getRows(block)
@@ -287,6 +289,11 @@ function getBgColor(block) {
     .map((el) => el.textContent.trim().toLowerCase())
     .filter((text) => allowed.includes(text));
   return matches.pop() || 'none';
+}
+
+function getColorChoice(block, name, allowed) {
+  const value = getTextValue(block, name).toLowerCase();
+  return allowed.includes(value) ? value : '';
 }
 
 function getContent(block) {
@@ -358,6 +365,9 @@ function getContent(block) {
 
     alignment: getAlignment(block),
     bgColor: getBgColor(block),
+    iconColor: getColorChoice(block, 'iconColor', ['black', 'white', 'blue']),
+    titleColor: getColorChoice(block, 'titleColor', ['black', 'white', 'grey']),
+    descriptionColor: getColorChoice(block, 'descriptionColor', ['black', 'white', 'grey']),
   };
 }
 
@@ -416,6 +426,7 @@ export default function decorate(block) {
   if (content.heroIconSrc) {
     const icon = document.createElement('span');
     icon.className = 'hero-banner-icon';
+    if (content.iconColor) icon.classList.add(`hero-banner-icon-${content.iconColor}`);
     icon.style.setProperty('--hero-banner-icon-src', `url("${content.heroIconSrc.replace(/"/g, '%22')}")`);
     if (content.heroIconAlt) {
       icon.setAttribute('role', 'img');
@@ -437,6 +448,7 @@ export default function decorate(block) {
   if (content.title) {
     const title = document.createElement('h1');
     title.className = 'hero-banner-title';
+    if (content.titleColor) title.classList.add(`hero-banner-title-${content.titleColor}`);
     title.textContent = content.title;
 
     contentWrapper.append(title);
@@ -446,6 +458,9 @@ export default function decorate(block) {
     const description = document.createElement('div');
 
     description.className = 'hero-banner-description';
+    if (content.descriptionColor) {
+      description.classList.add(`hero-banner-description-${content.descriptionColor}`);
+    }
     if (typeof content.description === 'string') {
       description.textContent = content.description;
     } else {
