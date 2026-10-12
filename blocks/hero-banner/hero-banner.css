@@ -41,7 +41,7 @@
 }
 
 .hero-banner.hero-banner-bg-black::before {
-  background: rgb(0 0 0 / 80%);
+  background: rgb(1 18 31 / 80%);
 }
 
 .hero-banner-content {
@@ -74,7 +74,7 @@
   font-family: Inter, sans-serif;
   color: #4673DB;
   margin: 0;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 160%;
 }
@@ -204,7 +204,12 @@
   }
 
   .hero-banner-title {
+    font-weight: 500;
     font-size: 32px;
+    line-height: 120%;
+    letter-spacing: -0.025em;
+    text-align: center;
+    vertical-align: middle;
     margin-top: 16px;
     margin-bottom: 24px;
   }
