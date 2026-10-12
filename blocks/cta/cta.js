@@ -93,10 +93,13 @@ function createArrow(direction, arrowIcon) {
   arrow.classList.add('cta-arrow-icon');
 
   const arrowSrc = arrow.getAttribute('src') || '';
+  const arrowPath = arrowSrc.split(/[?#]/)[0].toLowerCase();
+  const isSvgFormat = /[?&]format=svg(&|$)/i.test(arrowSrc);
 
   if (
     arrowSrc
-    && !arrowSrc.toLowerCase().endsWith('.svg')
+    && !arrowPath.endsWith('.svg')
+    && !isSvgFormat
   ) {
     // eslint-disable-next-line no-console
     console.error(
