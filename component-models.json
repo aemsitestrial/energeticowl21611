@@ -5603,7 +5603,7 @@
     ]
   },
   {
-    "id": "hero2",
+    "id": "hero-banner",
     "fields": [
       {
         "component": "fieldset",
@@ -5743,11 +5743,21 @@
       {
         "component": "select",
         "name": "bgColor",
-        "label": "BG Color",
+        "label": "BackGround Color",
+        "valueType": "string",
+        "value": "none",
         "options": [
           {
-            "name": "Default",
-            "value": "default"
+            "name": "None",
+            "value": "none"
+          },
+          {
+            "name": "White",
+            "value": "white"
+          },
+          {
+            "name": "Black",
+            "value": "black"
           }
         ]
       }

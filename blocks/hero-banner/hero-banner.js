@@ -51,7 +51,7 @@ function getLottoAssetUrl(block, field, icon) {
 
   if (fieldUrl) {
     // eslint-disable-next-line no-console
-    console.warn(`hero2: "${fieldUrl}" is not allowed for the Lotto image type. Use a .zip or .svg file.`);
+    console.warn(`hero-banner: "${fieldUrl}" is not allowed for the Lotto image type. Use a .zip or .svg file.`);
     return '';
   }
 
@@ -96,7 +96,7 @@ async function extractZipImages(zipUrl) {
 
 function renderBackgroundLayers(block, urls, alt) {
   const bg = document.createElement('div');
-  bg.className = 'hero2-bg';
+  bg.className = 'hero-banner-bg';
   if (alt) {
     bg.setAttribute('role', 'img');
     bg.setAttribute('aria-label', alt);
@@ -104,7 +104,7 @@ function renderBackgroundLayers(block, urls, alt) {
 
   urls.forEach((url) => {
     const img = document.createElement('img');
-    img.className = 'hero2-bg-layer';
+    img.className = 'hero-banner-bg-layer';
     img.src = url;
     img.alt = '';
     img.setAttribute('aria-hidden', 'true');
@@ -124,13 +124,13 @@ async function applyLottoBackground(block, assetUrl, alt) {
     const urls = await extractZipImages(assetUrl);
     if (!urls.length) {
       // eslint-disable-next-line no-console
-      console.warn(`hero2: no images found inside ${assetUrl}`);
+      console.warn(`hero-banner: no images found inside ${assetUrl}`);
       return;
     }
     renderBackgroundLayers(block, urls, alt);
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error('hero2: failed to render Lotto background', e);
+    console.error('hero-banner: failed to render Lotto background', e);
   }
 }
 
@@ -244,6 +244,7 @@ function getTextCandidates(block) {
     'black',
     'white',
     'new-window',
+    'none',
     'select',
   ]);
 
@@ -270,6 +271,22 @@ function getAlignment(block) {
     .map((el) => el.textContent.trim().toLowerCase())
     .filter((text) => allowed.includes(text));
   return matches.pop() || '';
+}
+
+function getBgColor(block) {
+  const allowed = ['none', 'white', 'black'];
+  const fromField = getTextValue(block, 'bgColor').toLowerCase();
+  if (allowed.includes(fromField)) {
+    return fromField;
+  }
+
+  // Fallback: the last leaf element whose text is exactly a background color value
+  // (bgColor is the last authored hero field).
+  const matches = [...block.querySelectorAll('div, p')]
+    .filter((el) => !el.children.length)
+    .map((el) => el.textContent.trim().toLowerCase())
+    .filter((text) => allowed.includes(text));
+  return matches.pop() || 'none';
 }
 
 function getContent(block) {
@@ -328,7 +345,7 @@ function getContent(block) {
     description: descriptionFromField || fallback.description,
 
     alignment: getAlignment(block),
-    bgColor: getTextValue(block, 'bgColor'),
+    bgColor: getBgColor(block),
   };
 }
 
@@ -351,9 +368,12 @@ export default function decorate(block) {
     ? getLottoAssetUrl(block, content.heroLottoImagePath, getHeroImages(block).icon)
     : '';
   block.innerHTML = '';
-  block.classList.add('hero2');
+  block.classList.add('hero-banner');
   if (content.alignment) {
-    block.classList.add(`hero2-align-${content.alignment}`);
+    block.classList.add(`hero-banner-align-${content.alignment}`);
+  }
+  if (content.bgColor !== 'none') {
+    block.classList.add(`hero-banner-bg-${content.bgColor}`);
   }
 
   if (content.heroImageType === 'lotto') {
@@ -379,12 +399,12 @@ export default function decorate(block) {
   }
 
   const contentWrapper = document.createElement('div');
-  contentWrapper.className = 'hero2-content';
+  contentWrapper.className = 'hero-banner-content';
 
   if (content.heroIconSrc) {
     const icon = document.createElement('span');
-    icon.className = 'hero2-icon';
-    icon.style.setProperty('--hero2-icon-src', `url("${content.heroIconSrc.replace(/"/g, '%22')}")`);
+    icon.className = 'hero-banner-icon';
+    icon.style.setProperty('--hero-banner-icon-src', `url("${content.heroIconSrc.replace(/"/g, '%22')}")`);
     if (content.heroIconAlt) {
       icon.setAttribute('role', 'img');
       icon.setAttribute('aria-label', content.heroIconAlt);
@@ -396,7 +416,7 @@ export default function decorate(block) {
 
   if (content.eyebrowText) {
     const eyebrow = document.createElement('p');
-    eyebrow.className = 'hero2-eyebrow';
+    eyebrow.className = 'hero-banner-eyebrow';
     eyebrow.textContent = content.eyebrowText;
 
     contentWrapper.append(eyebrow);
@@ -404,7 +424,7 @@ export default function decorate(block) {
 
   if (content.title) {
     const title = document.createElement('h1');
-    title.className = 'hero2-title';
+    title.className = 'hero-banner-title';
     title.textContent = content.title;
 
     contentWrapper.append(title);
@@ -413,7 +433,7 @@ export default function decorate(block) {
   if (content.description) {
     const description = document.createElement('div');
 
-    description.className = 'hero2-description';
+    description.className = 'hero-banner-description';
     if (typeof content.description === 'string') {
       description.textContent = content.description;
     } else {
@@ -425,7 +445,7 @@ export default function decorate(block) {
 
   if (ctaItems.length) {
     const ctaList = document.createElement('div');
-    ctaList.className = 'hero2-cta-items';
+    ctaList.className = 'hero-banner-cta-items';
     ctaList.append(...ctaItems);
     contentWrapper.append(ctaList);
   }

@@ -22,7 +22,7 @@
       "fragment",
       "form",
       "hero",
-      "hero2",
+      "hero-banner",
       "home-hero",
       "image",
       "quote",
@@ -99,7 +99,7 @@
     ]
   },
   {
-    "id": "hero2",
+    "id": "hero-banner",
     "components": [
       "cta-item"
     ]
