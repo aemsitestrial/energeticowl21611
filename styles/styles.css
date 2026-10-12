@@ -258,11 +258,11 @@ main > .section:first-of-type {
 }
 
 /* section width: full width removes section margin and wrapper padding / max-width */
-main > .section[data-section-width='full-width'] {
+main > .section[data-sectionwidth='full-width'] {
   margin: 0;
 }
 
-main > .section[data-section-width='full-width'] > div {
+main > .section[data-sectionwidth='full-width'] > div {
   max-width: none;
   margin: 0;
   padding: 0;
