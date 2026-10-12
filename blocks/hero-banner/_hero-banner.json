@@ -162,61 +162,61 @@
         },
         {
           "component": "select",
-          "name": "iconColor",
+          "name": "classes_iconColor",
           "label": "Icon Color",
           "valueType": "string",
           "options": [
             {
               "name": "Black",
-              "value": "black"
+              "value": "icon-color-black"
             },
             {
               "name": "White",
-              "value": "white"
+              "value": "icon-color-white"
             },
             {
               "name": "Blue",
-              "value": "blue"
+              "value": "icon-color-blue"
             }
           ]
         },
         {
           "component": "select",
-          "name": "titleColor",
+          "name": "classes_titleColor",
           "label": "Title Color",
           "valueType": "string",
           "options": [
             {
               "name": "Black",
-              "value": "black"
+              "value": "title-color-black"
             },
             {
               "name": "White",
-              "value": "white"
+              "value": "title-color-white"
             },
             {
               "name": "Grey",
-              "value": "grey"
+              "value": "title-color-grey"
             }
           ]
         },
         {
           "component": "select",
-          "name": "descriptionColor",
+          "name": "classes_descriptionColor",
           "label": "Description Color",
           "valueType": "string",
           "options": [
             {
               "name": "Black",
-              "value": "black"
+              "value": "description-color-black"
             },
             {
               "name": "White",
-              "value": "white"
+              "value": "description-color-white"
             },
             {
               "name": "Grey",
-              "value": "grey"
+              "value": "description-color-grey"
             }
           ]
         },
