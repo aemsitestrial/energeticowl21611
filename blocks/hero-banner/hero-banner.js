@@ -15,7 +15,7 @@ const ZIP_IMAGE_MIME_TYPES = {
   svg: 'image/svg+xml',
 };
 
-function getExtension(path) {
+export function getExtension(path) {
   try {
     const { pathname } = new URL(path, window.location.href);
     return pathname.split('.').pop().toLowerCase();
@@ -74,7 +74,7 @@ async function loadJSZip() {
  * Downloads a zip and returns object URLs of the images it contains,
  * in natural file name order.
  */
-async function extractZipImages(zipUrl) {
+export async function extractZipImages(zipUrl) {
   const [JSZip, response] = await Promise.all([loadJSZip(), fetch(zipUrl)]);
   if (!response.ok) throw new Error(`Unable to load ${zipUrl} (${response.status})`);
 
