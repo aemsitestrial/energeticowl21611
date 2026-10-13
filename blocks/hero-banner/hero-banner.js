@@ -471,5 +471,10 @@ export default function decorate(block) {
     contentWrapper.append(ctaList);
   }
 
+  // Container below the CTAs that the hamburger and search bar are attached to.
+  const stickyBar = document.createElement('div');
+  stickyBar.className = 'hero-banner-sticky';
+  contentWrapper.append(stickyBar);
+
   block.append(contentWrapper);
 }
