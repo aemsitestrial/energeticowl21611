@@ -147,7 +147,7 @@
 }
 
 .hero-banner.title-color-grey .hero-banner-title {
-  color: rgb(255 255 255 / 100%);
+  color: rgb(117 117 117 1);
 }
 
 .hero-banner.description-color-black .hero-banner-description,
@@ -162,7 +162,7 @@
 
 .hero-banner.description-color-grey .hero-banner-description,
 .hero-banner.description-color-grey .hero-banner-description p {
-  color: rgb(255 255 255 / 100%);
+  color: rgb(117 117 117 1);
 }
 
 
@@ -186,13 +186,11 @@
 
 /* Sits right after the CTAs; hamburger and search bar are placed inside it */
 .hero-banner-sticky {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-  margin-top: 120px !important;
+  position: absolute;
+  left: 50%;
+  bottom: 80px;
+  transform: translateX(-50%);
+  z-index: 20;
 }
 
 .hero-banner-sticky:empty {
